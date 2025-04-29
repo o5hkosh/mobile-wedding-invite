@@ -90,11 +90,11 @@ section { padding: 60px 20px; text-align: center; }
 #wedding-info {
     padding: 80px 20px;
     background-color: #D2E1D8;
-    text-align: center;
+    text-align: center; /* 섹션 전체 가운데 정렬 */
     color: #555;
 }
 
-#wedding-info .emoji { /* Added emoji style for this section */
+#wedding-info .emoji {
     font-size: 2em;
     margin-bottom: 10px;
     display: block;
@@ -108,39 +108,44 @@ section { padding: 60px 20px; text-align: center; }
     margin-bottom: 40px;
 }
 
-/* 개별 정보 항목 (날짜, 시간, 장소 이름) */
+/* 개별 정보 항목 (날짜, 시간) 컨테이너 */
 #wedding-info .info-item {
     font-family: 'Gowun Batang', serif;
     font-size: 1.1em;
-    margin-bottom: 15px;
+    margin: 0 auto 15px auto; /* 가운데 정렬 및 아래 간격 */
     color: #555;
-    text-align: center; /* Center the block */
+    text-align: left; /* 항목 내용은 왼쪽 정렬 */
+    width: fit-content; /* 내용만큼 너비 설정 */
+    max-width: 100%; /* 너무 커지지 않도록 제한 */
 }
 
-/* 정보 항목 레이블 (날짜, 시간, 장소) */
+/* 정보 항목 레이블 (날짜, 시간) */
 #wedding-info .info-item .info-label {
     display: inline-block;
-    width: 70px; /* Adjust width for alignment */
+    width: 70px; /* 레이블 너비 고정 */
     font-weight: 700;
-    text-align: left; /* Align label text to the left within its block */
-    margin-right: 10px; /* Space between label and value */
+    text-align: left;
+    margin-right: 10px;
 }
 
-/* 정보 항목 값 (실제 날짜, 시간, 이름) */
+/* 정보 항목 값 (실제 날짜, 시간) */
 #wedding-info .info-item .info-value {
     display: inline-block;
-    text-align: left; /* Align value text to the left */
+    text-align: left;
+    word-break: keep-all; /* 값 안에서 단어 잘림 방지 */
+    overflow-wrap: break-word; /* 긴 단어가 있으면 줄바꿈 허용 */
 }
 
 /* 장소 상세 주소 */
 #wedding-info .info-address {
     font-family: 'Gowun Batang', serif;
     font-size: 1em;
-    margin-top: 30px;
+    margin: 30px auto 0 auto; /* 위쪽 간격, 가운데 정렬 */
     color: #777;
-    word-break: keep-all; /* Prevent breaking in the middle of words */
-    overflow-wrap: break-word; /* Allow breaking long words */
-    padding: 0 10px; /* Add some padding on sides if needed */
+    word-break: keep-all; /* 주소에서 단어 잘림 방지 */
+    overflow-wrap: break-word; /* 긴 주소 줄바꿈 허용 */
+    padding: 0 10px;
+    max-width: 90%; /* 너무 길면 줄바꿈되도록 최대 너비 설정 */
 }
 
 
@@ -148,19 +153,19 @@ section { padding: 60px 20px; text-align: center; }
 #wedding-info .calendar-container {
     margin-top: 50px;
     display: inline-block;
-    padding: 25px; /* Increased padding for size */
+    padding: 25px;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Added shadow */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 /* 달력 월/년 제목 스타일 */
 #wedding-info .calendar-container h3 {
     font-family: 'Gowun Batang', serif;
-    font-size: 1.6em; /* Slightly increased size */
+    font-size: 1.6em;
     color: #333;
     margin-bottom: 20px;
-    line-height: 1.3; /* Space for the two lines */
+    line-height: 1.3;
 }
 
 
@@ -176,9 +181,9 @@ section { padding: 60px 20px; text-align: center; }
 #wedding-info .calendar-container th,
 #wedding-info .calendar-container td {
     width: calc(100% / 7);
-    padding: 10px 5px; /* Increased padding for size */
+    padding: 10px 5px;
     text-align: center;
-    font-size: 1em; /* Slightly increased size */
+    font-size: 1em;
 }
 
 /* 달력 요일 헤더 스타일 */
@@ -206,9 +211,9 @@ section { padding: 60px 20px; text-align: center; }
     background-color: #4B4D39;
     border-radius: 50%;
     display: inline-block;
-    width: 35px; /* Increased size */
-    height: 35px; /* Increased size */
-    line-height: 35px; /* Centers vertically */
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
     margin: auto;
 }
 
