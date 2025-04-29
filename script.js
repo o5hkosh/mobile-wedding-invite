@@ -1,10 +1,10 @@
 // DOMContentLoaded 이벤트는 HTML 문서가 완전히 로드되고 파싱되었을 때 발생합니다.
+// 스크립트가 실행되기 전에 HTML 요소들이 준비되도록 보장합니다.
 document.addEventListener('DOMContentLoaded', function() {
 
     // --- 필요한 HTML 요소들을 JavaScript 코드에서 사용할 수 있도록 가져옵니다. ---
     const modal = document.getElementById('myModal'); // 모달 컨테이너 요소
-    // **수정**: 모달 안의 확대 사진 이미지 요소만 가져옵니다. (슬라이드 관련 요소 삭제)
-    const modalImage = document.getElementById('modalImage'); // 모달 안의 확대 사진 이미지 요소
+    const modalImage = document.getElementById('modalImage'); // 모달 안의 확대 사진 이미지 요소 (단일 이미지 형태)
 
     const closeBtn = document.getElementsByClassName('close')[0]; // 모달 닫기 버튼 요소 (클래스가 'close'인 첫 번째 요소)
     const galleryPhotos = document.querySelectorAll('#gallery .gallery-photos .gallery-photo'); // 갤러리 섹션 안의 모든 사진 이미지 요소들 (20개)
@@ -18,6 +18,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 현재 모달에 표시된 사진의 갤러리 내 인덱스를 저장하는 변수
     let currentPhotoIndex = 0;
+
+    // **추가**: 터치 스와이프를 위한 변수
+    let touchStartX = 0; // 터치 시작 X 좌표
+    let touchEndX = 0; // 터치 끝 X 좌표
+    const swipeThreshold = 75; // 스와이프로 인식할 최소 이동 거리 (px) - 조절 가능
 
 
     // --- '더보기' 버튼 기능 (현재 사용 안 함) ---
@@ -38,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
             currentPhotoIndex = index;
 
             // 모달 컨테이너를 화면에 보이도록 display 속성을 변경합니다.
-            modal.style.display = 'block'; // **수정**: 'flex' 대신 'block' 사용 (기본 모달 스타일과 일치)
+            modal.style.display = 'block'; // 'flex' 대신 'block' 사용 (기본 모달 스타일과 일치)
 
             // 메인 콘텐츠 영역에 블러 처리를 위한 CSS 클래스('blurred')를 추가합니다.
             if (mainContent) {
@@ -58,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (mainContent) {
                 mainContent.classList.remove('blurred');
             }
-             // **수정**: 모달 닫을 때 확대 이미지 src 비우기 (메모리 관리)
+             // 모달 닫을 때 확대 이미지 src 비우기 (메모리 관리)
             modalImage.src = '';
         });
     }
@@ -67,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (modal) {
          modal.addEventListener('click', function(event) {
              // 클릭된 요소가 모달 컨테이너 자체일 때 닫습니다. (이미지나 버튼 클릭은 제외)
-             if (event.target === modal) { // **수정**: 슬라이드 컨테이너 체크 로직 삭제
+             if (event.target === modal) {
                  modal.style.display = 'none';
                  if (mainContent) { mainContent.classList.remove('blurred'); }
                  // 모달 닫을 때 확대 이미지 src 비우기
@@ -93,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- **수정**: 특정 인덱스의 사진을 모달에 표시하고 네비게이션 버튼 상태 업데이트하는 함수 ---
+    // --- **추가**: 특정 인덱스의 사진을 모달에 표시하고 네비게이션 버튼 상태 업데이트하는 함수 ---
     function showPhotoInModal(indexToShow) {
         // 인덱스가 유효 범위 내에 있는지 확인합니다.
         if (indexToShow >= 0 && indexToShow < galleryPhotos.length) {
@@ -125,21 +130,96 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // **삭제**: 부드러운 전환 관련 함수 및 이벤트 리스너 삭제
-    /*
-    let isAnimating = false;
-    let touchStartX = 0; ... swipeThreshold ... mouseIsDown ...
-    modalSlidesContainer.addEventListener('touchstart', function() { ... });
-    modalSlidesContainer.addEventListener('touchmove', function() { ... });
-    modalSlidesContainer.addEventListener('touchend', function() { ... });
-    modalSlidesContainer.addEventListener('mousedown', function() { ... });
-    modalSlidesContainer.addEventListener('mousemove', function() { ... });
-    modalSlidesContainer.addEventListener('mouseup', function() { ... });
-    document.addEventListener('mouseleave', function() { ... });
-    function animateSlideTo(targetIndex) { ... }
-    function handleSlideTransitionEnd() { ... }
-    function centerSlideImmediately() { ... }
-    */
+    // --- **추가**: '그냥 스와이프' 기능 구현 (단일 이미지 대상) ---
+    // 확대된 사진에 터치 시작 이벤트 리스너 추가
+    modalImage.addEventListener('touchstart', function(event) {
+        // 터치 시작 시 첫 번째 손가락의 X 좌표 기록
+        touchStartX = event.touches[0].clientX;
+         // 기본 스크롤/드래그 방지 (스와이프 중 원치 않는 움직임 방지)
+        event.preventDefault(); // touchstart에서 기본 동작 방지
+    });
+
+    // 확대된 사진에 터치 이동 이벤트 리스너 추가
+    modalImage.addEventListener('touchmove', function(event) {
+         // 터치 중 기본 스크롤/드래그 동작 방지 (스와이프 중 원치 않는 움직임 방지)
+         event.preventDefault();
+    });
+
+    // 확대된 사진에 터치 끝 이벤트 리스너 추가
+    modalImage.addEventListener('touchend', function(event) {
+        // 터치 끝 시 마지막 손가락의 X 좌표 기록
+        touchEndX = event.changedTouches[0].clientX;
+
+        // 시작점 대비 끝점의 수평 이동 거리 계산
+        const deltaX = touchEndX - touchStartX;
+
+        // 이동 거리가 스와이프 임계값보다 큰지 확인
+        if (Math.abs(deltaX) > swipeThreshold) {
+            // 왼쪽으로 스와이프 (다음 사진)
+            if (deltaX < 0) {
+                const targetIndex = currentPhotoIndex + 1;
+                 // 다음 사진으로 이동 (showPhotoInModal 함수 호출)
+                showPhotoInModal(targetIndex);
+            }
+            // 오른쪽으로 스와이프 (이전 사진)
+            else { // deltaX > 0
+                const targetIndex = currentPhotoIndex - 1;
+                // 이전 사진으로 이동 (showPhotoInModal 함수 호출)
+                showPhotoInModal(targetIndex);
+            }
+        }
+         // touchstart/touchmove에서 preventDefault를 했으므로 touchend에서는 필수는 아님
+        // event.preventDefault(); // 필요시 추가
+    });
+
+    // **추가**: 데스크톱 마우스 드래그 기능 (모바일 스와이프와 유사)
+    // 확대된 사진에 마우스 누름 이벤트 리스너 추가
+     modalImage.addEventListener('mousedown', function(event) {
+         if (event.button !== 0) return; // 마우스 왼쪽 버튼 아니면 무시
+          mouseIsDown = true;
+          mouseStartX = event.clientX;
+          event.preventDefault(); // 마우스 누름 시 기본 동작 방지
+     });
+
+    // 확대된 사진에 마우스 이동 이벤트 리스너 추가
+     modalImage.addEventListener('mousemove', function(event) {
+         if (!mouseIsDown) return; // 마우스 버튼이 안 눌렸으면 무시
+         // 실시간 드래그 중 기본 동작 방지
+         event.preventDefault();
+          // 실시간 드래그 시각 효과를 추가하려면 여기에 코드 작성 (복잡)
+     });
+
+    // 확대된 사진에 마우스 놓음 이벤트 리스너 추가
+     modalImage.addEventListener('mouseup', function(event) {
+         if (!mouseIsDown) return; // 마우스 버튼 안 눌렸으면 무시
+          mouseIsDown = false; // 마우스 버튼 놓음
+
+          const mouseEndX = event.clientX;
+          const deltaX = mouseEndX - mouseStartX;
+
+          // 드래그 거리가 스와이프 임계값보다 큰지 확인 (터치와 동일)
+          if (Math.abs(deltaX) > swipeThreshold) {
+              // 왼쪽으로 드래그 (다음 사진)
+              if (deltaX < 0) {
+                   const targetIndex = currentPhotoIndex + 1;
+                   showPhotoInModal(targetIndex);
+              }
+              // 오른쪽으로 드래그 (이전 사진)
+              else { // deltaX > 0
+                   const targetIndex = currentPhotoIndex - 1;
+                   showPhotoInModal(targetIndex);
+              }
+          }
+          // event.preventDefault(); // 필요시 추가
+     });
+
+     // 마우스가 모달 밖에서 놓였을 때 드래그 상태 해제 (안전 장치)
+     document.addEventListener('mouseup', function(event) {
+         if (mouseIsDown) {
+             mouseIsDown = false;
+             // 모달 밖에서 마우스를 떼면 드래그 종료 (필요시 로직 추가)
+         }
+     });
 
 
 }); // DOMContentLoaded 이벤트 리스너 끝
