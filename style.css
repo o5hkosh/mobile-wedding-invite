@@ -1,10 +1,19 @@
 /* --- 기본 스타일 초기화 및 설정 --- */
-* { box-sizing: border-box; }
-html, body {
-    scroll-snap-type: y mandatory;
-    margin: 0; padding: 0;
+/* 모든 요소에 box-sizing 적용 (패딩/보더 포함하여 요소 크기 계산) */
+* {
+    box-sizing: border-box;
 }
+
+/* html과 body에 스크롤 스냅 기능 활성화 */
+html, body {
+    scroll-snap-type: y mandatory; /* 세로축(y) 방향으로 스크롤 스냅을 강제합니다. */
+    /* height: 100%; /* 선택 사항: 부모 높이 채우기 */ */
+    margin: 0; padding: 0; /* 기본 마진/패딩 제거 */
+}
+
+/* --- 기본 스타일 (이전 코드와 동일) --- */
 body {
+    /* margin: 0; padding: 0; /* 위 html, body에서 설정 */ */
     font-family: 'Noto Sans KR', sans-serif;
     line-height: 1.6; color: #333;
     overflow-x: hidden; background-color: #fff;
@@ -62,22 +71,23 @@ section { scroll-snap-align: start; padding: 60px 20px; text-align: center; }
     margin-bottom: 20px;
 }
 
-/* **수정**: 부모님/신랑 신부 이름 정보 스타일 (Flexbox 제거, 마진 유지) */
+/* --- 부모님/신랑 신부 이름 정보 스타일 --- */
+/* 이 규칙은 모든 parents-names 문단에 적용됩니다. */
 #invitation-text .parents-names {
     font-family: 'Gowun Batang', serif;
     font-weight: 400;
     font-size: 1em;
-    margin-top: 5px; /* 이전 문단과의 위쪽 간격 (블록 전체에 적용) */
-    margin-bottom: 0px; /* 각 부모님 라인 사이의 아래 간격 (딱 붙게) */
+    margin-top: 5px; /* 각 부모님 라인 사이의 위쪽 간격을 작게 설정 */
+    margin-bottom: 0px; /* 각 부모님 라인 사이의 아래쪽 간격을 0으로 설정 (딱 붙게) */
     color: #555;
-    line-height: 1.8; /* 라인 높이 유지 */
-
-    display: block; /* **추가**: 명시적으로 블록 요소로 설정 (Flexbox 제거) */
-    text-align: center; /* **추가**: 내부 텍스트를 가운데 정렬 */
+    line-height: 1.8;
 }
 
-/* **삭제**: .honorific 스타일 제거 */
-/* **삭제**: .parent-line 스타일 제거 */
+/* **추가**: 부모님 정보 라인 중 첫 번째 요소에만 위쪽 간격 크게 적용 */
+/* 이 규칙이 '초록이~빛내주세요' 문단과 부모님 정보 블록 전체 사이의 간격을 설정합니다. */
+#invitation-text .parents-names:first-of-type {
+    margin-top: 60px; /* **수정**: 이전 문단과의 위쪽 간격 (60px로 설정) */
+}
 
 
 #invitation-text .parents-names strong {
