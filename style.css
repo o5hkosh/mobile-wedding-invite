@@ -55,19 +55,26 @@ section { padding: 60px 20px; text-align: center; }
     /* WindSong 폰트 클래스는 HTML에서 적용 */
 }
 
-.wedding-details-overlay { bottom: 15%; }
+/* 이름, 장소, 날짜 정보 오버레이 (#intro 섹션 안의 .wedding-details-overlay) */
+.wedding-details-overlay {
+    bottom: 8%; /* **수정**: 이미지 하단에서 8% 지점에 위치 (값을 줄여서 아래로 이동. 원하는 만큼 조절하세요) */
+    /* transform: translate(-50%, 50%); /* 만약 완전 하단 중앙에 놓고 싶다면 left를 50%, bottom을 0으로 설정하고 이 transform 사용 */ */
+}
 
 .wedding-details-overlay p {
+    font-family: 'Gowun Batang', serif; /* **추가**: Gowun Batang 폰트 적용 */
+    font-weight: 400; /* Gowun Batang Regular 굵기 */
     font-size: 1.1em;
-    margin: 5px 0;
-    font-weight: 400;
-    /* 본문용 폰트는 body에서 상속 또는 아래에 명시 */
+    line-height: 1.5; /* **조절**: 줄 간격 조금 줄여서 정보들이 밀집되게 할 수 있습니다 (선택 사항) */
+    margin: 5px 0; /* 각 정보 줄 사이의 위아래 간격 */
+    /* color: white; /* 기본 색상은 text-overlay 부모에서 상속받음 */ */
 }
 
 .wedding-details-overlay .names {
+     /* 이름 부분 글자 스타일 */
      font-size: 1.3em;
-     font-weight: 500;
-     margin-bottom: 10px;
+     font-weight: 400; /* **수정**: 이름 굵기를 Regular (400)으로 변경 (Gowun Batang Regular에 맞춤) */
+     margin-bottom: 8px; /* **조절**: 이름 줄 아래 간격 (원하는 만큼 조절) */
 }
 
 /* --- Google Fonts 제공 폰트 클래스 (Google Fonts에서 제공받은 코드) --- */
@@ -93,26 +100,26 @@ section { padding: 60px 20px; text-align: center; }
 
 /* --- 두 번째 섹션: 초대글 / 인사말 --- */
 #invitation-text {
-    background-color: #FEFBF6; /* **수정**: 섹션 배경색을 #FEFBF6으로 설정 */
-    color: #555; /* 기본 글자 색상 (본문에 적용되거나 하위 요소 상속) */
+    background-color: #FEFBF6;
+    color: #555;
     padding: 80px 20px;
     text-align: center;
 }
 
 #invitation-text h2 {
     font-family: "Yellowtail", cursive;
-    font-weight: 400; /* **수정**: Yellowtail Regular 굵기 */
+    font-weight: 400;
     font-size: 2.5em;
-    color: #4B4D39; /* **수정**: 제목 색상을 #4B4D39으로 설정 */
+    color: #4B4D39;
     margin-bottom: 30px;
 }
 
 #invitation-text p {
     font-family: 'Gowun Batang', serif;
-    font-weight: 400; /* **수정**: Gowun Batang Regular 굵기 */
+    font-weight: 400;
     font-size: 1.1em;
     line-height: 1.8;
-    color: #555; /* **수정**: 본문 색상을 #555로 설정 */
+    color: #555;
     margin-bottom: 20px;
 }
 
