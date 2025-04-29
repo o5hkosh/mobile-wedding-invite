@@ -83,7 +83,7 @@ section { padding: 60px 20px; text-align: center; } /* 섹션 전체는 가운�
 #wedding-info {
     padding: 80px 20px;
     background-color: #D2E1D8;
-    text-align: center; /* 이 섹션의 전체 내용은 가운데 정렬 */
+    text-align: center; /* 섹션 전체는 가운데 정렬 */
     color: #555;
 }
 
@@ -103,44 +103,53 @@ section { padding: 60px 20px; text-align: center; } /* 섹션 전체는 가운�
     text-align: center;
 }
 
-/* 정보 항목들을 감싸는 새로운 컨테이너 스타일 */
+/* 정보 항목들을 감싸는 새로운 컨테이너 스타일 (Flexbox 적용) */
 .info-items-container {
     margin: 0 auto; /* 가운데 정렬 */
-    text-align: left; /* 이 컨테이너 안의 텍스트는 왼쪽 정렬 */
-    max-width: 320px; /* 모바일에 적합한 최대 너비 설정 (필요시 조절) */
-    width: 100%; /* 부모 너비에 맞추되 max-width를 넘지 않도록 */
-    padding: 0 10px; /* 좌우 패딩 추가 (컨텐츠가 가장자리에 너무 붙지 않도록) */
-    box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
+    display: flex; /* Flexbox 활성화 */
+    flex-direction: column; /* 항목들을 세로로 쌓음 */
+    align-items: center; /* Flexbox 컨테이너 내 항목들을 가운데 정렬 (이게 중요할 수 있음) */
+    /* 필요시 max-width 조정 */
+     max-width: 350px; /* 모바일에 적합한 최대 너비 설정 (필요시 조절) */
+     width: 100%; /* 부모 너비에 맞추되 max-width를 넘지 않도록 */
+     padding: 0 10px; /* 좌우 패딩 추가 */
+     box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
 }
 
 
-/* 개별 정보 항목 (날짜, 시간, 장소) 컨테이너 */
+/* 개별 정보 항목 (날짜, 시간, 장소) 컨테이너 (각 줄에 해당) */
 #wedding-info .info-item {
     font-family: 'Gowun Batang', serif;
     font-size: 1.1em;
     margin-bottom: 15px; /* 항목 아래 간격 */
     color: #555;
-    /* text-align: left; /* 부모인 .info-items-container에서 상속 */ */
+    display: flex; /* 이 항목 안에서도 Flexbox 활성화 (레이블과 값) */
+    flex-direction: row; /* 레이블과 값을 가로로 배열 */
+    justify-content: flex-start; /* 항목 내용을 왼쪽부터 채움 */
+    align-items: flex-start; /* 여러 줄로 나뉘는 값과 레이블 상단 정렬 */
+    width: 100%; /* 부모(.info-items-container) 너비에 꽉 차도록 */
 }
 
 /* 정보 항목 레이블 (날짜, 시간, 장소) */
 #wedding-info .info-item .info-label {
-    display: inline-block;
-    width: 70px; /* 레이블 너비 고정 (필요시 조절) */
+    /* display: inline-block; /* Flex item이 되므로 필요 없음 */ */
+    width: 70px; /* 레이블 너비 고정 */
+    flex-shrink: 0; /* 레이블이 줄어들지 않도록 함 */
     font-weight: 700;
     text-align: left;
     margin-right: 10px; /* 레이블과 값 사이 간격 */
-    vertical-align: top; /* 여러 줄로 나뉘는 값과 상단 정렬 */
+    /* vertical-align: top; /* Flex item이 되므로 필요 없음 */ */
 }
 
 /* 정보 항목 값 (실제 날짜, 시간, 주소) */
 #wedding-info .info-item .info-value {
-    display: inline-block;
+    /* display: inline-block; /* Flex item이 되므로 필요 없음 */ */
+    flex-grow: 1; /* 남은 공간을 모두 차지하도록 함 */
     text-align: left;
-    word-break: keep-all; /* 단어 중간에 끊기지 않게 (한글) */
-    overflow-wrap: break-word; /* 긴 단어는 줄바꿈 */
-    max-width: calc(100% - 85px); /* 레이블 너비 + 마진 + 여유 공간을 뺀 나머지 공간 사용 */
-    vertical-align: top; /* 레이블과 상단 정렬 */
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    /* max-width: calc(100% - 85px); /* Flexbox에서는 flex-grow가 이걸 대체 */ */
+    /* vertical-align: top; /* Flex item이 되므로 필요 없음 */ */
 }
 
 
