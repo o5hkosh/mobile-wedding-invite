@@ -1,5 +1,4 @@
 // DOMContentLoaded 이벤트는 HTML 문서가 완전히 로드되고 파싱되었을 때 발생합니다.
-// 스크립트가 실행되기 전에 HTML 요소들이 준비되도록 보장합니다.
 document.addEventListener('DOMContentLoaded', function() {
 
     // --- 필요한 HTML 요소들을 JavaScript 코드에서 사용할 수 있도록 가져옵니다. ---
@@ -19,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 현재 모달에 표시된 사진의 갤러리 내 인덱스를 저장하는 변수
     let currentPhotoIndex = 0;
 
-    // **추가**: 터치 스와이프를 위한 변수
+    // **추가**: 터치 스와이프를 위한 변수 (그냥 스와이프)
     let touchStartX = 0; // 터치 시작 X 좌표
     let touchEndX = 0; // 터치 끝 X 좌표
     const swipeThreshold = 75; // 스와이프로 인식할 최소 이동 거리 (px) - 조절 가능
@@ -183,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 확대된 사진에 마우스 이동 이벤트 리스너 추가
      modalImage.addEventListener('mousemove', function(event) {
-         if (!mouseIsDown) return; // 마우스 버튼이 안 눌렸으면 무시
+         if (!mouseIsDown) return; // 마우스 버튼 안 눌렸으면 무시
          // 실시간 드래그 중 기본 동작 방지
          event.preventDefault();
           // 실시간 드래그 시각 효과를 추가하려면 여기에 코드 작성 (복잡)
@@ -214,10 +213,11 @@ document.addEventListener('DOMContentLoaded', function() {
      });
 
      // 마우스가 모달 밖에서 놓였을 때 드래그 상태 해제 (안전 장치)
-     document.addEventListener('mouseup', function(event) {
-         if (mouseIsDown) {
+     document.addEventListener('mouseup', function(event) { // 문서 전체에 대해 마우스 놓음 감지
+         if (mouseIsDown) { // 드래그 시작 상태에서 떼었을 때
              mouseIsDown = false;
-             // 모달 밖에서 마우스를 떼면 드래그 종료 (필요시 로직 추가)
+             // 여기서는 모달 밖에서 떼는 경우 특별한 동작은 없습니다.
+             // event.preventDefault(); // 필요시 추가
          }
      });
 
