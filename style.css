@@ -11,7 +11,7 @@ body {
     overflow-x: hidden; background-color: #fff;
 }
 h1, h2, h3, p { margin: 0; padding: 0; }
-section { padding: 60px 20px; /* text-align: center; */ } /* 섹션 자체는 텍스트 중앙 정렬 제거 */
+section { padding: 60px 20px; text-align: center; } /* 섹션 자체는 가운데 정렬 */
 
 /* Scroll Snap을 적용할 섹션 */
 #intro, #invitation-text { scroll-snap-align: start; }
@@ -90,15 +90,15 @@ section { padding: 60px 20px; /* text-align: center; */ } /* 섹션 자체는 �
 #wedding-info {
     padding: 80px 20px;
     background-color: #D2E1D8;
-    text-align: left; /* 이 섹션의 내용을 왼쪽으로 정렬 */
+    text-align: center; /* 이 섹션의 전체 내용은 가운데 정렬 */
     color: #555;
 }
 
 #wedding-info .emoji {
     font-size: 2em;
     margin-bottom: 10px;
-    display: block; /* 블록 요소로 만들어 새 줄에 표시 */
-    text-align: center; /* 이모지는 가운데 정렬 */
+    display: block;
+    text-align: center;
 }
 
 #wedding-info h2 {
@@ -107,23 +107,24 @@ section { padding: 60px 20px; /* text-align: center; */ } /* 섹션 자체는 �
     font-size: 2.5em;
     color: #4B4D39;
     margin-bottom: 40px;
-    text-align: center; /* 제목은 가운데 정렬 유지 */
+    text-align: center;
 }
 
 /* 개별 정보 항목 (날짜, 시간, 장소) 컨테이너 */
 #wedding-info .info-item {
     font-family: 'Gowun Batang', serif;
     font-size: 1.1em;
-    margin-bottom: 15px; /* 항목 아래 간격 */
+    margin: 0 auto 15px auto; /* 각 항목을 가운데 정렬하고 아래 간격 추가 */
     color: #555;
-    /* text-align: left; /* 부모에서 상속 */ */
-    /* width: fit-content; /* 부모에서 상속 */ */
+    text-align: left; /* 항목 안의 내용은 왼쪽 정렬 (레이블-값) */
+    width: fit-content; /* 내용만큼 너비 설정 (가운데 정렬 목적) */
+    max-width: 100%; /* 너무 길면 줄바꿈되도록 제한 */
 }
 
 /* 정보 항목 레이블 (날짜, 시간, 장소) */
 #wedding-info .info-item .info-label {
     display: inline-block;
-    width: 70px; /* 레이블 너비 고정 (조절 필요시) */
+    width: 70px; /* 레이블 너비 고정 (필요시 조절) */
     font-weight: 700;
     text-align: left;
     margin-right: 10px; /* 레이블과 값 사이 간격 */
@@ -136,7 +137,7 @@ section { padding: 60px 20px; /* text-align: center; */ } /* 섹션 자체는 �
     text-align: left;
     word-break: keep-all;
     overflow-wrap: break-word;
-    /* max-width: calc(100% - 80px); /* 레이블 너비 + 마진을 뺀 나머지 공간 사용 (필요시) */ */
+    max-width: calc(100% - 85px); /* 레이블 너비(70px) + 마진(10px) + 여유 공간(5px)을 뺀 나머지 공간 사용 */
     vertical-align: top; /* 레이블과 상단 정렬 */
 }
 
@@ -144,7 +145,7 @@ section { padding: 60px 20px; /* text-align: center; */ } /* 섹션 자체는 �
 /* 달력 컨테이너 스타일 */
 #wedding-info .calendar-container {
     margin: 50px auto 0 auto; /* 위쪽 간격, 가운데 정렬 */
-    display: inline-block; /* 가운데 정렬 위해 */
+    display: inline-block;
     padding: 25px;
     background-color: #fff;
     border-radius: 8px;
@@ -211,9 +212,9 @@ section { padding: 60px 20px; /* text-align: center; */ } /* 섹션 자체는 �
 
 
 /* --- 다섯 번째 섹션: 오시는 길 (약도, 교통편) --- */
-#location { background-color: #fff; padding: 80px 20px; text-align: center; /* height: 100vh; */ } /* 패딩 수정 */
-#contact { padding: 80px 20px; background-color: #f8f8f8; text-align: center; /* height: 100vh; */ }
-#account { background-color: #eee; border-top: 1px solid #ccc; font-size: 0.9em; color: #666; padding: 40px 20px; text-align: center; /* height: 100vh; */ }
+#location { background-color: #fff; padding: 80px 20px; text-align: center; }
+#contact { padding: 80px 20px; background-color: #f8f8f8; text-align: center; }
+#account { background-color: #eee; border-top: 1px solid #ccc; font-size: 0.9em; color: #666; padding: 40px 20px; text-align: center; }
 footer { padding: 30px 20px; text-align: center; font-size: 0.8em; color: #aaa; background-color: #f4f4f4; }
 
 
@@ -225,32 +226,18 @@ footer { padding: 30px 20px; text-align: center; font-size: 0.8em; color: #aaa; 
     width: 100%; height: 100%;
     overflow: auto; /* 내용이 화면 넘칠 경우 스크롤 허용 */
     background-color: rgba(0,0,0,0.9);
-    /* opacity: 0; */
-    /* transition: opacity 0.5s ease; */
-
-    /* 삭제: Flexbox 사용하여 이미지 슬라이드 중앙 정렬 */
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
 }
 
 /* 모달 내용 (확대된 사진) 스타일 */
 #myModal .modal-content {
     margin: auto; /* 가로 중앙 정렬 */
-    display: block; /* margin: auto 적용을 위해 블록 요소로 변경 */
-    max-width: 90%; /* 화면 너비의 최대 90% */
-    max-height: 90%; /* 화면 높이의 최대 90% */
-    object-fit: contain; /* 이미지 전체가 잘리지 않고 보이도록 비율 유지 */
-    margin-top: 50px; /* 상단 여백 (닫기 버튼과 겹치지 않게) */
-    cursor: auto; /* 클릭해도 닫히지 않도록 커서 변경 */
+    display: block;
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    margin-top: 50px;
+    cursor: auto;
 }
-
-/* 삭제: 사진 슬라이드를 담는 컨테이너 스타일 */
-/* #myModal .modal-slides { ... } */
-
-/* 삭제: 슬라이드 개별 사진 스타일 */
-/* #myModal .modal-slide-image { ... } */
-
 
 /* 모달 닫기 버튼 스타일 */
 #myModal .close {
@@ -302,6 +289,4 @@ footer { padding: 30px 20px; text-align: center; font-size: 0.8em; color: #aaa; 
 /* 배경 블러 처리를 위한 클래스 (JavaScript로 main 태그에 추가될 예정) */
 .blurred {
     filter: blur(5px);
-    /* transition: filter 0.3s ease; */
-    /* will-change: filter; */
 }
