@@ -99,7 +99,8 @@ footer { padding: 30px 20px; text-align: center; font-size: 0.8em; color: #aaa; 
 
 /* --- 모달 (확대 사진 팝업) 스타일 --- */
 #myModal {
-    display: none; z-index: 10;
+    display: none; /* **수정**: 기본적으로 숨김 */
+    z-index: 10;
     position: fixed; left: 0; top: 0;
     width: 100%; height: 100%;
     overflow: hidden; /* 슬라이드 이미지 넘치는 부분 숨김 */
@@ -107,7 +108,7 @@ footer { padding: 30px 20px; text-align: center; font-size: 0.8em; color: #aaa; 
     /* opacity: 0; */
     /* transition: opacity 0.5s ease; */
 
-    display: flex; /* Flexbox 사용하여 이미지 슬라이드 중앙 정렬 */
+    display: flex; /* **추가**: Flexbox 사용하여 이미지 슬라이드 중앙 정렬 */
     justify-content: center; /* 가로 중앙 정렬 */
     align-items: center; /* 세로 중앙 정렬 */
 }
@@ -169,7 +170,7 @@ footer { padding: 30px 20px; text-align: center; font-size: 0.8em; color: #aaa; 
     transition: 0.6s ease;
     border-radius: 0 3px 3px 0;
     user-select: none;
-    _webkit_user_select: none; /* Safari */
+    -webkit-user-select: none; /* Safari */
     z-index: 11;
 }
 
