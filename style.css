@@ -76,9 +76,26 @@ section { scroll-snap-align: start; padding: 60px 20px; text-align: center; }
 #gallery {
     /* height: 100vh; /* 원하면 추가 */ */
     padding: 80px 20px;
-    background-color: #f0f0f0;
+    background-color: #FAF3E0; /* **수정**: 배경색 변경 */
     text-align: center;
 }
+
+/* **추가**: 갤러리 제목 위 이모지 스타일 */
+#gallery .emoji {
+    font-size: 2em; /* 이모지 크기 */
+    margin-bottom: 10px; /* 이모지 아래 간격 */
+    display: block; /* 가운데 정렬을 위해 블록 요소로 */
+}
+
+/* **수정**: 갤러리 제목 스타일 */
+#gallery h2 {
+    font-family: "Yellowtail", cursive; /* **수정**: Invitation 제목과 같은 폰트 */
+    font-weight: 400; /* **수정**: Regular 굵기 */
+    font-size: 2.5em; /* **수정**: Invitation 제목과 같은 크기 */
+    color: #4B4D39; /* **수정**: Invitation 제목과 같은 색상 */
+    margin-bottom: 30px; /* **수정**: 아래 간격 */
+}
+
 
 /* 갤러리 사진들을 담는 컨테이너 - Grid 사용 */
 #gallery .gallery-photos {
@@ -86,7 +103,7 @@ section { scroll-snap-align: start; padding: 60px 20px; text-align: center; }
     grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
     gap: 10px;
     padding: 0 0;
-    margin-top: 30px;
+    margin-top: 30px; /* 제목 아래 간격 (h2 아래 간격과 별개) */
 }
 
 /* 갤러리 개별 사진 스타일 */
@@ -99,11 +116,14 @@ section { scroll-snap-align: start; padding: 60px 20px; text-align: center; }
     /* border-radius: 5px; */
 }
 
-/* **삭제**: 9번째 (또는 13번째) 사진부터 숨기던 규칙 삭제 */
-/* #gallery .gallery-photos .gallery-photo:nth-child(n+9) { display: none; } */
+/* 13번째 사진부터는 기본적으로 숨김 (JavaScript가 보이도록 변경) */
+/* 이 규칙은 더보기 기능 삭제로 필요 없어졌지만, 혹시 몰라 남겨둡니다. */
+/* 기본적으로 모든 사진이 보이게 하려면 이 규칙을 삭제하세요. */
+/* #gallery .gallery-photos .gallery-photo:nth-child(n+13) { display: none; } */
 
 
-/* **삭제**: 더보기 버튼 스타일 삭제 */
+/* 더보기 버튼 스타일 */
+/* 더보기 기능 삭제로 필요 없어졌습니다. */
 /* #loadMoreBtn { ... } */
 
 
