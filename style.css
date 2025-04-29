@@ -83,8 +83,7 @@ section { scroll-snap-align: start; padding: 60px 20px; text-align: center; }
 /* 갤러리 사진들을 담는 컨테이너 - Grid 사용 */
 #gallery .gallery-photos {
     display: grid;
-    /* **수정**: 모바일 화면에 맞춰 자동으로 열 개수 조절 (최소 너비 75px, 남은 공간 균등 분배) */
-    grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)); /* **수정** */
+    grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
     gap: 10px;
     padding: 0 0;
     margin-top: 30px;
@@ -98,6 +97,29 @@ section { scroll-snap-align: start; padding: 60px 20px; text-align: center; }
     object-fit: cover;
     cursor: pointer;
     /* border-radius: 5px; */
+}
+
+/* **추가**: 9번째 사진부터는 기본적으로 숨김 */
+#gallery .gallery-photos .gallery-photo:nth-child(n+9) {
+    display: none;
+}
+
+
+/* **추가**: 더보기 버튼 스타일 */
+#loadMoreBtn {
+    display: block; /* 블록 요소로 만들어 마진auto로 가운데 정렬 */
+    margin: 40px auto; /* 위쪽 40px 여백, 좌우 auto로 가운데 정렬 */
+    padding: 10px 20px; /* 버튼 내부 여백 */
+    font-size: 1em;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#loadMoreBtn:hover {
+    background-color: #eee;
 }
 
 
