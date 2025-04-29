@@ -103,45 +103,10 @@ section { padding: 60px 20px; text-align: center; } /* 섹션 전체는 가운�
     text-align: center;
 }
 
-/* 정보 항목들을 담는 TABLE 스타일 */
-.info-table {
-    margin: 0 auto; /* 가운데 정렬 */
-    border-collapse: collapse; /* 셀 간격 없이 */
-    font-family: 'Gowun Batang', serif;
-    font-size: 1.1em;
-    color: #555;
-    text-align: left; /* 테이블 안의 텍스트는 왼쪽 정렬 */
-    max-width: 400px; /* 모바일에 적합한 최대 너비 설정 */
-    width: 100%; /* 부모 너비에 맞추되 max-width를 넘지 않도록 */
-    /* padding: 0 10px; /* 테이블에는 보통 패딩 적용 안 함 */ */
-    box-sizing: border-box;
-}
-
-/* 테이블 행 스타일 */
-.info-table tr {
-    /* 기본 스타일 사용 */
-}
-
-/* 테이블 셀 (레이블/값) 스타일 */
-.info-table td {
-    padding: 4px 0; /* 위아래 패딩으로 행 간격 조정 */
-    /* 첫 번째 셀 (레이블)과 두 번째 셀 (값) 각각 스타일 지정 */
-    vertical-align: top; /* 내용이 여러 줄일 경우 상단 정렬 */
-}
-
-/* 첫 번째 셀 (레이블) 스타일 */
-.info-table td:first-child {
-    font-weight: 700;
-    width: 85px; /* 레이블 너비 고정 */
-    padding-right: 10px; /* 레이블과 값 사이 간격 */
-}
-
-/* 두 번째 셀 (값) 스타일 */
-.info-table td:last-child {
-    /* 남은 공간을 자동으로 차지 */
-    word-break: keep-all; /* 단어 중간에 끊기지 않게 (한글) */
-    overflow-wrap: break-word; /* 긴 단어는 줄바꿈 */
-}
+/* 이전 정보 테이블 스타일 제거 */
+/* .info-table, .info-table tr, .info-table td, .info-table td:first-child, .info-table td:last-child { ... } */
+/* 이전 정보 항목 컨테이너/항목/레이블/값 스타일 제거 */
+/* .info-items-container, #wedding-info .info-item, #wedding-info .info-item .info-label, #wedding-info .info-item .info-value { ... } */
 
 
 /* 달력 컨테이너 스타일 */
@@ -211,6 +176,23 @@ section { padding: 60px 20px; text-align: center; } /* 섹션 전체는 가운�
     height: 35px;
     line-height: 35px;
     margin: auto;
+}
+
+/* 새로운 날짜/시간/장소 박스 스타일 */
+.wedding-datetime-box {
+    margin: 30px auto; /* 달력 아래 간격 및 가운데 정렬 */
+    padding: 10px 20px; /* 박스 내부 여백 */
+    background-color: #607DBC; /* 배경색 변경 */
+    color: white; /* 글자색 */
+    border-radius: 25px; /* 타원형 모양 (값 조절 가능) */
+    width: fit-content; /* 내용만큼만 너비 차지 */
+    max-width: 90%; /* 너무 길면 줄바꿈되도록 최대 너비 설정 */
+    text-align: center; /* 박스 안 텍스트 가운데 정렬 */
+    font-family: 'Gowun Batang', serif; /* 폰트 */
+    font-size: 1.1em; /* 폰트 크기 */
+    line-height: 1.5; /* 줄 간격 */
+    word-break: keep-all; /* 단어 중간에 끊기지 않게 */
+    overflow-wrap: break-word; /* 긴 단어는 줄바꿈 */
 }
 
 
