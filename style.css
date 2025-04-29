@@ -1,188 +1,93 @@
-/* 모든 요소에 box-sizing 적용 (패딩/보더 포함하여 요소 크기 계산) */
-* {
-    box-sizing: border-box;
-}
-
-/* html과 body에 스크롤 스냅 기능 활성화 */
+/* --- 기본 스타일 초기화 및 설정 --- */
+* { box-sizing: border-box; }
 html, body {
-    scroll-snap-type: y mandatory; /* 세로축(y) 방향으로 스크롤 스냅을 강제합니다. */
-    /* height: 100%; /* 선택 사항: 부모 높이 채우기 */ */
-    margin: 0; padding: 0; /* 기본 마진/패딩 제거 */
+    scroll-snap-type: y mandatory;
+    margin: 0; padding: 0;
 }
-
-/* --- 기본 스타일 (이전 코드와 동일) --- */
 body {
-    /* margin: 0; padding: 0; /* 위 html, body에서 설정 */ */
-    font-family: 'Noto Sans KR', sans-serif; /* 기본 폰트 */
-    line-height: 1.6;
-    color: #333;
-    overflow-x: hidden;
-    background-color: #fff;
+    font-family: 'Noto Sans KR', sans-serif;
+    line-height: 1.6; color: #333;
+    overflow-x: hidden; background-color: #fff;
 }
-
 h1, h2, h3, p { margin: 0; padding: 0; }
+section { scroll-snap-align: start; padding: 60px 20px; text-align: center; }
 
-/* 모든 section 태그에 스크롤 스냅 맞춤 기준 설정 및 기본 패딩 */
-section {
-    scroll-snap-align: start; /* 스크롤될 때 섹션의 시작 부분이 화면 상단에 맞춰지도록 합니다. */
-    padding: 60px 20px;
-    text-align: center;
-}
-
-
-/* --- 첫 번째 섹션 (#intro) 스타일 (이전 코드와 동일) --- */
-#intro {
-    padding: 0;
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    background-color: #FEFBF6;
-    /* scroll-snap-align: start; /* 이미 section에 설정 */ */
-}
-
-.intro-container {
-    position: relative;
-    width: 100%; height: 100%;
-    margin: 0;
-}
-
-.wedding-photo {
-    display: block;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    /* filter: brightness(0.8); */
-}
-
-.text-overlay {
-    position: absolute;
-    left: 50%; transform: translateX(-50%);
-    text-align: center;
-    color: white;
-    width: 90%;
-    text-shadow: 3px 3px 8px rgba(0,0,0,0.9);
-}
-
+/* --- 첫 번째 섹션 (#intro) 스타일 --- */
+#intro { padding: 0; position: relative; width: 100%; height: 100vh; overflow: hidden; background-color: #FEFBF6; }
+.intro-container { position: relative; width: 100%; height: 100%; margin: 0; }
+.wedding-photo { display: block; width: 100%; height: 100%; object-fit: cover; /* filter: brightness(0.8); */ }
+.text-overlay { position: absolute; left: 50%; transform: translateX(-50%); text-align: center; color: white; width: 90%; text-shadow: 3px 3px 8px rgba(0,0,0,0.9); }
 .intro-text-overlay { top: 15%; }
-
-.intro-text-overlay h1 {
-    font-size: 10vw;
-    line-height: 1.2;
-    margin: 0;
-    /* WindSong 폰트 클래스는 HTML에서 적용 */
-}
-
+.intro-text-overlay h1 { font-size: 10vw; line-height: 1.2; margin: 0; /* WindSong 클래스 */ }
 .wedding-details-overlay { bottom: 8%; }
-
 .wedding-details-overlay p {
-    font-family: 'Gowun Batang', serif;
-    font-weight: 400;
-    font-size: 1.1em;
-    line-height: 1.5;
-    margin: 5px 0;
+    font-family: 'Gowun Batang', serif; font-weight: 400;
+    font-size: 1.1em; line-height: 1.5; margin: 5px 0;
+    /* color: white; */
 }
+.wedding-details-overlay .names { font-size: 1.3em; font-weight: 400; margin-bottom: 8px; }
 
-.wedding-details-overlay .names {
-     font-size: 1.3em;
-     font-weight: 400;
-     margin-bottom: 8px;
-}
-
-/* --- Google Fonts 제공 폰트 클래스 (이전 코드와 동일) --- */
-.windsong-regular {
-  font-family: "WindSong", cursive; font-weight: 400; font-style: normal;
-}
-.windsong-medium {
-  font-family: "WindSong", cursive; font-weight: 500; font-style: normal;
-}
-.yellowtail-regular {
-  font-family: "Yellowtail", cursive; font-weight: 400; font-style: normal;
-}
-.gowun-batang-regular {
-  font-family: "Gowun Batang", serif; font-weight: 400; font-style: normal;
-}
+/* --- Google Fonts 제공 폰트 클래스 --- */
+.windsong-regular { font-family: "WindSong", cursive; font-weight: 400; font-style: normal; }
+.windsong-medium { font-family: "WindSong", cursive; font-weight: 500; font-style: normal; }
+.yellowtail-regular { font-family: "Yellowtail", cursive; font-weight: 400; font-style: normal; }
+.gowun-batang-regular { font-family: "Gowun Batang", serif; font-weight: 400; font-style: normal; }
 
 
 /* --- 두 번째 섹션: 초대글 / 인사말 --- */
 #invitation-text {
-    height: 100vh; /* **추가**: 섹션 높이를 화면 높이 전체로 설정 */
+    height: 100vh;
     background-color: #FEFBF6;
     color: #555;
     padding: 80px 20px;
     text-align: center;
-    /* scroll-snap-align: start; /* 이미 section에 설정 */ */
+    /* scroll-snap-align: start; */
 }
 
+#invitation-text .emoji {
+    font-size: 2em; /* 이모지 크기 조절 */
+    margin-bottom: 10px; /* 이모지 아래 간격 */
+    display: block; /* 가운데 정렬을 위해 블록 요소로 */
+}
+
+
 #invitation-text h2 {
-    font-family: "Yellowtail", cursive;
-    font-weight: 400;
-    font-size: 2.5em;
-    color: #4B4D39;
+    font-family: "Yellowtail", cursive; font-weight: 400;
+    font-size: 2.5em; color: #4B4D39;
     margin-bottom: 30px;
 }
 
 #invitation-text p {
+    font-family: 'Gowun Batang', serif; font-weight: 400;
+    font-size: 1.1em; line-height: 1.8; color: #555;
+    margin-bottom: 20px;
+}
+
+/* **수정**: 부모님/신랑 신부 이름 정보 스타일 */
+#invitation-text .parents-names {
     font-family: 'Gowun Batang', serif;
     font-weight: 400;
-    font-size: 1.1em;
-    line-height: 1.8;
-    color: #555;
-    margin-bottom: 20px;
+    font-size: 1em;
+    margin-top: 40px; /* **수정**: 이전 문단과의 위쪽 간격 조절 (15px -> 40px. 원하는 만큼 더 늘리거나 줄이세요) */
+    margin-bottom: 5px; /* 각 부모님 라인 사이의 아래 간격 조절 */
+    color: #555; /* 글자 색상 */
+    line-height: 1.8; /* **조절**: 라인 높이를 1.8 정도로 맞춰봅니다 (점 위치에 영향 줄 수도 있음) */
+}
+
+#invitation-text .parents-names strong {
+    font-weight: 700; /* strong 태그 (부모님 이름)는 굵게 (700) */
 }
 
 
 /* --- 세 번째 섹션: 결혼식 상세 정보 (날짜, 시간, 장소 등) --- */
-#wedding-info {
-    /* height: 100vh; /* 원하면 추가 */ */
-    padding: 60px 20px;
-    text-align: center;
-    background-color: #fff;
-}
-
-/* --- 네 번째 섹션: 갤러리 (사진들) --- */
-#gallery {
-    /* height: 100vh; /* 원하면 추가 */ */
-    padding: 80px 0;
-    background-color: #f0f0f0;
-    text-align: center;
-}
-
-
-/* --- 다섯 번째 섹션: 오시는 길 (약도, 교통편) --- */
-#location {
-    /* height: 100vh; /* 원하면 추가 */ */
-    background-color: #fff;
-    padding-bottom: 80px;
-    text-align: center;
-}
-
-
-/* --- 여섯 번째 섹션: 연락처 정보 --- */
-#contact {
-     /* height: 100vh; /* 원하면 추가 */ */
-     padding-top: 80px;
-     padding-bottom: 80px;
-     background-color: #f8f8f8;
-     text-align: center;
-}
-
-
-/* --- 일곱 번째 섹션: 축하의 마음 전하기 (선택 사항) --- */
-#account {
-    /* height: 100vh; /* 원하면 추가 */ */
-    background-color: #eee;
-    border-top: 1px solid #ccc;
-    font-size: 0.9em;
-    color: #666;
-    padding: 40px 20px;
-    text-align: center;
-}
-
-/* Footer 스타일 (페이지 하단 정보) */
-footer {
-    padding: 30px 20px;
-    text-align: center;
-    font-size: 0.8em;
-    color: #aaa;
-    background-color: #f4f4f4;
-}
+#wedding-info { padding: 60px 20px; text-align: center; background-color: #fff; /* height: 100vh; */ }
+/* ... */
+#gallery { padding: 80px 0; background-color: #f0f0f0; text-align: center; /* height: 100vh; */ }
+/* ... */
+#location { background-color: #fff; padding-bottom: 80px; text-align: center; /* height: 100vh; */ }
+/* ... */
+#contact { padding-top: 80px; padding-bottom: 80px; background-color: #f8f8f8; text-align: center; /* height: 100vh; */ }
+/* ... */
+#account { background-color: #eee; border-top: 1px solid #ccc; font-size: 0.9em; color: #666; padding: 40px 20px; text-align: center; /* height: 100vh; */ }
+/* ... */
+footer { padding: 30px 20px; text-align: center; font-size: 0.8em; color: #aaa; background-color: #f4f4f4; }
