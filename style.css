@@ -31,7 +31,7 @@ section {
     padding: 0; /* 이미지가 섹션을 꽉 채우도록 내부 여백 제거 */
     position: relative; /* 이 섹션 내부의 절대 위치 요소들(.text-overlay)의 기준점이 됩니다. */
     width: 100%; /* 섹션의 너비를 부모(body) 너비에 꽉 채웁니다. */
-    height: 100vh; /* **수정**: 섹션 높이를 화면(viewport) 높이의 100%로 설정 */
+    height: 100vh; /* 섹션 높이를 화면(viewport) 높이의 100%로 설정 */
     overflow: hidden; /* 내용이 넘치면 숨김 */
     background-color: #FEFBF6; /* 배경 색상 유지 */
 }
@@ -39,18 +39,18 @@ section {
 /* 사진과 오버레이 텍스트들을 감싸는 내부 컨테이너 */
 .intro-container {
     position: relative; /* 오버레이 텍스트의 기준점 */
-    width: 100%; /* **수정**: 컨테이너 너비를 부모(#intro) 너비에 꽉 채웁니다. */
-    margin: 0; /* **수정**: 가운데 정렬 마진 제거 */
-    height: 100%; /* **수정**: 컨테이너 높이를 부모(#intro) 높이의 100%로 설정 (결과적으로 100vh) */
+    width: 100%; /* 컨테이너 너비를 부모(#intro) 너비에 꽉 채웁니다. */
+    margin: 0; /* 가운데 정렬 마진 제거 */
+    height: 100%; /* 컨테이너 높이를 부모(#intro) 높이의 100%로 설정 (결과적으로 100vh) */
 }
 
 /* 결혼 사진 이미지 스타일 */
 .wedding-photo {
     display: block; /* 이미지 아래에 생기는 원치 않는 공백 제거 */
     width: 100%; /* intro-container 너비의 100% (이제 화면 너비의 100%) */
-    height: 100%; /* **수정**: 이미지 높이를 부모(.intro-container) 높이의 100%로 설정 */
-    object-fit: cover; /* **추가**: 이미지 비율을 유지하면서 컨테이너를 꽉 채우도록 설정 (필요시 이미지 일부 잘림) */
-    /* filter: brightness(0.8); /* 선택 사항: 이미지 밝기를 약간 낮춰서 위에 올라가는 글씨가 더 잘 보이게 합니다. */ */
+    height: 100%; /* 이미지 높이를 부모(.intro-container) 높이의 100%로 설정 */
+    object-fit: cover; /* 이미지 비율을 유지하면서 컨테이너를 꽉 채우도록 설정 (필요시 이미지 일부 잘림) */
+    /* filter: brightness(0.8); /* 선택 사항: 이미지 밝기를 약간 낮춰서 글씨가 잘 보이게 합니다. */ */
 }
 
 /* 사진 위에 겹쳐질 텍스트들 (제목, 정보)의 공통 스타일 */
@@ -63,19 +63,18 @@ section {
     width: 90%; /* 오버레이 텍스트 영역의 너비 (intro-container 너비의 90%) (값 조절 가능) */
     /* 모든 오버레이 텍스트에 적용될 그림자 효과 */
     /* h-offset(가로 이동) v-offset(세로 이동) blur(번짐 정도) color(색상) */
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.7); /* 그림자 예시: 우 2px, 하 2px, 번짐 5px, 검정색 70% 투명도 */
+    text-shadow: 3px 3px 8px rgba(0,0,0,0.9); /* **수정**: 그림자를 더 진하고 뚜렷하게 (값 조절 가능) */
     /* 만약 다른 쉐도우 스타일을 원하면 이 값을 수정하거나, 각 오버레이 클래스에 별도로 정의할 수 있습니다. */
 }
 
 /* 'We're getting married' 제목 오버레이 (#intro 섹션 안의 .intro-text-overlay) */
 .intro-text-overlay {
-    top: 25%; /* intro-container 상단에서 25% 지점에 위치 (값 조절하여 원하는 세로 위치로 이동) */
+    top: 15%; /* **수정**: 이미지 상단에서 15% 지점에 위치 (값을 줄여서 위로 올림) */
     /* transform: translate(-50%, -50%); /* 만약 이 오버레이 자체를 intro-container의 완전 중앙에 놓고 싶다면 left, top을 50%로 하고 이 transform 사용 */ */
 }
 
 .intro-text-overlay h1 {
     /* 'We're getting married' 글자 스타일 */
-    /* **수정**: 글자 크기를 모바일 화면에 맞춰 줄입니다. vw 단위를 사용해 보세요. */
     font-size: 10vw; /* 예시: 화면 너비의 10%. 이 값을 조절해 보세요. */
     line-height: 1.2; /* 줄 간격 (줄바꿈이 있으므로 필요) */
     margin: 0; /* h1 태그 자체의 기본 위아래 마진 제거 */
