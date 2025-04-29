@@ -11,7 +11,7 @@ body {
     overflow-x: hidden; background-color: #fff;
 }
 h1, h2, h3, p { margin: 0; padding: 0; }
-section { padding: 60px 20px; text-align: center; } /* 섹션 자체는 가운데 정렬 */
+section { padding: 60px 20px; text-align: center; } /* 섹션 전체는 가운데 정렬 */
 
 /* Scroll Snap을 적용할 섹션 */
 #intro, #invitation-text { scroll-snap-align: start; }
@@ -110,15 +110,23 @@ section { padding: 60px 20px; text-align: center; } /* 섹션 자체는 가운�
     text-align: center;
 }
 
+/* 정보 항목들을 감싸는 새로운 컨테이너 스타일 */
+.info-items-container {
+    margin: 0 auto; /* 가운데 정렬 */
+    text-align: left; /* 이 컨테이너 안의 텍스트는 왼쪽 정렬 */
+    /* max-width: 300px; /* 필요시 최대 너비 지정하여 줄바꿈 조절 */ */
+    width: fit-content; /* 내용만큼만 너비를 차지하도록 함 */
+}
+
+
 /* 개별 정보 항목 (날짜, 시간, 장소) 컨테이너 */
 #wedding-info .info-item {
     font-family: 'Gowun Batang', serif;
     font-size: 1.1em;
-    margin: 0 auto 15px auto; /* 각 항목을 가운데 정렬하고 아래 간격 추가 */
+    margin-bottom: 15px; /* 항목 아래 간격 */
     color: #555;
-    text-align: left; /* 항목 안의 내용은 왼쪽 정렬 (레이블-값) */
-    width: fit-content; /* 내용만큼 너비 설정 (가운데 정렬 목적) */
-    max-width: 100%; /* 너무 길면 줄바꿈되도록 제한 */
+    /* text-align: left; /* 부모에서 상속 */ */
+    /* width: fit-content; /* 부모에서 상속 */ */
 }
 
 /* 정보 항목 레이블 (날짜, 시간, 장소) */
