@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalImage = document.getElementById('modalImage'); // 모달 안의 확대 사진 이미지 요소
     const closeBtn = document.getElementsByClassName('close')[0]; // 모달 닫기 버튼 요소 (클래스가 'close'인 첫 번째 요소)
     const galleryPhotos = document.querySelectorAll('#gallery .gallery-photos .gallery-photo'); // 갤러리 섹션 안의 모든 사진 이미지 요소들 (NodeList 형태)
-    const loadMoreBtn = document.getElementById('loadMoreBtn'); // '더보기' 버튼 요소
+    // **삭제**: '더보기' 버튼 요소 가져오는 코드 삭제
+    // const loadMoreBtn = document.getElementById('loadMoreBtn');
     const mainContent = document.querySelector('main'); // 블러 처리할 메인 콘텐츠 영역 요소 (<main> 태그)
 
     // 모달 이전/다음 버튼 요소들
@@ -18,20 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentPhotoIndex = 0;
 
 
-    // --- '더보기' 버튼 기능 구현 ---
-    if (loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', function() {
-            // **수정**: 13번째 사진부터 (인덱스 12) 나머지 사진들을 순회하며 보이게 합니다.
-            // galleryPhotos는 0부터 시작하는 배열과 같으므로, 13번째 사진은 인덱스 12입니다.
-            for (let i = 12; i < galleryPhotos.length; i++) {
-                // 사진을 보이게 할 때 removeProperty를 사용합니다.
-                galleryPhotos[i].style.removeProperty('display'); // Load More fix attempt
-            }
-
-            // 모든 사진을 보이게 한 후에는 '더보기' 버튼을 숨깁니다.
-            loadMoreBtn.style.display = 'none';
-        });
-    }
+    // **삭제**: '더보기' 버튼 기능 구현 코드 삭제
+    // if (loadMoreBtn) { ... }
 
 
     // --- 갤러리 사진 클릭 시 확대 모달 표시 기능 구현 ---

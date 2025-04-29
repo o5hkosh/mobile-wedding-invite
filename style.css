@@ -1,19 +1,10 @@
 /* --- 기본 스타일 초기화 및 설정 --- */
-/* 모든 요소에 box-sizing 적용 (패딩/보더 포함하여 요소 크기 계산) */
-* {
-    box-sizing: border-box;
-}
-
-/* html과 body에 스크롤 스냅 기능 활성화 */
+* { box-sizing: border-box; }
 html, body {
-    scroll-snap-type: y mandatory; /* 세로축(y) 방향으로 스크롤 스냅을 강제합니다. */
-    /* height: 100%; /* 선택 사항: 부모 높이 채우기 */ */
-    margin: 0; padding: 0; /* 기본 마진/패딩 제거 */
+    scroll-snap-type: y mandatory;
+    margin: 0; padding: 0;
 }
-
-/* --- 기본 스타일 (이전 코드와 동일) --- */
 body {
-    /* margin: 0; padding: 0; /* 위 html, body에서 설정 */ */
     font-family: 'Noto Sans KR', sans-serif;
     line-height: 1.6; color: #333;
     overflow-x: hidden; background-color: #fff;
@@ -108,28 +99,12 @@ section { scroll-snap-align: start; padding: 60px 20px; text-align: center; }
     /* border-radius: 5px; */
 }
 
-/* **수정**: 13번째 사진부터는 기본적으로 숨김 (JavaScript가 보이도록 변경) */
-#gallery .gallery-photos .gallery-photo:nth-child(n+13) {
-    display: none; /* 처음 12장만 보이게 숨김 */
-}
+/* **삭제**: 9번째 (또는 13번째) 사진부터 숨기던 규칙 삭제 */
+/* #gallery .gallery-photos .gallery-photo:nth-child(n+9) { display: none; } */
 
 
-/* 더보기 버튼 스타일 */
-#loadMoreBtn {
-    display: block;
-    margin: 40px auto;
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-#loadMoreBtn:hover {
-    background-color: #eee;
-}
+/* **삭제**: 더보기 버튼 스타일 삭제 */
+/* #loadMoreBtn { ... } */
 
 
 /* --- 네 번째 섹션: 결혼식 상세 정보 (날짜, 시간, 장소 등) --- */
