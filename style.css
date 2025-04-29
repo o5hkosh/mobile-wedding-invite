@@ -1,14 +1,17 @@
 /* --- 기본 스타일 초기화 및 설정 --- */
 * { box-sizing: border-box; }
+
+/* html과 body에 스크롤 스냅 기능 활성화 */
 html, body {
-    scroll-snap-type: y mandatory; /* 세로축(y) 방향으로 스크롤 스냅을 강제합니다. */
-    /* height: 100%; /* 선택 사항: 부모 높이 채우기 */ */
-    margin: 0; padding: 0; /* 기본 마진/패딩 제거 */
+    /* **수정**: scroll-snap-type: y mandatory; -> y proximity; */
+    scroll-snap-type: y proximity; /* **수정**: 세로축(y) 방향으로 스크롤 스냅을 근접 시에만 적용합니다. */
+    /* height: 100%; */
+    margin: 0; padding: 0;
 }
 
 /* --- 기본 스타일 (이전 코드와 동일) --- */
 body {
-    /* margin: 0; padding: 0; /* 위 html, body에서 설정 */ */
+    /* margin: 0; padding: 0; */
     font-family: 'Noto Sans KR', sans-serif;
     line-height: 1.6; color: #333;
     overflow-x: hidden; background-color: #fff;
@@ -17,12 +20,11 @@ h1, h2, h3, p { margin: 0; padding: 0; }
 
 /* 모든 section 태그에 기본 패딩 (스크롤 스냅 맞춤 기준은 개별 섹션에서 설정) */
 section {
-    /* **수정**: scroll-snap-align: start; 여기서 삭제합니다. */
     padding: 60px 20px;
     text-align: center;
 }
 
-/* **추가**: Scroll Snap을 적용할 섹션 (화면 높이에 꽉 차는 섹션) */
+/* Scroll Snap을 적용할 섹션 (화면 높이에 꽉 차는 섹션) */
 #intro, #invitation-text {
     scroll-snap-align: start;
 }
@@ -31,7 +33,7 @@ section {
 /* --- 첫 번째 섹션 (#intro) 스타일 --- */
 #intro {
     padding: 0; position: relative; width: 100%; height: 100vh; overflow: hidden; background-color: #FEFBF6;
-    /* scroll-snap-align: start; /* 위에서 공통으로 설정 */ */
+    /* scroll-snap-align: start; */
 }
 
 .intro-container { position: relative; width: 100%; height: 100%; margin: 0; }
@@ -60,7 +62,7 @@ section {
     color: #555;
     padding: 80px 20px;
     text-align: center;
-    /* scroll-snap-align: start; /* 위에서 공통으로 설정 */ */
+    /* scroll-snap-align: start; */
 }
 
 #invitation-text .emoji {
@@ -94,19 +96,19 @@ section {
 /* --- 세 번째 섹션: 갤러리 (사진들) --- */
 /* **수정**: 갤러리 섹션 스타일 */
 #gallery {
-    /* height: auto; /* 내용에 맞게 높이 자동 조절 (100vh 삭제) */ */
+    /* height: auto; */
     padding: 80px 20px;
     background-color: #FAF3E0;
     text-align: center;
     /* scroll-snap-align: start; /* 여기서 삭제 */ */
 }
 
-/* **추가**: 갤러리 제목 위 이모지 스타일 */
+/* 갤러리 제목 위 이모지 스타일 */
 #gallery .emoji {
     font-size: 2em; margin-bottom: 10px; display: block;
 }
 
-/* **수정**: 갤러리 제목 스타일 */
+/* 갤러리 제목 스타일 */
 #gallery h2 {
     font-family: "Yellowtail", cursive; font-weight: 400;
     font-size: 2.5em; color: #4B4D39;
@@ -126,7 +128,7 @@ section {
 #gallery .gallery-photos .gallery-photo {
     display: block;
     width: 100%;
-    height: auto; /* 비율 유지 */
+    height: auto;
     object-fit: cover;
     cursor: pointer;
     /* border-radius: 5px; */
@@ -144,19 +146,23 @@ section {
 
 
 /* --- 네 번째 섹션: 결혼식 상세 정보 (날짜, 시간, 장소 등) --- */
-#wedding-info { padding: 60px 20px; text-align: center; background-color: #fff; /* height: 100vh; */ }
+#wedding-info { padding: 60px 20px; text-align: center; background-color: #fff; /* height: 100vh; */
+    /* **삭제**: Scroll Snap 적용하지 않음 */ }
 /* ... info-item, info-label, info-value, info-address 스타일은 나중에 추가 ... */
-/* **삭제**: Scroll Snap 적용하지 않음 */
 
 
 /* --- 다섯 번째 섹션: 오시는 길 (약도, 교통편) --- */
-#location { background-color: #fff; padding-bottom: 80px; text-align: center; /* height: 100vh; */ }
+#location { background-color: #fff; padding-bottom: 80px; text-align: center; /* height: 100vh; */
+    /* **삭제**: Scroll Snap 적용하지 않음 */ }
 /* ... */
-#contact { padding: 80px 20px; background-color: #f8f8f8; text-align: center; /* height: 100vh; */ }
+#contact { padding: 80px 20px; background-color: #f8f8f8; text-align: center; /* height: 100vh; */
+    /* **삭제**: Scroll Snap 적용하지 않음 */ }
 /* ... */
-#account { background-color: #eee; border-top: 1px solid #ccc; font-size: 0.9em; color: #666; padding: 40px 20px; text-align: center; /* height: 100vh; */ }
+#account { background-color: #eee; border-top: 1px solid #ccc; font-size: 0.9em; color: #666; padding: 40px 20px; text-align: center; /* height: 100vh; */
+    /* **삭제**: Scroll Snap 적용하지 않음 */ }
 /* ... */
-footer { padding: 30px 20px; text-align: center; font-size: 0.8em; color: #aaa; background-color: #f4f4f4; }
+footer { padding: 30px 20px; text-align: center; font-size: 0.8em; color: #aaa; background-color: #f4f4f4;
+    /* **삭제**: Scroll Snap 적용하지 않음 */ }
 
 
 /* --- 모달 (확대 사진 팝업) 스타일 --- */
@@ -210,7 +216,7 @@ footer { padding: 30px 20px; text-align: center; font-size: 0.8em; color: #aaa; 
     transition: 0.6s ease;
     border-radius: 0 3px 3px 0;
     user-select: none;
-    -webkit-user-select: none; /* Safari */
+    _webkit_user_select: none; /* Safari */
 }
 
 /* 다음 버튼 스타일 (우측에 위치) */
