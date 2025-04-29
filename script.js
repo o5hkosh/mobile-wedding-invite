@@ -7,14 +7,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalSlideImages = document.querySelectorAll('#myModal .modal-slide-image'); // 모달 안의 슬라이드 이미지 요소들 (3개)
     const modalSlidesContainer = document.querySelector('#myModal .modal-slides'); // 슬라이드 이미지를 담는 컨테이너 요소
 
-    const closeBtn = document.getElementsByClassName('close')[0]; // 모달 닫기 버튼
+    const closeBtn = document.getElementsByClassName('close')[0]; // 모달 닫기 버튼 요소 (클래스가 'close'인 첫 번째 요소)
     const galleryPhotos = document.querySelectorAll('#gallery .gallery-photos .gallery-photo'); // 갤러리 섹션 안의 모든 사진 이미지 요소들 (20개)
 
     const loadMoreBtn = document.getElementById('loadMoreBtn'); // '더보기' 버튼 (현재 사용 안 함)
-    const mainContent = document.querySelector('main'); // 블러 처리할 메인 콘텐츠 영역
+    const mainContent = document.querySelector('main'); // 블러 처리할 메인 콘텐츠 영역 요소 (<main> 태그)
 
-    const prevBtn = document.querySelector('#myModal .prev'); // 이전 버튼
-    const nextBtn = document.querySelector('#myModal .next'); // 다음 버튼
+    // 모달 이전/다음 버튼 요소들
+    const prevBtn = document.querySelector('#myModal .prev');
+    const nextBtn = document.querySelector('#myModal .next');
 
     // 현재 모달에 표시된 사진의 갤러리 내 인덱스를 저장하는 변수
     let currentPhotoIndex = 0;
@@ -243,19 +244,21 @@ document.addEventListener('DOMContentLoaded', function() {
             // 스와이프 시작 시 애니메이션 중지 (실시간 드래그를 위해)
             modalSlidesContainer.style.transition = 'none';
              // 기본 스크롤 방지 (이미지 드래그 등)
-             event.preventDefault(); // **추가**: touchstart에서 기본 동작 방지 (스와이프 필수)
+             event.preventDefault(); // touchstart에서 기본 동작 방지 (스와이프 필수)
         });
 
         modalSlidesContainer.addEventListener('touchmove', function(event) {
              if (isAnimating) return; // 애니메이션 중에는 터치 무시
              // 실시간 드래그 구현 (이 예시에서는 터치 끝났을 때만 움직입니다. 실시간 드래그는 더 복잡합니다.)
              // 원하면 여기에 드래그 거리에 따라 modalSlidesContainer.style.transform을 업데이트하는 코드 추가 가능
-             event.preventDefault(); // **추가**: 터치 중 기본 스크롤/드래그 동작 방지 (스와이프 필수)
+             event.preventDefault(); // 터치 중 기본 스크롤/드래그 동작 방지 (스와이프 필수)
         });
 
         modalSlidesContainer.addEventListener('touchend', function(event) {
             if (isAnimating) return; // 애니메이션 중에는 터치 무시
             touchEndX = event.changedTouches[0].clientX;
+
+            // 시작점 대비 끝점의 수평 이동 거리 계산
             const deltaX = touchEndX - touchStartX;
 
             // 스와이프가 감지되면
@@ -303,7 +306,7 @@ document.addEventListener('DOMContentLoaded', function() {
              // 실시간 드래그 구현 (터치와 유사, 여기서는 끝났을 때만 처리)
              // const deltaX = event.clientX - mouseStartX;
              // modalSlidesContainer.style.transform = 'translateX(' + (-33.33 * window.innerWidth / 100 + deltaX) + 'px)';
-             event.preventDefault(); // **추가**: 마우스 이동 중 기본 동작 방지 (이미지 드래그 등)
+             event.preventDefault(); // 마우스 이동 중 기본 동작 방지 (이미지 드래그 등)
         });
 
         modalSlidesContainer.addEventListener('mouseup', function(event) {
