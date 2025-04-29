@@ -1,19 +1,39 @@
 /* --- 기본 스타일 초기화 및 설정 --- */
 * { box-sizing: border-box; }
 html, body {
-    scroll-snap-type: y mandatory;
-    margin: 0; padding: 0;
+    scroll-snap-type: y mandatory; /* 세로축(y) 방향으로 스크롤 스냅을 강제합니다. */
+    /* height: 100%; /* 선택 사항: 부모 높이 채우기 */ */
+    margin: 0; padding: 0; /* 기본 마진/패딩 제거 */
 }
+
+/* --- 기본 스타일 (이전 코드와 동일) --- */
 body {
+    /* margin: 0; padding: 0; /* 위 html, body에서 설정 */ */
     font-family: 'Noto Sans KR', sans-serif;
     line-height: 1.6; color: #333;
     overflow-x: hidden; background-color: #fff;
 }
 h1, h2, h3, p { margin: 0; padding: 0; }
-section { scroll-snap-align: start; padding: 60px 20px; text-align: center; }
+
+/* 모든 section 태그에 기본 패딩 (스크롤 스냅 맞춤 기준은 개별 섹션에서 설정) */
+section {
+    /* **수정**: scroll-snap-align: start; 여기서 삭제합니다. */
+    padding: 60px 20px;
+    text-align: center;
+}
+
+/* **추가**: Scroll Snap을 적용할 섹션 (화면 높이에 꽉 차는 섹션) */
+#intro, #invitation-text {
+    scroll-snap-align: start;
+}
+
 
 /* --- 첫 번째 섹션 (#intro) 스타일 --- */
-#intro { padding: 0; position: relative; width: 100%; height: 100vh; overflow: hidden; background-color: #FEFBF6; }
+#intro {
+    padding: 0; position: relative; width: 100%; height: 100vh; overflow: hidden; background-color: #FEFBF6;
+    /* scroll-snap-align: start; /* 위에서 공통으로 설정 */ */
+}
+
 .intro-container { position: relative; width: 100%; height: 100%; margin: 0; }
 .wedding-photo { display: block; width: 100%; height: 100%; object-fit: cover; /* filter: brightness(0.8); */ }
 .text-overlay { position: absolute; left: 50%; transform: translateX(-50%); text-align: center; color: white; width: 90%; text-shadow: 3px 3px 8px rgba(0,0,0,0.9); }
@@ -40,7 +60,7 @@ section { scroll-snap-align: start; padding: 60px 20px; text-align: center; }
     color: #555;
     padding: 80px 20px;
     text-align: center;
-    /* scroll-snap-align: start; */
+    /* scroll-snap-align: start; /* 위에서 공통으로 설정 */ */
 }
 
 #invitation-text .emoji {
@@ -74,28 +94,24 @@ section { scroll-snap-align: start; padding: 60px 20px; text-align: center; }
 /* --- 세 번째 섹션: 갤러리 (사진들) --- */
 /* **수정**: 갤러리 섹션 스타일 */
 #gallery {
-    /* height: 100vh; /* 원하면 추가 */ */
+    /* height: auto; /* 내용에 맞게 높이 자동 조절 (100vh 삭제) */ */
     padding: 80px 20px;
-    background-color: #FAF3E0; /* **수정**: 배경색 변경 */
+    background-color: #FAF3E0;
     text-align: center;
+    /* scroll-snap-align: start; /* 여기서 삭제 */ */
 }
 
 /* **추가**: 갤러리 제목 위 이모지 스타일 */
 #gallery .emoji {
-    font-size: 2em; /* 이모지 크기 */
-    margin-bottom: 10px; /* 이모지 아래 간격 */
-    display: block; /* 가운데 정렬을 위해 블록 요소로 */
+    font-size: 2em; margin-bottom: 10px; display: block;
 }
 
 /* **수정**: 갤러리 제목 스타일 */
 #gallery h2 {
-    font-family: "Yellowtail", cursive; /* **수정**: Invitation 제목과 같은 폰트 */
-    font-weight: 400; /* **수정**: Regular 굵기 */
-    font-size: 2.5em; /* **수정**: Invitation 제목과 같은 크기 */
-    color: #4B4D39; /* **수정**: Invitation 제목과 같은 색상 */
-    margin-bottom: 30px; /* **수정**: 아래 간격 */
+    font-family: "Yellowtail", cursive; font-weight: 400;
+    font-size: 2.5em; color: #4B4D39;
+    margin-bottom: 30px;
 }
-
 
 /* 갤러리 사진들을 담는 컨테이너 - Grid 사용 */
 #gallery .gallery-photos {
@@ -103,7 +119,7 @@ section { scroll-snap-align: start; padding: 60px 20px; text-align: center; }
     grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
     gap: 10px;
     padding: 0 0;
-    margin-top: 30px; /* 제목 아래 간격 (h2 아래 간격과 별개) */
+    margin-top: 30px;
 }
 
 /* 갤러리 개별 사진 스타일 */
@@ -130,6 +146,7 @@ section { scroll-snap-align: start; padding: 60px 20px; text-align: center; }
 /* --- 네 번째 섹션: 결혼식 상세 정보 (날짜, 시간, 장소 등) --- */
 #wedding-info { padding: 60px 20px; text-align: center; background-color: #fff; /* height: 100vh; */ }
 /* ... info-item, info-label, info-value, info-address 스타일은 나중에 추가 ... */
+/* **삭제**: Scroll Snap 적용하지 않음 */
 
 
 /* --- 다섯 번째 섹션: 오시는 길 (약도, 교통편) --- */
