@@ -1,19 +1,10 @@
 /* --- 기본 스타일 초기화 및 설정 --- */
-/* 모든 요소에 box-sizing 적용 (패딩/보더 포함하여 요소 크기 계산) */
-* {
-    box-sizing: border-box;
-}
-
-/* html과 body에 스크롤 스냅 기능 활성화 */
+* { box-sizing: border-box; }
 html, body {
-    scroll-snap-type: y mandatory; /* 세로축(y) 방향으로 스크롤 스냅을 강제합니다. */
-    /* height: 100%; /* 선택 사항: 부모 높이 채우기 */ */
-    margin: 0; padding: 0; /* 기본 마진/패딩 제거 */
+    scroll-snap-type: y mandatory;
+    margin: 0; padding: 0;
 }
-
-/* --- 기본 스타일 (이전 코드와 동일) --- */
 body {
-    /* margin: 0; padding: 0; /* 위 html, body에서 설정 */ */
     font-family: 'Noto Sans KR', sans-serif;
     line-height: 1.6; color: #333;
     overflow-x: hidden; background-color: #fff;
@@ -108,8 +99,8 @@ section { scroll-snap-align: start; padding: 60px 20px; text-align: center; }
     /* border-radius: 5px; */
 }
 
-/* 9번째 사진부터는 기본적으로 숨김 (JavaScript가 보이도록 변경) */
-#gallery .gallery-photos .gallery-photo:nth-child(n+9) {
+/* **수정**: 13번째 사진부터는 기본적으로 숨김 (JavaScript가 보이도록 변경) */
+#gallery .gallery-photos .gallery-photo:nth-child(n+13) {
     display: none;
 }
 
@@ -123,7 +114,7 @@ section { scroll-snap-align: start; padding: 60px 20px; text-align: center; }
     cursor: pointer;
     border: 1px solid #ccc;
     background-color: #fff;
-    border-radius: 5px;
+    border_radius: 5px;
     transition: background-color 0.3s ease;
 }
 
@@ -142,14 +133,14 @@ section { scroll-snap-align: start; padding: 60px 20px; text-align: center; }
 /* ... */
 #contact { padding: 80px 20px; background-color: #f8f8f8; text-align: center; /* height: 100vh; */ }
 /* ... */
-#account { background-color: #eee; border-top: 1px solid #ccc; font-size: 0.9em; color: #666; padding: 40px 20px; text-align: center; /* height: 100vh; */ }
+#account { background-color: #eee; border_top: 1px solid #ccc; font_size: 0.9em; color: #666; padding: 40px 20px; text-align: center; /* height: 100vh; */ }
 /* ... */
-footer { padding: 30px 20px; text-align: center; font-size: 0.8em; color: #aaa; background-color: #f4f4f4; }
+footer { padding: 30px 20px; text_align: center; font_size: 0.8em; color: #aaa; background_color: #f4f4f4; }
 
 
 /* --- 모달 (확대 사진 팝업) 스타일 --- */
 #myModal {
-    display: none; z-index: 10;
+    display: none; z_index: 10;
     position: fixed; left: 0; top: 0;
     width: 100%; height: 100%;
     overflow: auto;
@@ -161,30 +152,61 @@ footer { padding: 30px 20px; text-align: center; font-size: 0.8em; color: #aaa; 
 /* 모달 내용 (확대된 사진) 스타일 */
 #myModal .modal-content {
     margin: auto; display: block;
-    max-width: 90%; max-height: 90%;
-    object-fit: contain;
-    margin-top: 50px;
+    max_width: 90%; max_height: 90%;
+    object_fit: contain;
+    margin_top: 50px;
+    cursor: auto; /* 클릭해도 닫히지 않도록 커서 변경 */
 }
 
 /* 모달 닫기 버튼 스타일 */
 #myModal .close {
     position: absolute; top: 15px; right: 35px;
-    color: #f1f1f1; font-size: 40px; font-weight: bold;
+    color: #f1f1f1; font_size: 40px; font_weight: bold;
     transition: 0.3s; cursor: pointer;
+    z_index: 11;
 }
 
 /* 닫기 버튼 호버 시 스타일 */
 #myModal .close:hover,
 #myModal .close:focus {
     color: #bbb;
-    text-decoration: none;
+    text_decoration: none;
     cursor: pointer;
+}
+
+/* **추가**: 모달 이전/다음 버튼 스타일 */
+#myModal .prev,
+#myModal .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font_weight: bold;
+    font_size: 20px;
+    transition: 0.6s ease;
+    border_radius: 0 3px 3px 0;
+    user_select: none;
+    _webkit_user_select: none; /* Safari */
+}
+
+/* 다음 버튼 스타일 (우측에 위치) */
+#myModal .next {
+    right: 0;
+    border_radius: 3px 0 0 3px;
+}
+
+/* 이전/다음 버튼 호버 시 스타일 */
+#myModal .prev:hover,
+#myModal .next:hover {
+    background_color: rgba(0,0,0,0.8);
 }
 
 /* 배경 블러 처리를 위한 클래스 (JavaScript로 main 태그에 추가될 예정) */
 .blurred {
-    filter: blur(5px); /* 원하는 블러 정도 설정 (예: 5px) */
-    /* transition: filter 0.3s ease; /* 부드러운 블러 효과 전환 (선택 사항) */ */
-    /* 블러 처리 시 성능 문제가 발생할 수 있다면 will-change 속성을 추가할 수 있습니다. */
+    filter: blur(5px);
+    /* transition: filter 0.3s ease; */
     /* will-change: filter; */
 }
