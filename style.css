@@ -1,19 +1,10 @@
 /* --- 기본 스타일 초기화 및 설정 --- */
-/* 모든 요소에 box-sizing 적용 (패딩/보더 포함하여 요소 크기 계산) */
-* {
-    box-sizing: border-box;
-}
-
-/* html과 body에 스크롤 스냅 기능 활성화 */
+* { box-sizing: border-box; }
 html, body {
-    scroll-snap-type: y mandatory; /* 세로축(y) 방향으로 스크롤 스냅을 강제합니다. */
-    /* height: 100%; /* 선택 사항: 부모 높이 채우기 */ */
-    margin: 0; padding: 0; /* 기본 마진/패딩 제거 */
+    scroll-snap-type: y mandatory;
+    margin: 0; padding: 0;
 }
-
-/* --- 기본 스타일 (이전 코드와 동일) --- */
 body {
-    /* margin: 0; padding: 0; /* 위 html, body에서 설정 */ */
     font-family: 'Noto Sans KR', sans-serif;
     line-height: 1.6; color: #333;
     overflow-x: hidden; background-color: #fff;
@@ -76,17 +67,21 @@ section { scroll-snap-align: start; padding: 60px 20px; text-align: center; }
 #invitation-text .parents-names {
     font-family: 'Gowun Batang', serif;
     font-weight: 400;
-    font-size: 1em;
-    margin-top: 5px; /* 각 부모님 라인 사이의 위쪽 간격을 작게 설정 */
-    margin-bottom: 0px; /* 각 부모님 라인 사이의 아래쪽 간격을 0으로 설정 (딱 붙게) */
+    font-size: 1.2em; /* 본문 문구(1.1em)보다 글자 크기 크게 */
+    margin-top: 5px; /* 각 부모님 라인 사이의 위쪽 간격을 작게 유지 (margin-bottom: 0 과 함께 라인 간 간격 제어) */
+    margin-bottom: 0px; /* 각 부모님 라인 사이의 아래쪽 간격을 0으로 유지 (딱 붙게) */
     color: #555;
     line-height: 1.8;
 }
 
-/* **추가**: 부모님 정보 라인 중 첫 번째 요소에만 위쪽 간격 크게 적용 */
+/* **삭제**: 부모님 정보 라인 중 첫 번째 요소에만 위쪽 간격 크게 적용하는 first-of-type 규칙 삭제 */
+/* #invitation-text .parents-names:first-of-type { margin-top: 80px; } */
+
+
+/* **추가**: 부모님 정보 라인 중 첫 번째 요소(first-parent-names 클래스)에만 위쪽 간격 크게 적용 */
 /* 이 규칙이 '초록이~빛내주세요' 문단과 부모님 정보 블록 전체 사이의 간격을 설정합니다. */
-#invitation-text .parents-names:first-of-type {
-    margin-top: 60px; /* **수정**: 이전 문단과의 위쪽 간격 (60px로 설정) */
+#invitation-text .first-parent-names {
+    margin-top: 80px; /* **추가**: 이전 문단과의 위쪽 간격 (80px로 설정. 원하는 만큼 더 늘리세요) */
 }
 
 
