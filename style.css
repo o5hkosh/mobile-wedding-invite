@@ -76,14 +76,7 @@ section { padding: 60px 20px; text-align: center; } /* 섹션 전체는 가운�
 }
 
 /* 13번째 사진부터는 기본적으로 숨김 (JavaScript가 보이도록 변경) */
-/* 이 규칙은 더보기 기능 삭제로 필요 없어졌지만, 혹시 몰라 남겨둡니다. */
-/* 기본적으로 모든 사진이 보이게 하려면 이 규칙을 삭제하세요. */
 /* #gallery .gallery-photos .gallery-photo:nth-child(n+13) { display: none; } */
-
-
-/* 더보기 버튼 스타일 */
-/* 더보기 기능 삭제로 필요 없어졌습니다. */
-/* #loadMoreBtn { ... } */
 
 
 /* --- 네 번째 섹션: 결혼식 상세 정보 (날짜, 시간, 장소 등) --- */
@@ -114,8 +107,10 @@ section { padding: 60px 20px; text-align: center; } /* 섹션 전체는 가운�
 .info-items-container {
     margin: 0 auto; /* 가운데 정렬 */
     text-align: left; /* 이 컨테이너 안의 텍스트는 왼쪽 정렬 */
-    /* max-width: 300px; /* 필요시 최대 너비 지정하여 줄바꿈 조절 */ */
-    width: fit-content; /* 내용만큼만 너비를 차지하도록 함 */
+    max-width: 320px; /* 모바일에 적합한 최대 너비 설정 (필요시 조절) */
+    width: 100%; /* 부모 너비에 맞추되 max-width를 넘지 않도록 */
+    padding: 0 10px; /* 좌우 패딩 추가 (컨텐츠가 가장자리에 너무 붙지 않도록) */
+    box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
 }
 
 
@@ -125,8 +120,7 @@ section { padding: 60px 20px; text-align: center; } /* 섹션 전체는 가운�
     font-size: 1.1em;
     margin-bottom: 15px; /* 항목 아래 간격 */
     color: #555;
-    /* text-align: left; /* 부모에서 상속 */ */
-    /* width: fit-content; /* 부모에서 상속 */ */
+    /* text-align: left; /* 부모인 .info-items-container에서 상속 */ */
 }
 
 /* 정보 항목 레이블 (날짜, 시간, 장소) */
@@ -143,9 +137,9 @@ section { padding: 60px 20px; text-align: center; } /* 섹션 전체는 가운�
 #wedding-info .info-item .info-value {
     display: inline-block;
     text-align: left;
-    word-break: keep-all;
-    overflow-wrap: break-word;
-    max-width: calc(100% - 85px); /* 레이블 너비(70px) + 마진(10px) + 여유 공간(5px)을 뺀 나머지 공간 사용 */
+    word-break: keep-all; /* 단어 중간에 끊기지 않게 (한글) */
+    overflow-wrap: break-word; /* 긴 단어는 줄바꿈 */
+    max-width: calc(100% - 85px); /* 레이블 너비 + 마진 + 여유 공간을 뺀 나머지 공간 사용 */
     vertical-align: top; /* 레이블과 상단 정렬 */
 }
 
