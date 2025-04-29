@@ -1,172 +1,161 @@
 /* --- 기본 스타일 초기화 및 설정 --- */
 /* 웹 페이지의 기본적인 여백, 글꼴, 색상 등을 설정합니다. */
 body {
-    margin: 0; /* 페이지 전체의 기본 외부 여백 제거 */
-    padding: 0; /* 페이지 전체의 기본 내부 여백 제거 */
-    /* 본문용 기본 폰트 설정 (Google Fonts 예시 - Noto Sans KR) */
-    /* **중요**: HTML head에서 링크한 폰트 이름과 정확히 일치해야 합니다. */
-    font-family: 'Noto Sans KR', sans-serif;
-    line-height: 1.6; /* 문단 내 줄 간격 설정 (가독성을 높임) */
-    color: #333; /* 기본 글자 색상 (어두운 회색) */
-    overflow-x: hidden; /* 내용이 가로로 넘칠 경우 숨김 처리 (가로 스크롤 방지) */
-    background-color: #fff; /* 페이지 전체의 기본 배경 색상 */
-}
-
-/* 제목 태그(h1, h2, h3) 및 문단 태그(p)의 기본 마진/패딩 초기화 */
-h1, h2, h3, p {
-    margin: 0;
-    padding: 0;
-}
-
-/* 모든 section 태그에 공통적으로 적용될 스타일 */
-section {
-    padding: 60px 20px; /* 섹션 위아래로 60px, 좌우로 20px의 내부 여백 추가 */
-    text-align: center; /* 섹션 내부의 텍스트 및 인라인/인라인-블록 요소를 가운데 정렬 */
-}
-
-
-/* --- 첫 번째 섹션 (#intro) 스타일 --- */
-/* 메인 사진과 제목, 정보가 들어가는 첫 화면 섹션입니다. */
-#intro {
-    padding: 0; /* 이미지가 섹션을 꽉 채우도록 내부 여백 제거 */
-    position: relative; /* 이 섹션 내부의 절대 위치 요소들(.text-overlay)의 기준점이 됩니다. */
-    width: 100%; /* 섹션의 너비를 부모(body) 너비에 꽉 채웁니다. */
-    height: 100vh; /* 섹션 높이를 화면(viewport) 높이의 100%로 설정 */
-    overflow: hidden; /* 내용이 넘치면 숨김 */
-    background-color: #FEFBF6; /* 배경 색상 유지 */
-}
-
-/* 사진과 오버레이 텍스트들을 감싸는 내부 컨테이너 */
-.intro-container {
-    position: relative; /* 오버레이 텍스트의 기준점 */
-    width: 100%; /* 컨테이너 너비를 부모(#intro) 너비에 꽉 채웁니다. */
-    margin: 0; /* 가운데 정렬 마진 제거 */
-    height: 100%; /* 컨테이너 높이를 부모(#intro) 높이의 100%로 설정 (결과적으로 100vh) */
-}
-
-/* 결혼 사진 이미지 스타일 */
-.wedding-photo {
-    display: block; /* 이미지 아래에 생기는 원치 않는 공백 제거 */
-    width: 100%; /* intro-container 너비의 100% (이제 화면 너비의 100%) */
-    height: 100%; /* 이미지 높이를 부모(.intro-container) 높이의 100%로 설정 */
-    object-fit: cover; /* 이미지 비율을 유지하면서 컨테이너를 꽉 채우도록 설정 (필요시 이미지 일부 잘림) */
-    /* filter: brightness(0.8); /* 선택 사항: 이미지 밝기를 약간 낮춰서 글씨가 잘 보이게 합니다. */ */
-}
-
-/* 사진 위에 겹쳐질 텍스트들 (제목, 정보)의 공통 스타일 */
-.text-overlay {
-    position: absolute; /* 부모(.intro-container)를 기준으로 절대 위치를 지정합니다. */
-    left: 50%; /* 부모의 가로 중앙 (50%) 지점에 시작점을 위치시킵니다. */
-    transform: translateX(-50%); /* 시작점에서 요소 너비의 절반만큼 왼쪽으로 이동하여 완벽한 가로 중앙 정렬을 만듭니다. */
-    text-align: center; /* 이 요소 내부의 텍스트를 가운데 정렬합니다. */
-    color: white; /* 글자 색상을 흰색으로 설정 */
-    width: 90%; /* 오버레이 텍스트 영역의 너비 (intro-container 너비의 90%) (값 조절 가능) */
-    /* 모든 오버레이 텍스트에 적용될 그림자 효과 */
-    /* h-offset(가로 이동) v-offset(세로 이동) blur(번짐 정도) color(색상) */
-    text-shadow: 3px 3px 8px rgba(0,0,0,0.9); /* **수정**: 그림자를 더 진하고 뚜렷하게 (값 조절 가능) */
-    /* 만약 다른 쉐도우 스타일을 원하면 이 값을 수정하거나, 각 오버레이 클래스에 별도로 정의할 수 있습니다. */
-}
-
-/* 'We're getting married' 제목 오버레이 (#intro 섹션 안의 .intro-text-overlay) */
-.intro-text-overlay {
-    top: 15%; /* **수정**: 이미지 상단에서 15% 지점에 위치 (값을 줄여서 위로 올림) */
-    /* transform: translate(-50%, -50%); /* 만약 이 오버레이 자체를 intro-container의 완전 중앙에 놓고 싶다면 left, top을 50%로 하고 이 transform 사용 */ */
-}
-
-.intro-text-overlay h1 {
-    /* 'We're getting married' 글자 스타일 */
-    font-size: 10vw; /* 예시: 화면 너비의 10%. 이 값을 조절해 보세요. */
-    line-height: 1.2; /* 줄 간격 (줄바꿈이 있으므로 필요) */
-    margin: 0; /* h1 태그 자체의 기본 위아래 마진 제거 */
-    /* 폰트는 HTML에서 windsong-medium 클래스로 이미 적용되었습니다. */
-}
-
-/* 이름, 장소, 날짜 정보 오버레이 (#intro 섹션 안의 .wedding-details-overlay) */
-.wedding-details-overlay {
-    bottom: 15%; /* intro-container 하단에서 15% 지점에 위치 (값 조절하여 원하는 세로 위치로 이동) */
-    /* transform: translate(-50%, 50%); /* 만약 이 오버레이를 intro-container의 완전 하단 중앙에 놓고 싶다면 left를 50%, bottom을 0으로 설정하고 이 transform 사용 */ */
-}
-
-.wedding-details-overlay p {
-    /* 정보 텍스트들 (이름, 장소, 날짜)의 기본 스타일 */
-    font-size: 1.1em; /* 글자 크기 (조절 가능) */
-    margin: 5px 0; /* 각 정보 줄 (p 태그) 사이의 위아래 간격 */
-    font-weight: 400; /* 기본 굵기 */
-    /* 본문용 폰트는 body에서 상속받습니다. 다른 폰트를 원하면 여기에 font-family 지정 */
-}
-
-.wedding-details-overlay .names {
-     /* 이름 부분 글자 스타일 */
-     font-size: 1.3em; /* 이름 글자 크기 조금 더 크게 */
-     font-weight: 500; /* 이름 굵기 */
-     margin-bottom: 10px; /* 이름 줄 아래 간격 */
-}
-
-/* --- WindSong 폰트 클래스 (Google Fonts CSS 규칙) --- */
-/* 이 부분은 Google Fonts에서 WindSong 폰트 (400, 500 굵기 선택) 후 제공받은 @font-face 규칙 또는 링크 사용 시 자동으로 적용되는 클래스입니다. */
-/* Google Fonts 링크를 HTML head에 올바르게 추가했다면 이 코드는 사실상 필요 없을 수 있습니다. */
-/* 만약 직접 폰트 파일을 호스팅한다면 @font-face 규칙을 여기에 추가해야 합니다. */
-/* Google Fonts 사용 시 아래 코드는 그냥 두셔도 무방합니다. */
-.windsong-regular {
-  font-family: "WindSong", cursive;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.windsong-medium {
-  font-family: "WindSong", cursive;
-  font-weight: 500;
-  font-style: normal;
-}
-
-
-/* --- 나머지 섹션 스타일 (앞으로 함께 채워나갈 부분) --- */
-/* 현재는 기본적인 패딩과 가운데 정렬만 적용되어 있습니다. */
-
-#invitation-text {
-    background-color: #f8f8f8; /* 예시: 배경색 */
-    color: #555; /* 예시: 글자색 */
-    padding: 80px 20px; /* 초대글 섹션 패딩 조절 */
-}
-
-#invitation-text h2 {
-    color: #777; /* 예시: 제목 색상 */
-    margin-bottom: 30px; /* 제목 아래 간격 */
-}
-
-#invitation-text p {
-    margin-bottom: 20px; /* 문단 아래 간격 */
-}
-
-
-#gallery {
-    /* 갤러리 섹션 스타일 */
-    padding: 80px 0; /* 갤러리는 좌우 패딩 없이 꽉 채우는 경우도 많습니다 (컨테이너 사용) */
+    margin: 0; padding: 0;
+    font-family: 'Noto Sans KR', sans-serif; /* 기본 폰트 */
+    line-height: 1.6;
+    color: #333;
+    overflow-x: hidden;
     background-color: #fff;
 }
 
+h1, h2, h3, p { margin: 0; padding: 0; }
 
-#location {
-    /* 오시는 길 섹션 스타일 */
-    background-color: #f8f8f8;
-    padding-bottom: 80px; /* 지도나 약도 아래 여백 */
+section { padding: 60px 20px; text-align: center; }
+
+
+/* --- 첫 번째 섹션 (#intro) 스타일 --- */
+#intro {
+    padding: 0;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #FEFBF6;
+}
+
+.intro-container {
+    position: relative;
+    width: 100%; height: 100%;
+    margin: 0;
+}
+
+.wedding-photo {
+    display: block;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    /* filter: brightness(0.8); */
+}
+
+.text-overlay {
+    position: absolute;
+    left: 50%; transform: translateX(-50%);
+    text-align: center;
+    color: white;
+    width: 90%;
+    text-shadow: 3px 3px 8px rgba(0,0,0,0.9);
+}
+
+.intro-text-overlay { top: 15%; }
+
+.intro-text-overlay h1 {
+    font-size: 10vw;
+    line-height: 1.2;
+    margin: 0;
+    /* WindSong 폰트 클래스는 HTML에서 적용 */
+}
+
+.wedding-details-overlay { bottom: 15%; }
+
+.wedding-details-overlay p {
+    font-size: 1.1em;
+    margin: 5px 0;
+    font-weight: 400;
+    /* 본문용 폰트는 body에서 상속 또는 아래에 명시 */
+}
+
+.wedding-details-overlay .names {
+     font-size: 1.3em;
+     font-weight: 500;
+     margin-bottom: 10px;
+}
+
+/* --- Google Fonts 제공 폰트 클래스 (Google Fonts에서 제공받은 코드) --- */
+/* HTML head에 link를 추가했다면 이 클래스는 필요 없을 수 있지만, 그대로 둡니다. */
+/* 직접 @font-face로 정의했다면 해당 코드가 여기에 있어야 합니다. */
+.windsong-regular {
+  font-family: "WindSong", cursive;
+  font-weight: 400; font-style: normal;
+}
+.windsong-medium {
+  font-family: "WindSong", cursive;
+  font-weight: 500; font-style: normal;
+}
+.yellowtail-regular { /* **추가**: Yellowtail 폰트 클래스 */
+  font-family: "Yellowtail", cursive;
+  font-weight: 400; font-style: normal;
+}
+.gowun-batang-regular { /* **추가**: Gowun Batang 폰트 클래스 */
+  font-family: "Gowun Batang", serif;
+  font-weight: 400; font-style: normal;
 }
 
 
+/* --- 두 번째 섹션: 초대글 / 인사말 --- */
+#invitation-text {
+    background-color: #f8f8f8;
+    color: #555;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+#invitation-text h2 {
+    font-family: "Yellowtail", cursive; /* **수정**: 제목에 Yellowtail 폰트 적용 */
+    font-weight: 400; /* Yellowtail Regular 굵기 */
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+#invitation-text p {
+    font-family: 'Gowun Batang', serif; /* **수정**: 본문에 Gowun Batang 폰트 적용 */
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+
+/* --- 세 번째 섹션: 결혼식 상세 정보 (날짜, 시간, 장소 등) --- */
+#wedding-info {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #fff;
+}
+
+/* --- 네 번째 섹션: 갤러리 (사진들) --- */
+#gallery {
+    padding: 80px 0;
+    background-color: #f0f0f0;
+    text-align: center;
+}
+
+
+/* --- 다섯 번째 섹션: 오시는 길 (약도, 교통편) --- */
+#location {
+    background-color: #fff;
+    padding-bottom: 80px;
+    text-align: center;
+}
+
+
+/* --- 여섯 번째 섹션: 연락처 정보 --- */
 #contact {
-     /* 연락처 섹션 스타일 */
      padding-top: 80px;
      padding-bottom: 80px;
+     background-color: #f8f8f8;
+     text-align: center;
 }
 
 
-/* 계좌 정보 섹션은 보통 구분선을 넣거나 배경색을 다르게 합니다 */
+/* --- 일곱 번째 섹션: 축하의 마음 전하기 (선택 사항) --- */
 #account {
-    background-color: #eee; /* 예시: 배경색 */
-    border-top: 1px solid #ccc; /* 예시: 상단 구분선 */
-    font-size: 0.9em; /* 예시: 글자 크기 */
+    background-color: #eee;
+    border-top: 1px solid #ccc;
+    font-size: 0.9em;
     color: #666;
     padding: 40px 20px;
+    text-align: center;
 }
 
 /* Footer 스타일 (페이지 하단 정보) */
@@ -174,6 +163,6 @@ footer {
     padding: 30px 20px;
     text-align: center;
     font-size: 0.8em;
-    color: #aaa; /* 연한 회색 */
+    color: #aaa;
     background-color: #f4f4f4;
 }
