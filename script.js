@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // galleryPhotos는 0부터 시작하는 배열과 같으므로, 13번째 사진은 인덱스 12입니다.
             for (let i = 12; i < galleryPhotos.length; i++) {
                 // 사진을 보이게 할 때 removeProperty를 사용합니다.
-                galleryPhotos[i].style.removeProperty('display');
+                galleryPhotos[i].style.removeProperty('display'); // Load More fix attempt
             }
 
             // 모든 사진을 보이게 한 후에는 '더보기' 버튼을 숨깁니다.
@@ -92,8 +92,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 다음 버튼 클릭 이벤트 리스너
     if (nextBtn) {
-        nextPhotoIndex = currentPhotoIndex + 1; // 다음 사진 인덱스
-        // **수정**: 다음 버튼 로직을 함수 호출로 변경
         nextBtn.addEventListener('click', function() {
              currentPhotoIndex++; // 다음 사진 인덱스
              showPhotoInModal(currentPhotoIndex);
@@ -111,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- 이전/다음 버튼의 표시 상태를 업데이트하는 함수 ---
+    // 첫 사진이면 이전 버튼 숨김, 마지막 사진이면 다음 버튼 숨김
     function updateModalNavButtons() {
         if (prevBtn) {
             if (currentPhotoIndex === 0) {
