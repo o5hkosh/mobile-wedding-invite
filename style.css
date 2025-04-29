@@ -81,11 +81,11 @@ section { padding: 60px 20px; text-align: center; }
   font-family: "WindSong", cursive;
   font-weight: 500; font-style: normal;
 }
-.yellowtail-regular { /* **추가**: Yellowtail 폰트 클래스 */
+.yellowtail-regular {
   font-family: "Yellowtail", cursive;
   font-weight: 400; font-style: normal;
 }
-.gowun-batang-regular { /* **추가**: Gowun Batang 폰트 클래스 */
+.gowun-batang-regular {
   font-family: "Gowun Batang", serif;
   font-weight: 400; font-style: normal;
 }
@@ -93,25 +93,26 @@ section { padding: 60px 20px; text-align: center; }
 
 /* --- 두 번째 섹션: 초대글 / 인사말 --- */
 #invitation-text {
-    background-color: #f8f8f8;
-    color: #555;
+    background-color: #FEFBF6; /* **수정**: 섹션 배경색을 #FEFBF6으로 설정 */
+    color: #555; /* 기본 글자 색상 (본문에 적용되거나 하위 요소 상속) */
     padding: 80px 20px;
     text-align: center;
 }
 
 #invitation-text h2 {
-    font-family: "Yellowtail", cursive; /* **수정**: 제목에 Yellowtail 폰트 적용 */
-    font-weight: 400; /* Yellowtail Regular 굵기 */
+    font-family: "Yellowtail", cursive;
+    font-weight: 400; /* **수정**: Yellowtail Regular 굵기 */
     font-size: 2.5em;
-    color: #333;
+    color: #4B4D39; /* **수정**: 제목 색상을 #4B4D39으로 설정 */
     margin-bottom: 30px;
 }
 
 #invitation-text p {
-    font-family: 'Gowun Batang', serif; /* **수정**: 본문에 Gowun Batang 폰트 적용 */
+    font-family: 'Gowun Batang', serif;
+    font-weight: 400; /* **수정**: Gowun Batang Regular 굵기 */
     font-size: 1.1em;
     line-height: 1.8;
-    color: #555;
+    color: #555; /* **수정**: 본문 색상을 #555로 설정 */
     margin-bottom: 20px;
 }
 
