@@ -1,7 +1,18 @@
-/* --- 기본 스타일 초기화 및 설정 --- */
-/* 웹 페이지의 기본적인 여백, 글꼴, 색상 등을 설정합니다. */
+/* 모든 요소에 box-sizing 적용 (패딩/보더 포함하여 요소 크기 계산) */
+* {
+    box-sizing: border-box;
+}
+
+/* html과 body에 스크롤 스냅 기능 활성화 */
+html, body {
+    scroll-snap-type: y mandatory; /* 세로축(y) 방향으로 스크롤 스냅을 강제합니다. */
+    /* height: 100%; /* 선택 사항: 부모 높이 채우기 */ */
+    margin: 0; padding: 0; /* 기본 마진/패딩 제거 */
+}
+
+/* --- 기본 스타일 (이전 코드와 동일) --- */
 body {
-    margin: 0; padding: 0;
+    /* margin: 0; padding: 0; /* 위 html, body에서 설정 */ */
     font-family: 'Noto Sans KR', sans-serif; /* 기본 폰트 */
     line-height: 1.6;
     color: #333;
@@ -11,10 +22,15 @@ body {
 
 h1, h2, h3, p { margin: 0; padding: 0; }
 
-section { padding: 60px 20px; text-align: center; }
+/* 모든 section 태그에 스크롤 스냅 맞춤 기준 설정 및 기본 패딩 */
+section {
+    scroll-snap-align: start; /* 스크롤될 때 섹션의 시작 부분이 화면 상단에 맞춰지도록 합니다. */
+    padding: 60px 20px;
+    text-align: center;
+}
 
 
-/* --- 첫 번째 섹션 (#intro) 스타일 --- */
+/* --- 첫 번째 섹션 (#intro) 스타일 (이전 코드와 동일) --- */
 #intro {
     padding: 0;
     position: relative;
@@ -22,6 +38,7 @@ section { padding: 60px 20px; text-align: center; }
     height: 100vh;
     overflow: hidden;
     background-color: #FEFBF6;
+    /* scroll-snap-align: start; /* 이미 section에 설정 */ */
 }
 
 .intro-container {
@@ -55,55 +72,45 @@ section { padding: 60px 20px; text-align: center; }
     /* WindSong 폰트 클래스는 HTML에서 적용 */
 }
 
-/* 이름, 장소, 날짜 정보 오버레이 (#intro 섹션 안의 .wedding-details-overlay) */
-.wedding-details-overlay {
-    bottom: 8%; /* **수정**: 이미지 하단에서 8% 지점에 위치 (값을 줄여서 아래로 이동. 원하는 만큼 조절하세요) */
-    /* transform: translate(-50%, 50%); /* 만약 완전 하단 중앙에 놓고 싶다면 left를 50%, bottom을 0으로 설정하고 이 transform 사용 */ */
-}
+.wedding-details-overlay { bottom: 8%; }
 
 .wedding-details-overlay p {
-    font-family: 'Gowun Batang', serif; /* **추가**: Gowun Batang 폰트 적용 */
-    font-weight: 400; /* Gowun Batang Regular 굵기 */
+    font-family: 'Gowun Batang', serif;
+    font-weight: 400;
     font-size: 1.1em;
-    line-height: 1.5; /* **조절**: 줄 간격 조금 줄여서 정보들이 밀집되게 할 수 있습니다 (선택 사항) */
-    margin: 5px 0; /* 각 정보 줄 사이의 위아래 간격 */
-    /* color: white; /* 기본 색상은 text-overlay 부모에서 상속받음 */ */
+    line-height: 1.5;
+    margin: 5px 0;
 }
 
 .wedding-details-overlay .names {
-     /* 이름 부분 글자 스타일 */
      font-size: 1.3em;
-     font-weight: 400; /* **수정**: 이름 굵기를 Regular (400)으로 변경 (Gowun Batang Regular에 맞춤) */
-     margin-bottom: 8px; /* **조절**: 이름 줄 아래 간격 (원하는 만큼 조절) */
+     font-weight: 400;
+     margin-bottom: 8px;
 }
 
-/* --- Google Fonts 제공 폰트 클래스 (Google Fonts에서 제공받은 코드) --- */
-/* HTML head에 link를 추가했다면 이 클래스는 필요 없을 수 있지만, 그대로 둡니다. */
-/* 직접 @font-face로 정의했다면 해당 코드가 여기에 있어야 합니다. */
+/* --- Google Fonts 제공 폰트 클래스 (이전 코드와 동일) --- */
 .windsong-regular {
-  font-family: "WindSong", cursive;
-  font-weight: 400; font-style: normal;
+  font-family: "WindSong", cursive; font-weight: 400; font-style: normal;
 }
 .windsong-medium {
-  font-family: "WindSong", cursive;
-  font-weight: 500; font-style: normal;
+  font-family: "WindSong", cursive; font-weight: 500; font-style: normal;
 }
 .yellowtail-regular {
-  font-family: "Yellowtail", cursive;
-  font-weight: 400; font-style: normal;
+  font-family: "Yellowtail", cursive; font-weight: 400; font-style: normal;
 }
 .gowun-batang-regular {
-  font-family: "Gowun Batang", serif;
-  font-weight: 400; font-style: normal;
+  font-family: "Gowun Batang", serif; font-weight: 400; font-style: normal;
 }
 
 
 /* --- 두 번째 섹션: 초대글 / 인사말 --- */
 #invitation-text {
+    height: 100vh; /* **추가**: 섹션 높이를 화면 높이 전체로 설정 */
     background-color: #FEFBF6;
     color: #555;
     padding: 80px 20px;
     text-align: center;
+    /* scroll-snap-align: start; /* 이미 section에 설정 */ */
 }
 
 #invitation-text h2 {
@@ -126,6 +133,7 @@ section { padding: 60px 20px; text-align: center; }
 
 /* --- 세 번째 섹션: 결혼식 상세 정보 (날짜, 시간, 장소 등) --- */
 #wedding-info {
+    /* height: 100vh; /* 원하면 추가 */ */
     padding: 60px 20px;
     text-align: center;
     background-color: #fff;
@@ -133,6 +141,7 @@ section { padding: 60px 20px; text-align: center; }
 
 /* --- 네 번째 섹션: 갤러리 (사진들) --- */
 #gallery {
+    /* height: 100vh; /* 원하면 추가 */ */
     padding: 80px 0;
     background-color: #f0f0f0;
     text-align: center;
@@ -141,6 +150,7 @@ section { padding: 60px 20px; text-align: center; }
 
 /* --- 다섯 번째 섹션: 오시는 길 (약도, 교통편) --- */
 #location {
+    /* height: 100vh; /* 원하면 추가 */ */
     background-color: #fff;
     padding-bottom: 80px;
     text-align: center;
@@ -149,6 +159,7 @@ section { padding: 60px 20px; text-align: center; }
 
 /* --- 여섯 번째 섹션: 연락처 정보 --- */
 #contact {
+     /* height: 100vh; /* 원하면 추가 */ */
      padding-top: 80px;
      padding-bottom: 80px;
      background-color: #f8f8f8;
@@ -158,6 +169,7 @@ section { padding: 60px 20px; text-align: center; }
 
 /* --- 일곱 번째 섹션: 축하의 마음 전하기 (선택 사항) --- */
 #account {
+    /* height: 100vh; /* 원하면 추가 */ */
     background-color: #eee;
     border-top: 1px solid #ccc;
     font-size: 0.9em;
