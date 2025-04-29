@@ -99,43 +99,37 @@ footer { padding: 30px 20px; text-align: center; font-size: 0.8em; color: #aaa; 
 
 /* --- 모달 (확대 사진 팝업) 스타일 --- */
 #myModal {
-    display: none; z-index: 10;
+    display: none; /* **수정**: 기본적으로 숨김 */
+    z-index: 10;
     position: fixed; left: 0; top: 0;
     width: 100%; height: 100%;
-    overflow: hidden; /* 슬라이드 이미지 넘치는 부분 숨김 */
-    background-color: rgba(0,0,0,0.9); /* 배경색 (사진으로 가득 채우면 안 보일 수 있음) */
+    overflow: auto; /* **수정**: 내용이 화면 넘칠 경우 스크롤 허용 */
+    background-color: rgba(0,0,0,0.9);
     /* opacity: 0; */
     /* transition: opacity 0.5s ease; */
 
-    display: flex; /* Flexbox 사용하여 이미지 슬라이드 중앙 정렬 */
-    justify-content: center; /* 가로 중앙 정렬 */
-    align-items: center; /* 세로 중앙 정렬 */
+    /* **삭제**: Flexbox 사용하여 이미지 슬라이드 중앙 정렬 */
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
 }
 
-/* **삭제**: 모달 내용 (확대된 사진) 스타일 - 이제 슬라이드 이미지 스타일 사용 */
-/* #myModal .modal-content { ... } */
-
-
-/* 사진 슬라이드를 담는 컨테이너 스타일 */
-#myModal .modal-slides {
-    display: flex; /* Flexbox 컨테이너 */
-    width: 300%; /* 3개 이미지를 가로로 배치할 수 있도록 충분히 넓게 (3 * 100%) */
-    height: 100%; /* 모달 높이와 같게 */
-    /* overflow: hidden; /* 부모 모달에서 처리 */ */
-    /* margin: auto; */
-    transition: transform 0.3s ease; /* 부드러운 슬라이드 애니메이션 */
-    /* will-change: transform; */
+/* **수정**: 모달 내용 (확대된 사진) 스타일 - 다시 활성화 */
+#myModal .modal-content {
+    margin: auto; /* **추가**: 가로 중앙 정렬 */
+    display: block; /* **추가**: margin: auto 적용을 위해 블록 요소로 변경 */
+    max-width: 90%; /* **추가**: 화면 너비의 최대 90% */
+    max-height: 90%; /* **추가**: 화면 높이의 최대 90% */
+    object-fit: contain; /* **추가**: 이미지 전체가 잘리지 않고 보이도록 비율 유지 */
+    margin-top: 50px; /* **추가**: 상단 여백 (닫기 버튼과 겹치지 않게) */
+    cursor: auto; /* 클릭해도 닫히지 않도록 커서 변경 */
 }
 
-/* **수정**: 슬라이드 개별 사진 스타일 - 모달 안에 잘리지 않고 맞게 표시 */
-#myModal .modal-slide-image {
-    display: block;
-    width: 33.33%; /* 슬라이드 컨테이너 너비의 1/3 */
-    height: 100%; /* **수정**: 높이 100% */
-    max-height: 100%; /* 모달 높이 이상 커지지 않도록 제한 */
-    object-fit: contain; /* **수정**: 이미지 전체가 잘리지 않고 보이도록 비율 유지 */
-    /* margin: auto; */
-}
+/* **삭제**: 사진 슬라이드를 담는 컨테이너 스타일 */
+/* #myModal .modal-slides { ... } */
+
+/* **삭제**: 슬라이드 개별 사진 스타일 */
+/* #myModal .modal-slide-image { ... } */
 
 
 /* 모달 닫기 버튼 스타일 */
@@ -169,8 +163,8 @@ footer { padding: 30px 20px; text-align: center; font-size: 0.8em; color: #aaa; 
     transition: 0.6s ease;
     border-radius: 0 3px 3px 0;
     user-select: none;
-    _webkit_user_select: none; /* Safari */
-    z_index: 11;
+    -webkit-user-select: none; /* Safari */
+    z-index: 11;
 }
 
 /* 다음 버튼 스타일 (우측에 위치) */
