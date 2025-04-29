@@ -33,21 +33,21 @@ section {
     width: 100%; /* 섹션의 너비를 부모(body) 너비에 꽉 채웁니다. */
     /* height: 100vh; /* 선택 사항: 만약 이 섹션을 화면 높이 전체로 설정하고 싶다면 이 주석을 해제하세요. */ */
     overflow: hidden; /* 이 섹션 내부의 내용이 넘칠 경우 숨김 처리합니다. */
-    background-color: #FEFBF6; /* **수정** - 사진 주변에 적용될 배경 색상 */
+    background-color: #FEFBF6; /* 사진 주변에 적용될 배경 색상 */
 }
 
 /* 사진과 오버레이 텍스트들을 감싸는 내부 컨테이너 */
 .intro-container {
-    position: relative; /* 이 컨테이너 내부의 절대 위치 요소들(.text-overlay)의 기준점이 됩니다. */
-    width: 50%; /* **수정** - 컨테이너 너비를 부모(#intro) 너비의 50%로 설정 (결과적으로 화면 너비의 50%) */
-    margin: 0 auto; /* **수정** - 너비가 100%가 아닌 블록 요소를 부모 안에서 가운데 정렬합니다. */
+    position: relative; /* 오버레이 텍스트의 기준점 */
+    width: 100%; /* **수정** - 컨테이너 너비를 부모(#intro) 너비에 꽉 채웁니다. */
+    margin: 0; /* **수정** - 가운데 정렬 마진 제거 */
     /* height: 100%; /* 선택 사항: 부모 높이에 꽉 차게 하려면 이 주석을 해제하세요. */ */
 }
 
 /* 결혼 사진 이미지 스타일 */
 .wedding-photo {
     display: block; /* 이미지 아래에 생기는 원치 않는 공백 제거 */
-    width: 100%; /* **수정 아님** - intro-container 너비의 100% (결과적으로 화면 너비의 50%) */
+    width: 100%; /* intro-container 너비의 100% (이제 화면 너비의 100%) */
     height: auto; /* 너비에 맞춰 높이 자동 조절하여 이미지의 원래 비율을 유지 */
     /* object-fit: cover; /* 선택 사항: 이미지가 컨테이너 영역을 비율에 맞게 꽉 채우도록 합니다. 잘리는 부분이 생길 수 있습니다. */ */
     /* filter: brightness(0.8); /* 선택 사항: 이미지 밝기를 약간 낮춰서 위에 올라가는 글씨가 더 잘 보이게 합니다. */ */
@@ -70,12 +70,13 @@ section {
 /* 'We're getting married' 제목 오버레이 (#intro 섹션 안의 .intro-text-overlay) */
 .intro-text-overlay {
     top: 25%; /* intro-container 상단에서 25% 지점에 위치 (값 조절하여 원하는 세로 위치로 이동) */
-    /* transform: translate(-50%, -50%); /* 만약 이 오버레이 자체를 intro-container의 완전 중앙에 놓고 싶다면 left, top을 50%로 설정하고 이 transform 사용 */ */
+    /* transform: translate(-50%, -50%); /* 만약 이 오버레이 자체를 intro-container의 완전 중앙에 놓고 싶다면 left, top을 50%로 하고 이 transform 사용 */ */
 }
 
 .intro-text-overlay h1 {
     /* 'We're getting married' 글자 스타일 */
-    font-size: 4em; /* **수정** - 글자 크기를 훨씬 더 크게 조정 (원하는 만큼 조절하세요, 6vw 등으로 시도 가능) */
+    /* **수정**: 글자 크기를 모바일 화면에 맞춰 줄입니다. vw 단위를 사용해 보세요. */
+    font-size: 10vw; /* 예시: 화면 너비의 10%. 이 값을 조절해 보세요. */
     line-height: 1.2; /* 줄 간격 (줄바꿈이 있으므로 필요) */
     margin: 0; /* h1 태그 자체의 기본 위아래 마진 제거 */
     /* 폰트는 HTML에서 windsong-medium 클래스로 이미 적용되었습니다. */
