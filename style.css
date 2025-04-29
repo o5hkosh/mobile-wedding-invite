@@ -103,77 +103,64 @@ section { padding: 60px 20px; text-align: center; } /* 섹션 전체는 가운�
     text-align: center;
 }
 
-/* 정보 항목들을 감싸는 새로운 컨테이너 스타일 (Grid 적용) */
+/* 정보 항목들을 감싸는 컨테이너 - 이제 Grid는 각 항목에 적용 */
 .info-items-container {
     margin: 0 auto; /* 가운데 정렬 */
-    display: grid; /* Grid 활성화 */
-    grid-template-columns: 85px 1fr; /* 레이블 열(고정 85px)과 값 열(남은 공간) */
-    gap: 0 10px; /* 행 간격 0, 열 간격 10px */
-    text-align: left; /* Grid 컨테이너 안의 텍스트는 왼쪽 정렬 */
+    text-align: left; /* 항목들 자체는 이 컨테이너 내에서 왼쪽 정렬 */
     max-width: 400px; /* 모바일에 적합한 최대 너비 설정 */
     width: 100%; /* 부모 너비에 맞추되 max-width를 넘지 않도록 */
     padding: 0 10px; /* 좌우 패딩 추가 */
     box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
+    /* 이전 Grid/Flexbox 속성 제거 */
+    display: block; /* 기본값으로 되돌림 */
 }
 
 
-/* 개별 정보 항목 (날짜, 시간, 장소) 컨테이너 (p 태그) - Grid에서는 별도의 행 지정을 하지 않아도 순서대로 배치됨 */
+/* 개별 정보 항목 (날짜, 시간, 장소) - 이제 이 p 태그가 Grid 컨테이너 */
 #wedding-info .info-item {
     font-family: 'Gowun Batang', serif;
     font-size: 1.1em;
-    margin: 0; /* 부모 Grid의 gap으로 간격 처리 */
-    padding: 7.5px 0; /* 위아래 패딩으로 항목 간 간격 조정 (margin-bottom 대체) */
+    margin-bottom: 15px; /* 항목 아래 간격 */
     color: #555;
-    /* display: flex 등 이전 속성 제거 */
-    /* justify-content, align-items 등 이전 Flexbox 속성 제거 */
-    /* width: 100%; 등 이전 Flexbox 속성 제거 */
 
-    /* Grid 열 지정 */
-    grid-column: 1 / span 2; /* 이 항목(p)이 1번 열부터 2칸(레이블+값 열)을 차지하도록 함 */
-    display: contents; /* p 태그 자체는 레이아웃에 영향을 주지 않고 자식만 Grid 요소처럼 배치되게 함 */
-    /* NOTE: display: contents는 IE에서 지원되지 않지만, 모바일 청첩장 목적이면 대부분 최신 브라우저이므로 괜찮을 수 있습니다.
-       다른 방법으로는 p 태그 대신 label/value를 직접 Grid item으로 만들거나, p 태그 자체를 Grid item으로 유지하며 내부 span을 위치시키는 복잡한 방법이 있습니다.
-       일단 display: contents가 가장 간단하게 Grid 열 배치 효과를 낼 수 있어 시도합니다. */
+    display: grid; /* 이 p 태그를 Grid 컨테이너로 설정 */
+    grid-template-columns: 85px 1fr; /* 레이블 열(고정 85px)과 값 열(남은 공간) */
+    gap: 0 10px; /* 행 간격 0, 열 간격 10px */
+    text-align: left; /* 이 항목 안의 텍스트는 왼쪽 정렬 */
+
+    /* 이전 Flexbox 속성 제거 */
+    /* width: 100%; 등 제거 */
 }
 
 /* 정보 항목 레이블 (날짜, 시간, 장소) - Grid Item */
 #wedding-info .info-item .info-label {
-    /* display: inline-block; 등 이전 속성 제거 */
-    /* width, flex-shrink 등 이전 Flexbox 속성 제거 */
     font-weight: 700;
     text-align: left;
-    /* margin-right: 10px; /* Grid gap으로 대체 */ */
-    /* vertical-align: top; /* Grid에서는 align-items로 정렬 */ */
-    /* Grid 열 지정 */
     grid-column: 1; /* 1번 열에 배치 */
     align-self: start; /* 내용 상단 정렬 */
+    /* 이전 속성 제거 (display, width, flex-shrink 등) */
 }
 
 /* 정보 항목 값 (실제 날짜, 시간, 주소) - Grid Item */
 #wedding-info .info-item .info-value {
-    /* display: inline-block; 등 이전 속성 제거 */
-    /* flex-grow 등 이전 Flexbox 속성 제거 */
     text-align: left;
     word-break: keep-all;
     overflow-wrap: break-word;
-    /* max-width 계산 제거 */
-    /* vertical-align: top; 등 이전 속성 제거 */
-    /* Grid 열 지정 */
     grid-column: 2; /* 2번 열에 배치 */
     align-self: start; /* 내용 상단 정렬 */
+    /* 이전 속성 제거 (display, flex-grow, max-width 등) */
 }
 
 
 /* 달력 컨테이너 스타일 */
 #wedding-info .calendar-container {
     margin: 50px auto 0 auto; /* 위쪽 간격, 가운데 정렬 */
-    /* display: inline-block; /* Grid 컨테이너 내에서 가운데 정렬되도록 블록 요소로 두는 것이 좋습니다 */ */
+    display: block; /* 블록 요소로 가운데 정렬 */
     padding: 25px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    /* Grid 레이아웃 내에서의 위치 조정 (필요시) */
-    grid-column: 1 / span 2; /* 달력이 1번 열부터 2칸(레이블+값 열)을 차지하도록 함 */
+    /* 그리드 속성은 .info-items-container에 적용할 때 사용했었음 (제거) */
     width: fit-content; /* 달력 내용만큼 너비 설정 (가운데 정렬 목적) */
 }
 
@@ -218,7 +205,7 @@ section { padding: 60px 20px; text-align: center; } /* 섹션 전체는 가운�
 
 /* 일요일 색상 */
 #wedding-info .calendar-container th:first-child,
-#wedding-info .calendar-items-container .highlighted-date {
+#wedding-info .calendar-container td:first-child {
     color: #ff0000;
 }
 
