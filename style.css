@@ -103,52 +103,44 @@ section { padding: 60px 20px; text-align: center; } /* 섹션 전체는 가운�
     text-align: center;
 }
 
-/* 정보 항목들을 감싸는 컨테이너 - 이제 Grid는 각 항목에 적용 */
-.info-items-container {
+/* 정보 항목들을 담는 TABLE 스타일 */
+.info-table {
     margin: 0 auto; /* 가운데 정렬 */
-    text-align: left; /* 항목들 자체는 이 컨테이너 내에서 왼쪽 정렬 */
-    max-width: 400px; /* 모바일에 적합한 최대 너비 설정 */
-    width: 100%; /* 부모 너비에 맞추되 max-width를 넘지 않도록 */
-    padding: 0 10px; /* 좌우 패딩 추가 */
-    box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
-    /* 이전 Grid/Flexbox 속성 제거 */
-    display: block; /* 기본값으로 되돌림 */
-}
-
-
-/* 개별 정보 항목 (날짜, 시간, 장소) - 이제 이 p 태그가 Grid 컨테이너 */
-#wedding-info .info-item {
+    border-collapse: collapse; /* 셀 간격 없이 */
     font-family: 'Gowun Batang', serif;
     font-size: 1.1em;
-    margin-bottom: 15px; /* 항목 아래 간격 */
     color: #555;
-
-    display: grid; /* 이 p 태그를 Grid 컨테이너로 설정 */
-    grid-template-columns: 85px 1fr; /* 레이블 열(고정 85px)과 값 열(남은 공간) */
-    gap: 0 10px; /* 행 간격 0, 열 간격 10px */
-    text-align: left; /* 이 항목 안의 텍스트는 왼쪽 정렬 */
-
-    /* 이전 Flexbox 속성 제거 */
-    /* width: 100%; 등 제거 */
+    text-align: left; /* 테이블 안의 텍스트는 왼쪽 정렬 */
+    max-width: 400px; /* 모바일에 적합한 최대 너비 설정 */
+    width: 100%; /* 부모 너비에 맞추되 max-width를 넘지 않도록 */
+    /* padding: 0 10px; /* 테이블에는 보통 패딩 적용 안 함 */ */
+    box-sizing: border-box;
 }
 
-/* 정보 항목 레이블 (날짜, 시간, 장소) - Grid Item */
-#wedding-info .info-item .info-label {
+/* 테이블 행 스타일 */
+.info-table tr {
+    /* 기본 스타일 사용 */
+}
+
+/* 테이블 셀 (레이블/값) 스타일 */
+.info-table td {
+    padding: 4px 0; /* 위아래 패딩으로 행 간격 조정 */
+    /* 첫 번째 셀 (레이블)과 두 번째 셀 (값) 각각 스타일 지정 */
+    vertical-align: top; /* 내용이 여러 줄일 경우 상단 정렬 */
+}
+
+/* 첫 번째 셀 (레이블) 스타일 */
+.info-table td:first-child {
     font-weight: 700;
-    text-align: left;
-    grid-column: 1; /* 1번 열에 배치 */
-    align-self: start; /* 내용 상단 정렬 */
-    /* 이전 속성 제거 (display, width, flex-shrink 등) */
+    width: 85px; /* 레이블 너비 고정 */
+    padding-right: 10px; /* 레이블과 값 사이 간격 */
 }
 
-/* 정보 항목 값 (실제 날짜, 시간, 주소) - Grid Item */
-#wedding-info .info-item .info-value {
-    text-align: left;
-    word-break: keep-all;
-    overflow-wrap: break-word;
-    grid-column: 2; /* 2번 열에 배치 */
-    align-self: start; /* 내용 상단 정렬 */
-    /* 이전 속성 제거 (display, flex-grow, max-width 등) */
+/* 두 번째 셀 (값) 스타일 */
+.info-table td:last-child {
+    /* 남은 공간을 자동으로 차지 */
+    word-break: keep-all; /* 단어 중간에 끊기지 않게 (한글) */
+    overflow-wrap: break-word; /* 긴 단어는 줄바꿈 */
 }
 
 
@@ -160,7 +152,6 @@ section { padding: 60px 20px; text-align: center; } /* 섹션 전체는 가운�
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    /* 그리드 속성은 .info-items-container에 적용할 때 사용했었음 (제거) */
     width: fit-content; /* 달력 내용만큼 너비 설정 (가운데 정렬 목적) */
 }
 
