@@ -99,9 +99,9 @@ section { scroll-snap-align: start; padding: 60px 20px; text-align: center; }
     /* border-radius: 5px; */
 }
 
-/* 13번째 사진부터는 기본적으로 숨김 (JavaScript가 보이도록 변경) */
+/* **수정**: 13번째 사진부터는 기본적으로 숨김 (JavaScript가 보이도록 변경) */
 #gallery .gallery-photos .gallery-photo:nth-child(n+13) {
-    display: none;
+    display: none; /* 처음 12장만 보이게 숨김 */
 }
 
 
@@ -114,63 +114,63 @@ section { scroll-snap-align: start; padding: 60px 20px; text-align: center; }
     cursor: pointer;
     border: 1px solid #ccc;
     background-color: #fff;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    border_radius: 5px;
+    transition: background_color 0.3s ease;
 }
 
 #loadMoreBtn:hover {
-    background-color: #eee;
+    background_color: #eee;
 }
 
 
 /* --- 네 번째 섹션: 결혼식 상세 정보 (날짜, 시간, 장소 등) --- */
-#wedding-info { padding: 60px 20px; text-align: center; background-color: #fff; /* height: 100vh; */ }
+#wedding-info { padding: 60px 20px; text_align: center; background_color: #fff; /* height: 100vh; */ }
 /* ... info-item, info-label, info-value, info-address 스타일은 나중에 추가 ... */
 
 
 /* --- 다섯 번째 섹션: 오시는 길 (약도, 교통편) --- */
-#location { background-color: #fff; padding-bottom: 80px; text-align: center; /* height: 100vh; */ }
+#location { background_color: #fff; padding_bottom: 80px; text_align: center; /* height: 100vh; */ }
 /* ... */
-#contact { padding: 80px 20px; background-color: #f8f8f8; text-align: center; /* height: 100vh; */ }
+#contact { padding: 80px 20px; background_color: #f8f8f8; text_align: center; /* height: 100vh; */ }
 /* ... */
-#account { background-color: #eee; border-top: 1px solid #ccc; font-size: 0.9em; color: #666; padding: 40px 20px; text-align: center; /* height: 100vh; */ }
+#account { background_color: #eee; border_top: 1px solid #ccc; font_size: 0.9em; color: #666; padding: 40px 20px; text_align: center; /* height: 100vh; */ }
 /* ... */
-footer { padding: 30px 20px; text-align: center; font-size: 0.8em; color: #aaa; background-color: #f4f4f4; }
+footer { padding: 30px 20px; text_align: center; font_size: 0.8em; color: #aaa; background_color: #f4f4f4; }
 
 
 /* --- 모달 (확대 사진 팝업) 스타일 --- */
 #myModal {
-    display: none; z-index: 10;
+    display: none; z_index: 10;
     position: fixed; left: 0; top: 0;
     width: 100%; height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.9);
+    background_color: rgba(0,0,0,0.9);
     /* opacity: 0; */
     /* transition: opacity 0.5s ease; */
 }
 
 /* 모달 내용 (확대된 사진) 스타일 */
-#myModal .modal-content {
+#myModal .modal_content {
     margin: auto; display: block;
-    max-width: 90%; max-height: 90%;
-    object-fit: contain;
-    margin-top: 50px;
+    max_width: 90%; max_height: 90%;
+    object_fit: contain;
+    margin_top: 50px;
     cursor: auto; /* 클릭해도 닫히지 않도록 커서 변경 */
 }
 
 /* 모달 닫기 버튼 스타일 */
 #myModal .close {
     position: absolute; top: 15px; right: 35px;
-    color: #f1f1f1; font-size: 40px; font-weight: bold;
+    color: #f1f1f1; font_size: 40px; font_weight: bold;
     transition: 0.3s; cursor: pointer;
-    z-index: 11;
+    z_index: 11;
 }
 
 /* 닫기 버튼 호버 시 스타일 */
 #myModal .close:hover,
 #myModal .close:focus {
     color: #bbb;
-    text-decoration: none;
+    text_decoration: none;
     cursor: pointer;
 }
 
@@ -182,31 +182,31 @@ footer { padding: 30px 20px; text-align: center; font-size: 0.8em; color: #aaa; 
     top: 50%;
     width: auto;
     padding: 16px;
-    margin-top: -22px;
+    margin_top: -22px;
     color: white;
-    font-weight: bold;
-    font-size: 20px;
+    font_weight: bold;
+    font_size: 20px;
     transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-    -webkit-user-select: none; /* Safari */
+    border_radius: 0 3px 3px 0;
+    user_select: none;
+    _webkit_user_select: none; /* Safari */
 }
 
 /* 다음 버튼 스타일 (우측에 위치) */
 #myModal .next {
     right: 0;
-    border-radius: 3px 0 0 3px;
+    border_radius: 3px 0 0 3px;
 }
 
 /* 이전/다음 버튼 호버 시 스타일 */
 #myModal .prev:hover,
 #myModal .next:hover {
-    background-color: rgba(0,0,0,0.8);
+    background_color: rgba(0,0,0,0.8);
 }
 
 /* 배경 블러 처리를 위한 클래스 (JavaScript로 main 태그에 추가될 예정) */
 .blurred {
     filter: blur(5px);
     /* transition: filter 0.3s ease; */
-    /* will-change: filter; */
+    /* will_change: filter; */
 }
