@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
          });
     }
 
-    // --- **추가**: 특정 인덱스의 사진으로 모달 슬라이드를 애니메이션하는 함수 ---
+    // --- 특정 인덱스의 사진으로 모달 슬라이드를 애니메이션하는 함수 ---
     function animateSlideTo(targetIndex) {
         // 애니메이션 중 상태 표시
         isAnimating = true;
@@ -298,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
              mouseIsDown = true;
              mouseStartX = event.clientX;
              modalSlidesContainer.style.transition = 'none'; // 드래그 시작 시 애니메이션 중지
-             // event.preventDefault(); // 기본 동작 방지 (mousedown에서는 주의)
+             event.preventDefault(); // **추가**: mousedown에서 기본 동작 방지
         });
 
         modalSlidesContainer.addEventListener('mousemove', function(event) {
