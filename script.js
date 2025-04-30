@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (rsvpForm) {
             rsvpForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                const scriptURL = 'https://script.google.com/macros/s/AKfycbzBRgvCU_Bk9cUnlX1zxR6nNuWvWGeAq5rb4fDOzLs82dKt90O7PwnP7pGqXBkIgdvHVQ/exec'; // 사용자 URL 적용됨
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbwkMGqiv2VzxzCTvoMm0eFkcGdoF8wn7vQonPiXgYoGKxcM0gK2ljsMqJzk2S1ANAFVnQ/exec'; // 사용자 URL 적용됨
                 const formData = new FormData(this);
                 if (submitRsvpBtn) submitRsvpBtn.disabled = true;
                 if (rsvpMessage) { rsvpMessage.textContent = '전송 중...'; rsvpMessage.className = 'rsvp-message'; }
