@@ -24,7 +24,7 @@ section { padding: 60px 20px; text-align: center; }
 .intro-text-overlay { top: 15%; }
 /* 메인 인트로 제목 "We're getting married" 크기 조절 */
 #intro .intro-text-overlay h1 {
-    font-size: 5em;
+    font-size: 4.2em;
     line-height: 1.2;
     margin-bottom: 15px;
 }
