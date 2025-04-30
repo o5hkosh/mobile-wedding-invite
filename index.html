@@ -9,7 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;700&family=WindSong:wght@400;500&family=Yellowtail&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    </head>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=598d34f75532375e7d62d67930e37b8a"></script>
+
+</head>
 <body>
 
     <header>
@@ -21,39 +23,43 @@
                 <img src="your-wedding-photo.jpg" alt="김광민, 최은비 결혼 사진" class="wedding-photo">
 
                 <div class="intro-text-overlay text-overlay">
-                    <h1 class="windsong-medium">
-                        We're <br>
-                        getting married
-                    </h1>
+                    <h1 class="windsong-medium">We're <br> getting married</h1>
                 </div>
 
                 <div class="wedding-details-overlay text-overlay">
                     <p class="names">김광민 ❤️ 최은비</p>
-                    <p class="venue">국방컨벤션</p>
+                    <p class="venue">국방컨벤션 1층 에메랄드홀 (단독)</p>
                     <p class="date-time">2025. 07. 12 SAT 13:00</p>
                 </div>
             </div>
         </section>
 
         <section id="invitation-text">
-            <p class="emoji">✉️</p> <h2>Invitation</h2> <p>
-                초록이 짙어진 여름날<br>
-                저희 두 사람이 소중한 분들을 모시고<br>
-                사랑의 결실을 이루려 합니다.
-            </p>
-            <p>
-                나란히 같은 곳을 보고 걸으며<br>
-                항상 예쁘게 살아가겠습니다.<br>
-                우리의 설레는 첫걸음을 함께 빛내주세요.
-            </p>
-            <p class="parents-names first-parent-names"> <strong>故 김영진 &middot; 김현정</strong> 의 장남 <strong>광민</strong>
-            </p>
-            <p class="parents-names">
-                &nbsp;&nbsp;&nbsp;&nbsp;<strong>최건호 &middot; 박명희</strong> 의 차녀 <strong>은비</strong> </p>
-            </section>
+             <div class="invitation-heading-group">
+                 <p class="emoji">✉️</p>
+                 <h2>Invitation</h2>
+             </div>
+             <div class="invitation-text-group">
+                 <p>
+                     초록이 짙어진 여름날<br>
+                     저희 두 사람이 소중한 분들을 모시고<br>
+                     사랑의 결실을 이루려 합니다.
+                 </p>
+                 <p>
+                     나란히 같은 곳을 보고 걸으며<br>
+                     항상 예쁘게 살아가겠습니다.<br>
+                     우리의 설레는 첫걸음을 함께 빛내주세요.
+                 </p>
+                 <p class="parents-names first-parent-names"> <strong>김영진 &middot; 김현정</strong> 의 장남 <strong>광민</strong>
+                 </p>
+                 <p class="parents-names"><strong>최건호 &middot; 박명희</strong> 의 차녀 <strong>은비</strong> </p>
+             </div>
+        </section>
+
 
         <section id="gallery">
-             <p class="emoji">📸</p> <h2>Gallery</h2> <div class="gallery-photos">
+             <p class="emoji">📸</p> <h2>Gallery</h2>
+             <div class="gallery-photos">
                  <img src="photo1.jpg" alt="신랑 신부 사진 1" class="gallery-photo">
                  <img src="photo2.jpg" alt="신랑 신부 사진 2" class="gallery-photo">
                  <img src="photo3.jpg" alt="신랑 신부 사진 3" class="gallery-photo">
@@ -74,8 +80,10 @@
                  <img src="photo18.jpg" alt="신랑 신부 사진 18" class="gallery-photo">
                  <img src="photo19.jpg" alt="신랑 신부 사진 19" class="gallery-photo">
                  <img src="photo20.jpg" alt="신랑 신부 사진 20" class="gallery-photo">
-                 </div>
-             </section>
+                 <img src="photo21.jpg" alt="신랑 신부 사진 21" class="gallery-photo">
+                 <img src="photo22.jpg" alt="신랑 신부 사진 22" class="gallery-photo">
+             </div>
+        </section>
 
 
         <section id="wedding-info">
@@ -91,7 +99,13 @@
                          <tr> <td></td><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
                          </tr>
                          <tr>
-                             <td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td class="highlighted-date">12</td> </tr>
+                             <td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td>
+                             <td>
+                                 <span class="highlighted-circle">
+                                     <span class="highlighted-number">12</span>
+                                 </span>
+                             </td>
+                         </tr>
                          <tr>
                              <td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td>
                          </tr>
@@ -105,30 +119,261 @@
                  </table>
              </div>
 
-             <div class="wedding-datetime-box">
-                 2025년 7월 12일 토요일 오후 1시
+             <div id="dday-counter" class="dday-box">
+                 <div class="countdown-item">
+                     <span id="days" class="countdown-number">--</span>
+                     <span class="countdown-label">일</span>
+                 </div>
+                 <div class="countdown-separator">:</div>
+                 <div class="countdown-item">
+                     <span id="hours" class="countdown-number">--</span>
+                     <span class="countdown-label">시간</span>
+                 </div>
+                 <div class="countdown-separator">:</div>
+                 <div class="countdown-item">
+                     <span id="minutes" class="countdown-number">--</span>
+                     <span class="countdown-label">분</span>
+                 </div>
+                 <div class="countdown-separator">:</div>
+                 <div class="countdown-item">
+                     <span id="seconds" class="countdown-number">--</span>
+                     <span class="countdown-label">초</span>
+                 </div>
+             </div>
+
+             <h3 class="calendar-link-title">🔽 일정 등록하기 🔽</h3>
+             <a href="wedding_invitation.ics" download="결혼식_일정.ics" aria-label="결혼식 일정 캘린더에 추가하기" class="calendar-link">
+                 <div class="wedding-datetime-box">
+                     2025년 7월 12일 토요일<br>오후 1시
+                 </div>
+             </a>
+
+             <div class="rsvp-box">
+                 <div class="rsvp-prompt">
+                     <h3 class="rsvp-section-title">참석 의사 알려주기</h3>
+                     <p class="rsvp-section-intro">
+                         소중한 분들을 더 잘 모시고자<br>참석 인원, 식사 여부 및 대절 버스 탑승 여부를<br>미리 파악하고자 합니다.<br>
+                         아래 버튼을 통해 참석 여부를 알려주시면 감사하겠습니다.
+                     </p>
+                 </div>
+                 <button type="button" class="btn rsvp-btn" id="openRsvpModal">참석 의사 알려주기</button>
              </div>
 
         </section>
 
 
         <section id="location">
-            </section>
+            <p class="emoji">📍</p> <h2>Location</h2>
+            <div id="map" style="width:100%; height:400px;"></div>
+            <p class="location-address"> 서울특별시 용산구 이태원로 22 국방컨벤션 </p>
+             <div class="transportation-info">
+                 <h3>교통편 안내</h3>
+                 <p>🚇 지하철: 삼각지역 (4호선, 6호선)<br>13번 출구 도보 10분</p>
+                 <p>🚌 버스: 간선 110A, 110B, 740 / 지선 6211 등</p>
+                 <p class="parking-info">🅿️ 주차: 하객 2시간 무료<br>⚠️(만차 시 전쟁기념관 주차 가능, 주차권/안내 필수)</p>
+             </div>
 
+             <div class="navigation-buttons">
+                 <a href="nmap://route/car?dlat=37.535278&dlng=126.978897&dname=%EA%B5%AD%EB%B0%A9%EC%BB%A8%EB%B2%A4%EC%85%98&appname=mobileweddinginvite" class="nav-button naver-map-btn" aria-label="네이버 지도 길안내">
+                     <img src="images/naver_logo.png" alt="네이버 지도 로고">
+                     <span class="button-text">네이버 지도로<br>길찾기</span>
+                 </a>
+                 <a href="kakaomap://route?ep=37.535278,126.978897&epn=%EA%B5%AD%EB%B0%A9%EC%BB%A8%EB%B2%A4%EC%85%98&by=CAR" class="nav-button kakao-map-btn" aria-label="카카오맵 길찾기">
+                     <img src="images/kakao_logo.png" alt="카카오맵 로고">
+                      <span class="button-text">카카오맵으로<br>길찾기</span>
+                 </a>
+                 <a href="tmap://route?goalname=%EA%B5%AD%EB%B0%A9%EC%BB%A8%EB%B2%A4%EC%85%98&goaly=37.535278&goalx=126.978897" class="nav-button tmap-btn" aria-label="티맵 길안내">
+                     <img src="images/tmap_logo.png" alt="티맵 로고">
+                     <span class="button-text">티맵으로<br>길찾기</span>
+                 </a>
+             </div>
 
-        <section id="contact">
-             </section>
+             <div class="bus-info">
+                 <h3><strong>대절 버스 안내</strong></h3>
+                 <p>
+                     결혼식 당일, 하객분들의 편의를 위해<br>
+                     대구에서 출발하여 상주를 경유하는<br>
+                     왕복 대절 버스를 운행합니다.
+                 </p>
+                 <div class="bus-detail-block">
+                     <p class="bus-location-heading"><strong>[대구 출발]</strong></p>
+                     <div class="detail-lines">
+                         <span class="detail-label">- 일시:</span><span class="detail-value"><strong>2025년 7월 12일 오전 7시 정각</strong></span><br>
+                         <span class="detail-label">- 장소:</span><span class="detail-value"><strong>성서 홈플러스 앞</strong></span>
+                     </div>
+                 </div>
+                 <div class="bus-detail-block">
+                     <p class="bus-location-heading"><strong>[상주 경유/출발]</strong></p>
+                     <div class="detail-lines">
+                          <span class="detail-label">- 일시:</span><span class="detail-value"><strong>2025년 7월 12일 오전 8시 30분 정각</strong></span><br>
+                          <span class="detail-label">- 장소:</span><span class="detail-value"><strong>경북대학교 상주캠퍼스 정류장 앞</strong></span>
+                     </div>
+                 </div>
+                 <p style="margin-top: 25px;">
+                     ※ 버스는 정시에 출발하오니,<br>탑승 시간과 장소를 꼭 지켜주시기 바랍니다.
+                 </p>
+             </div>
 
-        <section id="account" class="optional">
-             </section>
+        </section>
+
+        <section id="account">
+             <h2>❤️<br>마음 전하실 곳</h2>
+
+             <p class="account-intro-text">
+                 귀한 걸음으로 저희의 시작을 축복해주시는 마음, 진심으로 감사드립니다.<br>
+                 혹 참석은 어려우시거나<br>
+                 다른 방법으로 축하를 전하고 싶으신 분들의 편의를 위해<br>
+                 아래에 안내를 드리오니, 너그러이 헤아려 주시면 감사하겠습니다.<br>
+                 보내주신 마음 귀하게 여기며 감사히 간직하겠습니다.
+             </p>
+
+             <div class="account-info-container">
+                 <div class="account-toggle-buttons">
+                     <button class="account-toggle-btn active" data-target="groom-accounts">신랑측</button>
+                     <button class="account-toggle-btn" data-target="bride-accounts">신부측</button>
+                 </div>
+
+                 <div id="groom-accounts" class="account-details show">
+                     <div class="account-entry">
+                         <div class="entry-info">
+                             <p class="relationship-name">
+                                 <span class="relationship">신랑</span>
+                                 <span class="name">김광민</span>
+                             </p>
+                             <p class="account-number">
+                                 카카오뱅크<br>
+                                 <span class="copy-target">3333-15-1427379</span>
+                             </p>
+                         </div>
+                         <div class="account-buttons"> <a href="tel:010-8227-1330" class="btn call-btn" aria-label="김광민에게 전화걸기">📞 전화걸기</a>
+                             <button class="btn copy-btn" aria-label="김광민 계좌번호 복사">📋 계좌번호 복사</button>
+                             <a href="https://qr.kakaopay.com/Ej852xYWw" target="_blank" class="btn kakaopay-btn" aria-label="김광민에게 카카오페이로 송금하기">
+                                 <img src="images/kakaopay_logo.png" alt="카카오페이 로고">
+                                 <span class="kakaopay-text">로 송금하기</span>
+                             </a>
+                         </div>
+                     </div>
+                     <div class="account-entry">
+                         <div class="entry-info">
+                             <p class="relationship-name">
+                                 <span class="relationship">어머니</span>
+                                 <span class="name">김현정</span>
+                             </p>
+                             <p class="account-number">
+                                 IM뱅크(대구)<br>
+                                 <span class="copy-target">220-08-039203</span>
+                             </p>
+                         </div>
+                         <div class="account-buttons"> <a href="tel:010-3867-3972" class="btn call-btn" aria-label="김현정에게 전화걸기">📞 전화걸기</a>
+                             <button class="btn copy-btn" aria-label="김현정 계좌번호 복사">📋 계좌번호 복사</button>
+                         </div>
+                     </div>
+                 </div>
+
+                 <div id="bride-accounts" class="account-details">
+                     <div class="account-entry">
+                         <div class="entry-info">
+                             <p class="relationship-name">
+                                 <span class="relationship">신부</span>
+                                 <span class="name">최은비</span>
+                             </p>
+                             <p class="account-number">
+                                 농협<br>
+                                 <span class="copy-target">352-6775-5576-43</span>
+                             </p>
+                         </div>
+                         <div class="account-buttons"> <a href="tel:010-6775-5576" class="btn call-btn" aria-label="최은비에게 전화걸기">📞 전화걸기</a>
+                             <button class="btn copy-btn" aria-label="최은비 계좌번호 복사">📋 계좌번호 복사</button>
+                         </div>
+                     </div>
+                     <div class="account-entry">
+                         <div class="entry-info">
+                             <p class="relationship-name">
+                                 <span class="relationship">아버지</span>
+                                 <span class="name">최건호</span>
+                             </p>
+                             <p class="account-number">
+                                 농협<br>
+                                 <span class="copy-target">312-0181-1869-21</span>
+                             </p>
+                         </div>
+                         <div class="account-buttons"> <a href="tel:010-3288-1956" class="btn call-btn" aria-label="최건호에게 전화걸기">📞 전화걸기</a>
+                             <button class="btn copy-btn" aria-label="최건호 계좌번호 복사">📋 계좌번호 복사</button>
+                         </div>
+                     </div>
+                     <div class="account-entry">
+                         <div class="entry-info">
+                             <p class="relationship-name">
+                                 <span class="relationship">어머니</span>
+                                 <span class="name">박명희</span>
+                             </p>
+                             <p class="account-number">
+                                 신한은행<br>
+                                 <span class="copy-target">110-012-315926</span>
+                             </p>
+                         </div>
+                         <div class="account-buttons"> <a href="tel:010-3258-6767" class="btn call-btn" aria-label="박명희에게 전화걸기">📞 전화걸기</a>
+                             <button class="btn copy-btn" aria-label="박명희 계좌번호 복사">📋 계좌번호 복사</button>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+        </section>
+
+        <section id="thank-you">
+            <h2 class="thank-you-title">감사 인사</h2>
+            <p class="thank-you-text">
+                바쁘신 중에도 잊지 않고 찾아주시어<br>저희의 앞날을 축복해주시는 발걸음, 마음 깊이 감사드립니다.<br>
+                보내주신 사랑 잊지 않고 예쁘게 살겠습니다.
+            </p>
+            <p class="signature">- 김광민, 최은비 올림 -</p>
+        </section>
 
     </main>
 
     <footer>
-        </footer>
+         <p>&copy; 2025 김광민 & 최은비. All rights reserved.</p>
+    </footer>
 
     <div id="myModal" class="modal">
       <span class="close">&times;</span> <span class="prev">&#10094;</span> <img class="modal-content" id="modalImage" src=""> <span class="next">&#10095;</span> </div>
+
+    <div id="rsvpModal" class="modal-rsvp">
+        <div class="modal-rsvp-content">
+            <span class="close-rsvp">&times;</span>
+            <h2>참석 의사 전달</h2>
+            <form id="rsvpForm">
+                <div class="form-group">
+                    <label for="name">성함:</label>
+                    <input type="text" id="name" name="Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact">연락처:</label>
+                    <input type="tel" id="contact" name="Contact" placeholder="010-1234-5678" required>
+                </div>
+                <div class="form-group">
+                    <label for="attendees">참석인원 (본인 포함):</label>
+                    <input type="number" id="attendees" name="Attendees" min="0" value="1" required>
+                </div>
+                <div class="form-group">
+                    <label>식사 여부:</label>
+                    <div class="radio-group">
+                         <label><input type="radio" name="Meal" value="식사함" checked> 식사합니다</label>
+                         <label><input type="radio" name="Meal" value="식사안함"> 식사 안 합니다</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>대절버스 이용 여부:</label>
+                    <div class="radio-group">
+                         <label><input type="radio" name="BusUsage" value="이용함"> 이용합니다</label>
+                         <label><input type="radio" name="BusUsage" value="이용안함" checked> 이용 안 합니다</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn submit-rsvp-btn">참석 의사 전달하기</button>
+                <p id="rsvpMessage" class="rsvp-message"></p>
+            </form>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 

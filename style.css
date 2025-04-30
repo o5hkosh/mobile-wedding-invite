@@ -11,7 +11,7 @@ body {
     overflow-x: hidden; background-color: #fff;
 }
 h1, h2, h3, p { margin: 0; padding: 0; }
-section { padding: 60px 20px; text-align: center; } /* 섹션 전체는 가운데 정렬 */
+section { padding: 60px 20px; text-align: center; }
 
 /* Scroll Snap을 적용할 섹션 */
 #intro, #invitation-text { scroll-snap-align: start; }
@@ -22,6 +22,12 @@ section { padding: 60px 20px; text-align: center; } /* 섹션 전체는 가운�
 .wedding-photo { display: block; width: 100%; height: 100%; object-fit: cover; }
 .text-overlay { position: absolute; left: 50%; transform: translateX(-50%); text-align: center; color: white; width: 90%; text-shadow: 3px 3px 8px rgba(0,0,0,0.9); }
 .intro-text-overlay { top: 15%; }
+/* 메인 인트로 제목 "We're getting married" 크기 조절 */
+#intro .intro-text-overlay h1 {
+    font-size: 5em;
+    line-height: 1.2;
+    margin-bottom: 15px;
+}
 .wedding-details-overlay { bottom: 8%; }
 .wedding-details-overlay p {
     font-family: 'Gowun Batang', serif; font-weight: 400;
@@ -57,6 +63,30 @@ section { padding: 60px 20px; text-align: center; } /* 섹션 전체는 가운�
 #invitation-text .first-parent-names { margin-top: 80px; }
 #invitation-text .parents-names strong { font-weight: 700; }
 
+/* Invitation 섹션 애니메이션 관련 CSS (animated 클래스 사용) */
+#invitation-text {
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+#invitation-text .invitation-heading-group,
+#invitation-text .invitation-text-group {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+#invitation-text.animated .invitation-heading-group {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0s;
+}
+#invitation-text.animated .invitation-text-group {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.5s;
+}
+.invitation-heading-group { margin-bottom: 20px; }
+.invitation-text-group p { margin-bottom: 20px; }
+.invitation-text-group p:last-child { margin-bottom: 0; }
+
 
 /* --- 세 번째 섹션: 갤러리 (사진들) --- */
 #gallery {
@@ -75,203 +105,424 @@ section { padding: 60px 20px; text-align: center; } /* 섹션 전체는 가운�
     display: block; width: 100%; height: auto; object-fit: cover; cursor: pointer;
 }
 
-/* 13번째 사진부터는 기본적으로 숨김 (JavaScript가 보이도록 변경) */
-/* #gallery .gallery-photos .gallery-photo:nth-child(n+13) { display: none; } */
-
 
 /* --- 네 번째 섹션: 결혼식 상세 정보 (날짜, 시간, 장소 등) --- */
 #wedding-info {
-    padding: 80px 20px;
-    background-color: #D2E1D8;
-    text-align: center; /* 섹션 전체는 가운데 정렬 */
-    color: #555;
+    padding: 80px 20px; background-color: #D2E1D8; text-align: center; color: #555;
 }
-
-#wedding-info .emoji {
-    font-size: 2em;
-    margin-bottom: 10px;
-    display: block;
-    text-align: center;
-}
-
+#wedding-info .emoji { font-size: 2em; margin-bottom: 10px; display: block; text-align: center; }
 #wedding-info h2 {
-    font-family: "Yellowtail", cursive;
-    font-weight: 400;
-    font-size: 2.5em;
-    color: #4B4D39;
-    margin-bottom: 40px;
-    text-align: center;
+    font-family: "Yellowtail", cursive; font-weight: 400; font-size: 2.5em;
+    color: #4B4D39; margin-bottom: 40px; text-align: center;
 }
-
-/* 이전 정보 테이블 스타일 제거 */
-/* .info-table, .info-table tr, .info-table td, .info-table td:first-child, .info-table td:last-child { ... } */
-/* 이전 정보 항목 컨테이너/항목/레이블/값 스타일 제거 */
-/* .info-items-container, #wedding-info .info-item, #wedding-info .info-item .info-label, #wedding-info .info-item .info-value { ... } */
-
-
-/* 달력 컨테이너 스타일 */
 #wedding-info .calendar-container {
-    margin: 50px auto 0 auto; /* 위쪽 간격, 가운데 정렬 */
-    display: block; /* 블록 요소로 가운데 정렬 */
-    padding: 25px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    width: fit-content; /* 달력 내용만큼 너비 설정 (가운데 정렬 목적) */
+    margin: 50px auto 0 auto; display: block; padding: 25px; background-color: #fff;
+    border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); width: fit-content;
 }
-
-/* 달력 월/년 제목 스타일 */
 #wedding-info .calendar-container h3 {
-    font-family: 'Gowun Batang', serif;
-    font-size: 1.6em;
-    color: #333;
-    margin-bottom: 20px;
-    line-height: 1.3;
+    font-family: 'Gowun Batang', serif; font-size: 1.6em; color: #333;
+    margin-bottom: 20px; line-height: 1.3;
 }
-
-
-/* 달력 테이블 스타일 */
 #wedding-info .calendar-container table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: 'Gowun Batang', serif;
-    color: #555;
+    width: 100%; border-collapse: collapse; font-family: 'Gowun Batang', serif; color: #555;
 }
-
-/* 달력 요일/날짜 셀 스타일 */
 #wedding-info .calendar-container th,
 #wedding-info .calendar-container td {
-    width: calc(100% / 7);
-    padding: 10px 5px;
-    text-align: center;
-    font-size: 1em;
+    width: calc(100% / 7); padding: 10px 5px; text-align: center; font-size: 1em;
+    line-height: 35px; vertical-align: middle;
 }
-
-/* 달력 요일 헤더 스타일 */
-#wedding-info .calendar-container th {
-    font-weight: 700;
-    color: #333;
-}
-
-/* 토요일 색상 */
+#wedding-info .calendar-container th { font-weight: 700; color: #333; }
 #wedding-info .calendar-container th:last-child,
-#wedding-info .calendar-container td:last-child {
-    color: #0000ff;
-}
-
-/* 일요일 색상 */
+#wedding-info .calendar-container td:last-child { color: #0000ff; }
 #wedding-info .calendar-container th:first-child,
-#wedding-info .calendar-container td:first-child {
-    color: #ff0000;
+#wedding-info .calendar-container td:first-child { color: #ff0000; }
+.highlighted-circle {
+    display: inline-block; width: 35px; height: 35px; border: 2px solid #ff0000;
+    border-radius: 50%; background-color: transparent; position: relative; vertical-align: middle;
+}
+.highlighted-number {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-weight: 700; color: #0000ff; line-height: 1;
 }
 
-/* 결혼식 날짜 (12일) 하이라이트 스타일 */
-#wedding-info .calendar-container .highlighted-date {
-    font-weight: 700;
-    color: #fff;
-    background-color: #4B4D39;
-    border-radius: 50%;
-    display: inline-block;
-    width: 35px;
-    height: 35px;
-    line-height: 35px;
-    margin: auto;
+/* D-Day 카운터 박스 스타일 */
+.dday-box {
+    display: flex; justify-content: center; align-items: center;
+    gap: 8px; margin: 30px auto 25px auto; padding: 12px 20px;
+    background-color: #87A96B; color: white; border-radius: 40px;
+    font-family: 'Gowun Batang', serif; max-width: fit-content;
+}
+.countdown-item { text-align: center; line-height: 1.2; min-width: 40px; }
+.countdown-number { display: block; font-size: 1.6em; font-weight: 700; }
+.countdown-label { display: block; font-size: 0.75em; color: rgba(255, 255, 255, 0.85); }
+.countdown-separator { font-size: 1.6em; font-weight: 700; line-height: 1.1; padding: 0 2px; }
+
+/* 캘린더 추가 제목 스타일 */
+.calendar-link-title {
+    font-family: 'Gowun Batang', serif; font-size: 1.8em; color: #333;
+    font-weight: 700; margin-top: 40px; margin-bottom: 10px;
 }
 
-/* 새로운 날짜/시간/장소 박스 스타일 */
+/* 캘린더 추가 링크 스타일 */
+.calendar-link {
+    text-decoration: none; color: inherit; display: inline-block;
+    cursor: pointer; transition: transform 0.2s ease; margin-top: 0;
+}
+.calendar-link:hover { transform: scale(1.03); }
+
+/* wedding-datetime-box 스타일 */
 .wedding-datetime-box {
-    margin: 30px auto; /* 달력 아래 간격 및 가운데 정렬 */
-    padding: 10px 20px; /* 박스 내부 여백 */
-    background-color: #607DBC; /* 배경색 변경 */
-    color: white; /* 글자색 */
-    border-radius: 25px; /* 타원형 모양 (값 조절 가능) */
-    width: fit-content; /* 내용만큼만 너비 차지 */
-    max-width: 90%; /* 너무 길면 줄바꿈되도록 최대 너비 설정 */
-    text-align: center; /* 박스 안 텍스트 가운데 정렬 */
-    font-family: 'Gowun Batang', serif; /* 폰트 */
-    font-size: 1.1em; /* 폰트 크기 */
-    line-height: 1.5; /* 줄 간격 */
-    word-break: keep-all; /* 단어 중간에 끊기지 않게 */
-    overflow-wrap: break-word; /* 긴 단어는 줄바꿈 */
+    padding: 10px 20px; background-color: #607DBC; color: white;
+    border-radius: 25px; width: fit-content; max-width: 90%; text-align: center;
+    font-family: 'Gowun Batang', serif; font-size: 1.1em; line-height: 1.5;
+    word-break: keep-all; overflow-wrap: break-word;
+    margin-bottom: 30px; margin-left: auto; margin-right: auto;
 }
+
+/* RSVP 박스 컨테이너 스타일 */
+.rsvp-box {
+    background-color: #fff; padding: 35px 25px; border-radius: 8px;
+    margin-top: 50px; max-width: 500px; margin-left: auto; margin-right: auto;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+/* RSVP 박스 내부 요소들 스타일 */
+.rsvp-prompt { margin-top: 0; }
+.rsvp-section-title {
+    font-family: 'Gowun Batang', serif; font-size: 1.8em; color: #333;
+    font-weight: 700; margin-bottom: 20px;
+}
+.rsvp-section-intro {
+    font-family: 'Gowun Batang', serif; color: #555; font-size: 0.95em;
+    line-height: 1.7; margin-bottom: 25px; max-width: 100%;
+}
+.rsvp-btn {
+    display: block; margin: 0 auto; padding: 12px 30px;
+    font-family: 'Gowun Batang', serif; font-size: 1.1em; font-weight: 700;
+    color: #fff; background-color: #87A96B; border: none;
+    border-radius: 25px; cursor: pointer; transition: background-color 0.3s ease;
+    max-width: 250px;
+}
+.rsvp-btn:hover { background-color: #7A9A5F; }
 
 
 /* --- 다섯 번째 섹션: 오시는 길 (약도, 교통편) --- */
-#location { background-color: #fff; padding: 80px 20px; text-align: center; }
-#contact { padding: 80px 20px; background-color: #f8f8f8; text-align: center; }
-#account { background-color: #eee; border-top: 1px solid #ccc; font-size: 0.9em; color: #666; padding: 40px 20px; text-align: center; }
+#location {
+    background-color: #607DBC; padding: 80px 20px; text-align: center;
+}
+#location h2 {
+    font-family: "Yellowtail", cursive; font-weight: 400; font-size: 2.5em;
+    color: #333; margin-bottom: 30px; text-align: center;
+}
+#map {
+    width: 100%; height: 400px; margin: 20px auto; border-radius: 8px;
+    overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.location-address {
+    font-family: 'Gowun Batang', serif; font-size: 1em; color: #FFEBD0;
+    margin-top: 15px; line-height: 1.4;
+}
+.transportation-info {
+    margin-top: 30px; text-align: left; max-width: 350px; margin-left: auto;
+    margin-right: auto; padding: 0 10px;
+}
+.transportation-info h3 {
+     font-family: 'Gowun Batang', serif; font-size: 1.2em; color: #333;
+     margin-bottom: 15px; text-align: center;
+}
+.transportation-info p {
+    font-family: 'Gowun Batang', serif; font-size: 0.95em; color: #FFEBD0;
+    margin-bottom: 8px; line-height: 1.5;
+}
+.transportation-info .parking-info { white-space: nowrap; }
+
+/* --- 네비게이션 버튼 컨테이너 스타일 --- */
+.navigation-buttons {
+    margin-top: 30px; display: flex; justify-content: center;
+    align-items: center; flex-wrap: nowrap; padding: 0 5px; width: 100%;
+}
+
+/* --- 내비게이션 개별 버튼 스타일 --- */
+.nav-button {
+    display: flex; justify-content: center; align-items: center;
+    margin: 5px 3px; padding: 8px 8px; text-decoration: none; color: #000;
+    font-family: 'Noto Sans KR', sans-serif; font-size: 0.85em; font-weight: 700;
+    border-radius: 25px; transition: opacity 0.3s ease; background-color: #fff;
+    border: 1px solid #ccc; flex-grow: 1; flex-shrink: 1; flex-basis: 0;
+    min-width: 0; text-align: center;
+}
+
+/* 버튼 이미지 스타일 */
+.nav-button img {
+    display: block; height: 25px; width: auto; margin-right: 5px; flex-shrink: 0;
+}
+
+/* 각 앱별 버튼 스타일 */
+.naver-map-btn { background-color: #fff; color: #333; border-color: #eee; }
+.kakao-map-btn { background-color: #F9E000; color: #333; border-color: #F9E000; }
+.tmap-btn { background-color: #fff; color: #333; border-color: #fff; }
+.nav-button:hover { opacity: 0.8; }
+
+/* --- 대절 버스 안내 섹션 스타일 --- */
+.bus-info {
+    margin-top: 70px; padding: 20px; background-color: #f0f0f0;
+    border-radius: 8px; max-width: 450px; margin-left: auto;
+    margin-right: auto; text-align: center;
+}
+.bus-info h3 {
+    font-family: 'Gowun Batang', serif; font-size: 1.2em;
+    color: #000; margin-bottom: 15px;
+}
+ .bus-info p {
+    font-family: 'Gowun Batang', serif; font-size: 0.95em;
+    color: #000; line-height: 1.7; margin-bottom: 10px;
+}
+ .bus-info p:last-child { margin-bottom: 0; }
+ .bus-info p strong { color: #000; }
+.bus-detail-block { margin-top: 15px; }
+.bus-location-heading { margin-bottom: 5px; }
+.detail-lines { display: inline-block; text-align: left; margin-top: 0; }
+.bus-detail-block .detail-label {
+    display: inline-block; min-width: 55px; margin-right: 5px;
+}
+.bus-detail-block .detail-value strong { font-weight: bold; }
+
+
+/* --- 축의금 계좌 정보 섹션 --- */
+#account {
+    background-color: #FFEBD0; /* 배경색 */
+    border-top: 1px solid #ddd;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+#account h2 {
+    font-family: "Gowun Batang", serif; /* 제목 폰트 */
+    font-size: 1.8em;
+    color: #333; /* 제목 색상 */
+    margin-bottom: 30px;
+    line-height: 1.4;
+}
+
+/* 계좌 안내 문구 스타일 */
+.account-intro-text {
+    font-family: 'Gowun Batang', serif; /* 고운바탕 폰트 적용 */
+    color: #333; /* 제목과 동일한 색상 */
+    font-size: 0.9em; /* 약간 작은 글씨 크기 */
+    line-height: 1.6; /* 줄 간격 */
+    margin-top: 15px; /* 제목 아래 간격 */
+    margin-bottom: 45px; /* 토글 버튼 위 간격 */
+    max-width: 480px; /* 문단 너비 제한 (가독성) */
+    margin-left: auto; /* 가운데 정렬 */
+    margin-right: auto; /* 가운데 정렬 */
+}
+
+.account-info-container { max-width: 500px; margin: 0 auto; }
+
+.account-toggle-buttons { display: flex; justify-content: center; margin-bottom: 25px; gap: 10px; }
+
+.account-toggle-btn {
+    padding: 10px 25px; font-family: 'Gowun Batang', serif; /* 버튼 폰트 */
+    font-size: 1.1em; font-weight: 700; color: #555; background-color: #fff;
+    border: 1px solid #ccc; border-radius: 25px; cursor: pointer; transition: all 0.3s ease;
+}
+.account-toggle-btn.active { background-color: #607DBC; color: #fff; border-color: #607DBC; }
+.account-toggle-btn:not(.active):hover { background-color: #eee; }
+
+.account-details {
+    display: none; background-color: #fff; border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 15px;
+    text-align: left; margin-top: 10px;
+}
+.account-details.show { display: block; }
+
+.account-entry {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 10px; border-bottom: 1px solid #eee;
+    font-family: 'Gowun Batang', serif; /* 계좌 항목 폰트 */
+}
+.account-entry:last-child { border-bottom: none; }
+
+.entry-info { flex-grow: 1; margin-right: 10px; }
+.relationship-name { margin-bottom: 5px; }
+.relationship { font-size: 0.85em; color: #777; margin-right: 5px; }
+.name { font-size: 1.1em; font-weight: 700; color: #333; }
+.account-number { font-size: 0.95em; color: #555; margin: 0; word-break: keep-all; line-height: 1.4; }
+
+/* 계좌 버튼 전체 컨테이너 */
+.account-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    flex-shrink: 0;
+    margin-left: 10px;
+}
+
+/* 모든 버튼 공통 스타일 (높이 통일 적용됨) */
+.account-buttons .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;   /* 내용물에 맞게 너비 자동 조절 */
+    padding: 6px 12px;    /* Consistent padding */
+    min-height: 34px;     /* ADDED: Force minimum height */
+    font-size: 0.85em;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    color: #333;
+    text-decoration: none;
+    white-space: nowrap;
+    font-family: 'Gowun Batang', serif;
+    box-sizing: border-box;
+}
+.account-buttons .btn:hover { background-color: #eee; opacity: 1; }
+.account-buttons .copy-btn.copied { background-color: #d4edda; border-color: #c3e6cb; }
+
+/* 카카오페이 버튼 스타일 (높이 통일 적용됨) */
+.account-buttons .kakaopay-btn {
+    background-color: #FFE000;
+    border: none;
+    padding: 6px 12px; /* 높이 통일 위해 기본 버튼과 동일한 패딩 적용 */
+    color: #191919;
+}
+
+/* 카카오페이 버튼 내 로고 이미지 */
+.account-buttons .kakaopay-btn img {
+    height: 16px;
+    width: auto;
+    margin-right: 4px;
+    display: block;
+}
+
+/* 카카오페이 버튼 내 텍스트 */
+.kakaopay-text {
+    font-size: 0.85em; /* 다른 버튼과 통일 */
+    line-height: 1;
+    font-weight: 600;
+}
+
+.account-buttons .kakaopay-btn:hover {
+    background-color: #f0d300; opacity: 0.9;
+}
+
+
+/* --- 감사 인사 섹션 스타일 --- */
+#thank-you {
+    background-color: #FEFBF6;
+    padding: 60px 20px 80px 20px;
+    text-align: center;
+}
+
+.thank-you-title {
+    font-family: 'Gowun Batang', serif;
+    font-size: 1.8em;
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.thank-you-text {
+    font-family: 'Gowun Batang', serif;
+    font-size: 1em;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 40px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.signature {
+    font-family: 'Gowun Batang', serif;
+    font-size: 1.05em;
+    color: #444;
+    font-weight: 700;
+    margin-top: 40px;
+}
+
+
+/* footer */
 footer { padding: 30px 20px; text-align: center; font-size: 0.8em; color: #aaa; background-color: #f4f4f4; }
 
 
 /* --- 모달 (확대 사진 팝업) 스타일 --- */
 #myModal {
-    display: none; /* 기본적으로 숨김 */
-    z-index: 10;
-    position: fixed; left: 0; top: 0;
-    width: 100%; height: 100%;
-    overflow: auto; /* 내용이 화면 넘칠 경우 스크롤 허용 */
-    background-color: rgba(0,0,0,0.9);
+    display: none; z-index: 10; position: fixed; left: 0; top: 0;
+    width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9);
 }
-
-/* 모달 내용 (확대된 사진) 스타일 */
 #myModal .modal-content {
-    margin: auto; /* 가로 가운데 정렬 */
-    display: block;
-    max-width: 90%;
-    max-height: 90%;
-    object-fit: contain;
-    margin-top: 50px;
-    cursor: auto;
+    margin: auto; display: block; max-width: 90%; max-height: 90%;
+    object-fit: contain; margin-top: 50px; cursor: auto;
 }
-
-/* 모달 닫기 버튼 스타일 */
 #myModal .close {
-    position: absolute; top: 15px; right: 35px;
-    color: #f1f1f1; font-size: 40px; font-weight: bold;
-    transition: 0.3s; cursor: pointer;
-    z-index: 11;
+    position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 40px;
+    font-weight: bold; transition: 0.3s; cursor: pointer; z-index: 11;
 }
-
-/* 닫기 버튼 호버 시 스타일 */
 #myModal .close:hover,
-#myModal .close:focus {
-    color: #bbb;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* 모달 이전/다음 버튼 스타일 */
+#myModal .close:focus { color: #bbb; text-decoration: none; cursor: pointer; }
 #myModal .prev,
 #myModal .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    padding: 16px;
-    margin-top: -22px;
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-    -webkit-user-select: none; /* Safari */
-    z-index: 11;
+    cursor: pointer; position: absolute; top: 50%; width: auto; padding: 16px;
+    margin-top: -22px; color: white; font-weight: bold; font-size: 20px;
+    transition: 0.6s ease; border-radius: 0 3px 3px 0; user-select: none;
+    -webkit-user-select: none; z-index: 11;
 }
-
-/* 다음 버튼 스타일 (우측에 위치) */
-#myModal .next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-}
-
-/* 이전/다음 버튼 호버 시 스타일 */
+#myModal .next { right: 0; border-radius: 3px 0 0 3px; }
 #myModal .prev:hover,
-#myModal .next:hover {
-    background-color: rgba(0,0,0,0.8);
-}
+#myModal .next:hover { background-color: rgba(0,0,0,0.8); }
 
-/* 배경 블러 처리를 위한 클래스 (JavaScript로 main 태그에 추가될 예정) */
-.blurred {
-    filter: blur(5px);
+/* --- RSVP 모달 스타일 --- */
+.modal-rsvp {
+    display: none; position: fixed; z-index: 15; left: 0; top: 0;
+    width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6);
 }
+.modal-rsvp-content {
+    background-color: #fefefe; margin: 15% auto; padding: 25px 30px;
+    border: 1px solid #888; width: 85%; max-width: 450px;
+    border-radius: 8px; position: relative; font-family: 'Noto Sans KR', sans-serif;
+}
+.close-rsvp {
+    color: #aaa; position: absolute; top: 10px; right: 20px;
+    font-size: 28px; font-weight: bold; cursor: pointer;
+}
+.close-rsvp:hover, .close-rsvp:focus { color: black; text-decoration: none; }
+.modal-rsvp-content h2 {
+    font-family: 'Gowun Batang', serif; text-align: center; margin-bottom: 25px;
+    font-size: 1.6em; color: #333;
+}
+.form-group { margin-bottom: 18px; }
+.form-group label {
+    display: block; margin-bottom: 6px; font-weight: 500;
+    font-size: 0.95em; color: #444;
+}
+.form-group input[type="text"],
+.form-group input[type="tel"],
+.form-group input[type="number"] {
+    width: 100%; padding: 10px; border: 1px solid #ccc;
+    border-radius: 4px; box-sizing: border-box; font-size: 1em;
+}
+.form-group .radio-group label {
+    display: inline-block; margin-right: 20px; font-weight: normal;
+}
+.form-group .radio-group input[type="radio"] {
+    margin-right: 5px; vertical-align: middle;
+}
+.submit-rsvp-btn {
+    width: 100%; padding: 12px; font-family: 'Gowun Batang', serif;
+    font-size: 1.1em; font-weight: 700; background-color: #607DBC;
+    color: white; border: none; border-radius: 5px; cursor: pointer;
+    transition: background-color 0.3s ease; margin-top: 10px;
+}
+.submit-rsvp-btn:hover { background-color: #506AAC; }
+.submit-rsvp-btn:disabled { background-color: #ccc; cursor: not-allowed; }
+.rsvp-message {
+    margin-top: 15px; text-align: center; font-size: 0.9em; min-height: 1.2em;
+}
+.rsvp-message.success { color: green; }
+.rsvp-message.error { color: red; }
+
+/* 배경 블러 처리를 위한 클래스 */
+.blurred { filter: blur(5px); }

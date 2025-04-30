@@ -1,225 +1,268 @@
-// DOMContentLoaded 이벤트는 HTML 문서가 완전히 로드되고 파싱되었을 때 발생합니다.
+// script.js
 document.addEventListener('DOMContentLoaded', function() {
 
-    // --- 필요한 HTML 요소들을 JavaScript 코드에서 사용할 수 있도록 가져옵니다. ---
-    const modal = document.getElementById('myModal'); // 모달 컨테이너 요소
-    const modalImage = document.getElementById('modalImage'); // 모달 안의 확대 사진 이미지 요소 (단일 이미지 형태)
-
-    const closeBtn = document.getElementsByClassName('close')[0]; // 모달 닫기 버튼 요소 (클래스가 'close'인 첫 번째 요소)
-    const galleryPhotos = document.querySelectorAll('#gallery .gallery-photos .gallery-photo'); // 갤러리 섹션 안의 모든 사진 이미지 요소들 (20개)
-
-    const loadMoreBtn = document.getElementById('loadMoreBtn'); // '더보기' 버튼 (현재 사용 안 함)
-    const mainContent = document.querySelector('main'); // 블러 처리할 메인 콘텐츠 영역 요소 (<main> 태그)
-
-    // 모달 이전/다음 버튼 요소들
+    // --- 필요한 HTML 요소들 ---
+    const modal = document.getElementById('myModal');
+    const modalImage = document.getElementById('modalImage');
+    const closeBtn = document.getElementsByClassName('close')[0];
+    const galleryPhotos = document.querySelectorAll('#gallery .gallery-photos .gallery-photo');
+    const mainContent = document.querySelector('main');
     const prevBtn = document.querySelector('#myModal .prev');
     const nextBtn = document.querySelector('#myModal .next');
 
-    // 현재 모달에 표시된 사진의 갤러리 내 인덱스를 저장하는 변수
     let currentPhotoIndex = 0;
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const swipeThreshold = 75;
+    let mouseIsDown = false;
+    let mouseStartX = 0;
 
-    // **추가**: 터치 스와이프를 위한 변수 (그냥 스와이프)
-    let touchStartX = 0; // 터치 시작 X 좌표
-    let touchEndX = 0; // 터치 끝 X 좌표
-    const swipeThreshold = 75; // 스와이프로 인식할 최소 이동 거리 (px) - 조절 가능
-
-
-    // --- '더보기' 버튼 기능 (현재 사용 안 함) ---
-    /*
-    if (loadMoreBtn) {
-        // ... (코드 삭제) ...
-    }
-    */
-
-
-    // --- 갤러리 사진 클릭 시 확대 모달 표시 기능 ---
-    galleryPhotos.forEach(function(photo, index) { // index 인자 추가 (현재 사진의 순서)
+    // --- 갤러리 ---
+    galleryPhotos.forEach(function(photo, index) {
         photo.addEventListener('click', function() {
-            // 클릭된 사진 요소(this)의 src 속성값을 가져와서 모달 안 이미지 요소의 src로 설정합니다.
             modalImage.src = this.src;
-
-            // 클릭된 사진의 인덱스를 currentPhotoIndex 변수에 저장합니다.
             currentPhotoIndex = index;
-
-            // 모달 컨테이너를 화면에 보이도록 display 속성을 변경합니다.
-            modal.style.display = 'block'; // 'flex' 대신 'block' 사용 (기본 모달 스타일과 일치)
-
-            // 메인 콘텐츠 영역에 블러 처리를 위한 CSS 클래스('blurred')를 추가합니다.
-            if (mainContent) {
-               mainContent.classList.add('blurred');
-            }
-
-            // 이전/다음 버튼의 초기 표시 상태를 업데이트합니다.
+            modal.style.display = 'block';
+            if (mainContent) { mainContent.classList.add('blurred'); }
             updateModalNavButtons();
         });
     });
 
-
-    // --- 모달 닫기 버튼 기능 ---
-    if (closeBtn) {
-        closeBtn.addEventListener('click', function() {
-            modal.style.display = 'none'; // 모달 숨기기
-            if (mainContent) {
-                mainContent.classList.remove('blurred');
-            }
-             // 모달 닫을 때 확대 이미지 src 비우기 (메모리 관리)
-            modalImage.src = '';
-        });
-    }
-
-    // --- 모달 배경 클릭 시 닫기 기능 ---
+    // --- 모달 ---
+    // closeModal 함수는 갤러리/RSVP 모달 모두 닫도록 아래에서 통합 정의
+    if (closeBtn) { closeBtn.addEventListener('click', closeModal); }
     if (modal) {
          modal.addEventListener('click', function(event) {
-             // 클릭된 요소가 모달 컨테이너 자체일 때 닫습니다. (이미지나 버튼 클릭은 제외)
-             if (event.target === modal) {
-                 modal.style.display = 'none';
-                 if (mainContent) { mainContent.classList.remove('blurred'); }
-                 // 모달 닫을 때 확대 이미지 src 비우기
-                 modalImage.src = '';
-             }
+             if (event.target === modal) { closeModal(); }
          });
     }
-
-
-    // --- 모달 이전/다음 버튼 기능 ---
-    // showPhotoInModal, updateModalNavButtons 함수는 아래에 있습니다.
-    if (prevBtn) {
-        prevBtn.addEventListener('click', function() {
-            const targetIndex = currentPhotoIndex - 1; // 이전 사진 인덱스
-            showPhotoInModal(targetIndex); // 이전 사진을 모달에 표시
-        });
+    // closeModal 함수 (공통 사용)
+    function closeModal() {
+        if(modal) modal.style.display = 'none';
+        const rsvpModalCheck = document.getElementById('rsvpModal');
+        if(rsvpModalCheck) rsvpModalCheck.style.display = 'none';
+        if (mainContent) { mainContent.classList.remove('blurred'); }
+        if(modalImage) modalImage.src = '';
     }
 
-    if (nextBtn) {
-         nextBtn.addEventListener('click', function() {
-            const targetIndex = currentPhotoIndex + 1; // 다음 사진 인덱스
-            showPhotoInModal(targetIndex); // 다음 사진을 모달에 표시
-        });
-    }
-
-    // --- **추가**: 특정 인덱스의 사진을 모달에 표시하고 네비게이션 버튼 상태 업데이트하는 함수 ---
+    if (prevBtn) { prevBtn.addEventListener('click', () => showPhotoInModal(currentPhotoIndex - 1)); }
+    if (nextBtn) { nextBtn.addEventListener('click', () => showPhotoInModal(currentPhotoIndex + 1)); }
     function showPhotoInModal(indexToShow) {
-        // 인덱스가 유효 범위 내에 있는지 확인합니다.
         if (indexToShow >= 0 && indexToShow < galleryPhotos.length) {
-            modalImage.src = galleryPhotos[indexToShow].src; // **수정**: 모달 이미지 src만 변경
+            modalImage.src = galleryPhotos[indexToShow].src;
             currentPhotoIndex = indexToShow;
             updateModalNavButtons();
         }
     }
-
-    // --- 모달 이전/다음 버튼의 표시 상태를 업데이트하는 함수 ---
-    // 첫 사진이면 이전 버튼 숨김, 마지막 사진이면 다음 버튼 숨김
     function updateModalNavButtons() {
-        if (prevBtn) {
-            // 첫 사진인 경우 이전 버튼 숨김
-            if (currentPhotoIndex <= 0) { // 인덱스 0 이하일 때 (첫 사진 포함)
-                prevBtn.style.display = 'none'; // 이전 버튼 숨김
-            } else {
-                prevBtn.style.display = 'block'; // 아니면 보이게 함
-            }
-        }
-
-        if (nextBtn) {
-            // 마지막 사진인 경우 다음 버튼 숨김
-            if (currentPhotoIndex >= galleryPhotos.length - 1) { // 인덱스 마지막 이상일 때 (마지막 사진 포함)
-                nextBtn.style.display = 'none';
-            } else {
-                nextBtn.style.display = 'block';
-            }
+        if (prevBtn) { prevBtn.style.display = (currentPhotoIndex <= 0) ? 'none' : 'block'; }
+        if (nextBtn) { nextBtn.style.display = (currentPhotoIndex >= galleryPhotos.length - 1) ? 'none' : 'block'; }
+    }
+    if (modalImage) { // modalImage가 존재할 때만 이벤트 리스너 추가
+        modalImage.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; e.preventDefault(); });
+        modalImage.addEventListener('touchmove', e => e.preventDefault());
+        modalImage.addEventListener('touchend', e => { touchEndX = e.changedTouches[0].clientX; handleSwipe(); });
+        modalImage.addEventListener('mousedown', e => { if (e.button !== 0) return; mouseIsDown = true; mouseStartX = e.clientX; modalImage.style.cursor = 'grabbing'; e.preventDefault(); });
+        modalImage.addEventListener('mousemove', e => { if (!mouseIsDown) return; e.preventDefault(); });
+        modalImage.addEventListener('mouseup', e => { if (!mouseIsDown) return; mouseIsDown = false; modalImage.style.cursor = 'auto'; touchEndX = e.clientX; handleSwipe(); });
+        modalImage.addEventListener('mouseleave', () => { if (mouseIsDown) { mouseIsDown = false; modalImage.style.cursor = 'auto'; } });
+    }
+     document.addEventListener('mouseup', () => { if (mouseIsDown) { mouseIsDown = false; if(modalImage) modalImage.style.cursor = 'auto'; } });
+    function handleSwipe() {
+        const deltaX = touchEndX - touchStartX;
+        if (Math.abs(deltaX) > swipeThreshold) {
+            if (deltaX < 0) { showPhotoInModal(currentPhotoIndex + 1); }
+            else { showPhotoInModal(currentPhotoIndex - 1); }
         }
     }
 
-    // --- **추가**: '그냥 스와이프' 기능 구현 (단일 이미지 대상) ---
-    // 확대된 사진에 터치 시작 이벤트 리스너 추가
-    modalImage.addEventListener('touchstart', function(event) {
-        // 터치 시작 시 첫 번째 손가락의 X 좌표 기록
-        touchStartX = event.touches[0].clientX;
-         // 기본 스크롤/드래그 방지 (스와이프 중 원치 않는 움직임 방지)
-        event.preventDefault(); // touchstart에서 기본 동작 방지
-    });
+    // --- 카카오 지도 ---
+    const mapContainer = document.getElementById('map');
+    if (mapContainer && typeof kakao !== 'undefined' && typeof kakao.maps !== 'undefined') {
+         const mapOption = { center: new kakao.maps.LatLng(37.535278, 126.978897), level: 3 };
+        const map = new kakao.maps.Map(mapContainer, mapOption);
+        const markerPosition  = new kakao.maps.LatLng(37.535278, 126.97897);
+        const marker = new kakao.maps.Marker({ position: markerPosition });
+        marker.setMap(map);
+        const mapTypeControl = new kakao.maps.MapTypeControl();
+        map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+        const zoomControl = new kakao.maps.ZoomControl();
+        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+    }
 
-    // 확대된 사진에 터치 이동 이벤트 리스너 추가
-    modalImage.addEventListener('touchmove', function(event) {
-         // 터치 중 기본 스크롤/드래그 동작 방지 (스와이프 중 원치 않는 움직임 방지)
-         event.preventDefault();
-    });
+    // --- 스크롤 페이드인 애니메이션 ---
+    const invitationSection = document.getElementById('invitation-text');
+    if (invitationSection) {
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+                    entry.target.classList.add('animated');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        observer.observe(invitationSection);
+    }
 
-    // 확대된 사진에 터치 끝 이벤트 리스너 추가
-    modalImage.addEventListener('touchend', function(event) {
-        // 터치 끝 시 마지막 손가락의 X 좌표 기록
-        touchEndX = event.changedTouches[0].clientX;
+    // --- 축의금 계좌 정보 토글 기능 ---
+    const toggleButtons = document.querySelectorAll('.account-toggle-btn');
+    const accountDetailsDivs = document.querySelectorAll('.account-details');
+    if (toggleButtons.length > 0 && accountDetailsDivs.length > 0) {
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const targetDiv = document.getElementById(targetId);
 
-        // 시작점 대비 끝점의 수평 이동 거리 계산
-        const deltaX = touchEndX - touchStartX;
+                toggleButtons.forEach(btn => btn.classList.remove('active'));
+                accountDetailsDivs.forEach(div => div.classList.remove('show'));
+                this.classList.add('active');
+                if (targetDiv) { targetDiv.classList.add('show'); }
+            });
+        });
+    }
 
-        // 이동 거리가 스와이프 임계값보다 큰지 확인
-        if (Math.abs(deltaX) > swipeThreshold) {
-            // 왼쪽으로 스와이프 (다음 사진)
-            if (deltaX < 0) {
-                const targetIndex = currentPhotoIndex + 1;
-                 // 다음 사진으로 이동 (showPhotoInModal 함수 호출)
-                showPhotoInModal(targetIndex);
-            }
-            // 오른쪽으로 스와이프 (이전 사진)
-            else { // deltaX > 0
-                const targetIndex = currentPhotoIndex - 1;
-                // 이전 사진으로 이동 (showPhotoInModal 함수 호출)
-                showPhotoInModal(targetIndex);
-            }
+
+    // --- 계좌번호 복사 기능 (하이픈 제거 로직 포함) ---
+    const copyButtons = document.querySelectorAll('.copy-btn');
+    if (copyButtons.length > 0) {
+        copyButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const entryDiv = this.closest('.account-entry');
+                if (entryDiv) {
+                    const targetSpan = entryDiv.querySelector('.copy-target');
+                    if (targetSpan) {
+                        const accountNumberWithHyphen = targetSpan.innerText;
+                        const accountNumberDigitsOnly = accountNumberWithHyphen.replace(/-/g, ''); // 하이픈 제거
+
+                        navigator.clipboard.writeText(accountNumberDigitsOnly).then(() => { // 하이픈 없는 번호 복사
+                            const originalText = this.innerHTML;
+                            this.innerHTML = '✅ 복사됨!';
+                            this.classList.add('copied');
+                            setTimeout(() => {
+                                this.innerHTML = originalText;
+                                this.classList.remove('copied');
+                            }, 1500);
+                        }).catch(err => {
+                            console.error('Clipboard API 복사 실패:', err);
+                            try {
+                              const textArea = document.createElement("textarea");
+                              textArea.value = accountNumberDigitsOnly; // 하이픈 없는 번호 복사 (fallback)
+                              textArea.style.position = "fixed"; textArea.style.left = "-9999px";
+                              document.body.appendChild(textArea);
+                              textArea.focus(); textArea.select(); document.execCommand('copy');
+                              document.body.removeChild(textArea);
+                              const originalText = this.innerHTML;
+                              this.innerHTML = '✅ 복사됨!'; this.classList.add('copied');
+                              setTimeout(() => { this.innerHTML = originalText; this.classList.remove('copied'); }, 1500);
+                            } catch (copyErr) {
+                              console.error('execCommand 복사 실패:', copyErr);
+                              alert('계좌번호 복사에 실패했습니다. 직접 복사해주세요.');
+                            }
+                        });
+                    }
+                }
+            });
+        });
+    }
+
+    // --- RSVP 모달 관련 ---
+    const rsvpModal = document.getElementById('rsvpModal');
+    const openRsvpBtn = document.getElementById('openRsvpModal');
+    if (rsvpModal) {
+        const closeRsvpBtn = rsvpModal.querySelector('.close-rsvp');
+        const rsvpForm = document.getElementById('rsvpForm');
+        const rsvpMessage = document.getElementById('rsvpMessage');
+        const submitRsvpBtn = rsvpModal.querySelector('.submit-rsvp-btn');
+
+        // 모달 열기
+        if (openRsvpBtn) {
+            openRsvpBtn.addEventListener('click', () => {
+                rsvpModal.style.display = 'block';
+                if (mainContent) { mainContent.classList.add('blurred'); }
+                if (rsvpMessage) rsvpMessage.textContent = '';
+                if (rsvpForm) rsvpForm.reset();
+                if (submitRsvpBtn) submitRsvpBtn.disabled = false;
+            });
         }
-         // touchstart/touchmove에서 preventDefault를 했으므로 touchend에서는 필수는 아님
-        // event.preventDefault(); // 필요시 추가
-    });
 
-    // **추가**: 데스크톱 마우스 드래그 기능 (모바일 스와이프와 유사)
-    // 확대된 사진에 마우스 누름 이벤트 리스너 추가
-     modalImage.addEventListener('mousedown', function(event) {
-         if (event.button !== 0) return; // 마우스 왼쪽 버튼 아니면 무시
-          mouseIsDown = true;
-          mouseStartX = event.clientX;
-          event.preventDefault(); // 마우스 누름 시 기본 동작 방지
-     });
+        // 모달 닫기 (X 버튼)
+        if (closeRsvpBtn) {
+            closeRsvpBtn.addEventListener('click', closeModal); // 공통 closeModal 함수 사용
+        }
 
-    // 확대된 사진에 마우스 이동 이벤트 리스너 추가
-     modalImage.addEventListener('mousemove', function(event) {
-         if (!mouseIsDown) return; // 마우스 버튼 안 눌렸으면 무시
-         // 실시간 드래그 중 기본 동작 방지
-         event.preventDefault();
-          // 실시간 드래그 시각 효과를 추가하려면 여기에 코드 작성 (복잡)
-     });
+        // 모달 닫기 (배경 클릭)
+        rsvpModal.addEventListener('click', (event) => {
+            if (event.target === rsvpModal) {
+                closeModal(); // 공통 closeModal 함수 사용
+            }
+        });
 
-    // 확대된 사진에 마우스 놓음 이벤트 리스너 추가
-     modalImage.addEventListener('mouseup', function(event) {
-         if (!mouseIsDown) return; // 마우스 버튼 안 눌렸으면 무시
-          mouseIsDown = false; // 마우스 버튼 놓음
+        // 폼 제출 처리
+        if (rsvpForm) {
+            rsvpForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbzBRgvCU_Bk9cUnlX1zxR6nNuWvWGeAq5rb4fDOzLs82dKt90O7PwnP7pGqXBkIgdvHVQ/exec'; // 사용자 URL 적용됨
+                const formData = new FormData(this);
+                if (submitRsvpBtn) submitRsvpBtn.disabled = true;
+                if (rsvpMessage) { rsvpMessage.textContent = '전송 중...'; rsvpMessage.className = 'rsvp-message'; }
 
-          const mouseEndX = event.clientX;
-          const deltaX = mouseEndX - mouseStartX;
+                fetch(scriptURL, { method: 'POST', body: formData })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.result === 'success') {
+                            if (rsvpMessage) { rsvpMessage.textContent = '참석 의사가 전달되었습니다. 감사합니다!'; rsvpMessage.classList.add('success'); }
+                            setTimeout(() => {
+                                closeModal(); // 성공 시 공통 closeModal 함수 사용
+                            }, 2000);
+                        } else { throw new Error(data.error || '알 수 없는 서버 오류'); }
+                    })
+                    .catch(error => {
+                        console.error('Error!', error.message);
+                        if (rsvpMessage) { rsvpMessage.textContent = '오류가 발생했습니다: ' + error.message + '. 다시 시도해주세요.'; rsvpMessage.classList.add('error'); }
+                        else { alert('오류가 발생했습니다. 다시 시도해주세요.'); }
+                        if (submitRsvpBtn) submitRsvpBtn.disabled = false;
+                    });
+            });
+        }
+    } // if (rsvpModal) 끝
 
-          // 드래그 거리가 스와이프 임계값보다 큰지 확인 (터치와 동일)
-          if (Math.abs(deltaX) > swipeThreshold) {
-              // 왼쪽으로 드래그 (다음 사진)
-              if (deltaX < 0) {
-                   const targetIndex = currentPhotoIndex + 1;
-                   showPhotoInModal(targetIndex);
-              }
-              // 오른쪽으로 드래그 (이전 사진)
-              else { // deltaX > 0
-                   const targetIndex = currentPhotoIndex - 1;
-                   showPhotoInModal(targetIndex);
-              }
-          }
-          // event.preventDefault(); // 필요시 추가
-     });
+    // --- D-Day 카운터 로직 (일/시/분/초 표시 및 1초 업데이트) ---
+    const ddayCounter = document.getElementById('dday-counter');
+    if (ddayCounter) {
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+        let countdownInterval; // interval ID 저장 변수
 
-     // 마우스가 모달 밖에서 놓였을 때 드래그 상태 해제 (안전 장치)
-     document.addEventListener('mouseup', function(event) { // 문서 전체에 대해 마우스 놓음 감지
-         if (mouseIsDown) { // 드래그 시작 상태에서 떼었을 때
-             mouseIsDown = false;
-             // 여기서는 모달 밖에서 떼는 경우 특별한 동작은 없습니다.
-             // event.preventDefault(); // 필요시 추가
-         }
-     });
+        const weddingDate = new Date('2025-07-12T13:00:00'); // 결혼식 날짜 및 시간
 
+        function updateCountdown() {
+            const now = new Date();
+            const diff = weddingDate - now;
+
+            if (diff <= 0) {
+                // 결혼식 날짜가 지났거나 당일 13시 이후
+                // 스타일 직접 적용보다는 클래스 추가/제거 방식이 더 좋지만, 일단 간단하게 처리
+                ddayCounter.innerHTML = '<span style="font-size: 1.2em; padding: 5px 15px; display: inline-block;">❤️ Wedding Day ❤️</span>';
+                if (countdownInterval) clearInterval(countdownInterval); // 업데이트 중지
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            // 각 요소가 존재하는지 확인 후 업데이트 (오류 방지)
+            if (daysEl) daysEl.innerText = String(days).padStart(2, '0');
+            if (hoursEl) hoursEl.innerText = String(hours).padStart(2, '0');
+            if (minutesEl) minutesEl.innerText = String(minutes).padStart(2, '0');
+            if (secondsEl) secondsEl.innerText = String(seconds).padStart(2, '0');
+        }
+        updateCountdown(); // 즉시 한번 실행
+        countdownInterval = setInterval(updateCountdown, 1000); // 1초마다 업데이트
+    }
 
 }); // DOMContentLoaded 이벤트 리스너 끝
