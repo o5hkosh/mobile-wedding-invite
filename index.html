@@ -7,6 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;700&family=WindSong:wght@400;500&family=Yellowtail&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=42dot+Sans:wght@400;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=598d34f75532375e7d62d67930e37b8a"></script>
@@ -141,12 +144,13 @@
                  </div>
              </div>
 
-             <h3 class="calendar-link-title">🔽 일정 등록하기 🔽</h3>
+             <h3 class="calendar-link-title">일정 등록하기</h3>
              <a href="wedding_invitation.ics" download="결혼식_일정.ics" aria-label="결혼식 일정 캘린더에 추가하기" class="calendar-link">
                  <div class="wedding-datetime-box">
                      2025년 7월 12일 토요일<br>오후 1시
                  </div>
              </a>
+             <p class="calendar-link-description">※위 버튼을 누르면 캘린더에 일정이 자동 등록됩니다.</p>
 
              <div class="rsvp-box">
                  <div class="rsvp-prompt">
@@ -167,24 +171,26 @@
             <div id="map" style="width:100%; height:400px;"></div>
             <p class="location-address"> 서울특별시 용산구 이태원로 22 국방컨벤션 </p>
              <div class="transportation-info">
-                 <h3>교통편 안내</h3>
+                 <h3><strong>교통편 안내</strong></h3>
                  <p>🚇 지하철: 삼각지역 (4호선, 6호선)<br>13번 출구 도보 10분</p>
                  <p>🚌 버스: 간선 110A, 110B, 740 / 지선 6211 등</p>
                  <p class="parking-info">🅿️ 주차: 하객 2시간 무료<br>⚠️(만차 시 전쟁기념관 주차 가능, 주차권/안내 필수)</p>
              </div>
 
+             <h3 class="navigation-title">내비게이션</h3>
+
              <div class="navigation-buttons">
                  <a href="nmap://route/car?dlat=37.535278&dlng=126.978897&dname=%EA%B5%AD%EB%B0%A9%EC%BB%A8%EB%B2%A4%EC%85%98&appname=mobileweddinginvite" class="nav-button naver-map-btn" aria-label="네이버 지도 길안내">
                      <img src="images/naver_logo.png" alt="네이버 지도 로고">
-                     <span class="button-text">네이버 지도로<br>길찾기</span>
+                     <span class="button-text">네이버 지도</span>
                  </a>
                  <a href="kakaomap://route?ep=37.535278,126.978897&epn=%EA%B5%AD%EB%B0%A9%EC%BB%A8%EB%B2%A4%EC%85%98&by=CAR" class="nav-button kakao-map-btn" aria-label="카카오맵 길찾기">
                      <img src="images/kakao_logo.png" alt="카카오맵 로고">
-                      <span class="button-text">카카오맵으로<br>길찾기</span>
+                      <span class="button-text">카카오맵</span>
                  </a>
                  <a href="tmap://route?goalname=%EA%B5%AD%EB%B0%A9%EC%BB%A8%EB%B2%A4%EC%85%98&goaly=37.535278&goalx=126.978897" class="nav-button tmap-btn" aria-label="티맵 길안내">
                      <img src="images/tmap_logo.png" alt="티맵 로고">
-                     <span class="button-text">티맵으로<br>길찾기</span>
+                     <span class="button-text">티맵</span>
                  </a>
              </div>
 
@@ -212,9 +218,10 @@
                  <p style="margin-top: 25px;">
                      ※ 버스는 정시에 출발하오니,<br>탑승 시간과 장소를 꼭 지켜주시기 바랍니다.
                  </p>
-             </div>
 
-        </section>
+                 <p class="bus-rsvp-prompt">※ 정확한 탑승 인원 조사를 위해<br>참석 의사 알려주기로 버스 탑승 여부를 알려주세요!</p>
+                 <button type="button" class="btn scroll-to-rsvp-btn">참석 의사 전달 위치로 이동</button>
+                 </div> </section>
 
         <section id="account">
              <h2>❤️<br>마음 전하실 곳</h2>
@@ -336,7 +343,11 @@
     </footer>
 
     <div id="myModal" class="modal">
-      <span class="close">&times;</span> <span class="prev">&#10094;</span> <img class="modal-content" id="modalImage" src=""> <span class="next">&#10095;</span> </div>
+      <span class="close">&times;</span>
+      <span class="prev">&#10094;</span>
+      <img class="modal-content" id="modalImage" src="">
+      <span class="next">&#10095;</span>
+    </div>
 
     <div id="rsvpModal" class="modal-rsvp">
         <div class="modal-rsvp-content">
