@@ -360,6 +360,11 @@ section { padding: 60px 20px; text-align: center; }
 .nav-button img {
     display: block; height: 25px; width: auto; margin-right: 5px; flex-shrink: 0;
 }
+.naver-map-btn {
+    padding-left: 5px; /* 기존 8px 에서 줄임 (값 조절 가능) */
+    padding-right: 5px; /* 기존 8px 에서 줄임 (값 조절 가능) */
+}
+
 .naver-map-btn .button-text {
     font-size: 0.9em; /* 기존 0.85em 보다 약간 작게 설정 (값 조절 가능) */
     /* 필요하다면 line-height 등 미세 조정 */
