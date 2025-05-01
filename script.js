@@ -315,5 +315,137 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+// script.js - 파일 하단 }); 앞에 추가
 
+    // --- Guestbook Functionality ---
+    const guestbookForm = document.getElementById('guestbookForm');
+    const guestbookNameInput = document.getElementById('guestbookName');
+    // 아래 ID가 guestbookMessageInput 인지 확인 (HTML에서 그렇게 설정함)
+    const guestbookMessageInput = document.getElementById('guestbookMessageInput');
+    const guestbookSubmitBtn = guestbookForm ? guestbookForm.querySelector('.submit-guestbook-btn') : null;
+    const guestbookSubmitStatus = document.getElementById('guestbookSubmitStatus'); // 상태 메시지 표시 영역 ID 확인
+    const guestbookEntriesContainer = document.getElementById('guestbookEntries');
+
+    // ▼▼▼ 중요: 이 URL을 사용자님의 실제 Apps Script 웹 앱 URL로 바꾸세요! ▼▼▼
+    const guestbookScriptURL = 'https://script.google.com/macros/s/AKfycbyMNNmwjvvjMCiDjzHdJXtogxpjqsa-bLbxzxGSVH8ysfJ7TSKwQA8DIesx-oV1rn8-XA/exec';
+    // ▲▲▲ 중요: 이 URL을 사용자님의 실제 Apps Script 웹 앱 URL로 바꾸세요! ▲▲▲
+
+    // 승인된 메시지를 불러와 표시하는 함수
+    function loadGuestbookMessages() {
+        if (!guestbookEntriesContainer) return; // 메시지 표시 영역 없으면 종료
+
+        guestbookEntriesContainer.innerHTML = '<p style="text-align: center; color: #888;">메시지를 불러오는 중입니다...</p>'; // 로딩 메시지 표시
+
+        // Apps Script에 GET 요청 보내기
+        fetch(guestbookScriptURL, { method: 'GET', mode: 'cors' }) // mode: 'cors' 추가
+            .then(response => {
+                if (!response.ok) { // 응답 상태 코드가 200-299 범위가 아닌 경우
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json(); // JSON으로 변환
+            })
+            .then(result => {
+                // Apps Script에서 보낸 JSON 구조 확인 (result.result, result.data)
+                if (result.result === 'success' && result.data) {
+                    guestbookEntriesContainer.innerHTML = ''; // 로딩 메시지 제거
+                    if (result.data.length > 0) {
+                        // 각 메시지를 HTML로 만들어 추가
+                        result.data.forEach(entry => {
+                            const entryDiv = document.createElement('div');
+                            entryDiv.className = 'guestbook-entry'; // CSS 클래스 적용
+
+                            const metaDiv = document.createElement('div');
+                            metaDiv.className = 'guestbook-entry-meta';
+
+                            const nameSpan = document.createElement('span');
+                            nameSpan.className = 'guestbook-entry-name';
+                            nameSpan.textContent = entry.name || '익명'; // 이름 없으면 '익명'
+
+                            const timeSpan = document.createElement('span');
+                            timeSpan.className = 'guestbook-entry-timestamp';
+                            timeSpan.textContent = entry.timestamp || ''; // 시간
+
+                            metaDiv.appendChild(nameSpan);
+                            metaDiv.appendChild(timeSpan);
+
+                            const messageP = document.createElement('p');
+                            messageP.className = 'guestbook-entry-message';
+                            // 간단한 HTML 태그 제거 (텍스트만 표시)
+                            const tempDiv = document.createElement('div');
+                            tempDiv.innerHTML = entry.message || '';
+                            messageP.textContent = tempDiv.textContent || tempDiv.innerText || ''; // 메시지 내용
+                            // 또는 pre-wrap 위해 textContent 대신 innerText나 다른 처리 필요할 수 있음
+                            // 여기서는 간단히 textContent 사용
+
+                            entryDiv.appendChild(metaDiv);
+                            entryDiv.appendChild(messageP);
+                            guestbookEntriesContainer.appendChild(entryDiv);
+                        });
+                    } else {
+                        // 표시할 메시지가 없을 경우
+                        guestbookEntriesContainer.innerHTML = '<p style="text-align: center; color: #888;">아직 등록된 축하 메시지가 없습니다.</p>';
+                    }
+                } else {
+                    // Apps Script에서 에러를 반환했거나 데이터 구조가 예상과 다를 경우
+                    console.error('Error loading guestbook data:', result.error || 'Invalid data structure');
+                    guestbookEntriesContainer.innerHTML = '<p style-="text-align: center; color: red;">메시지를 불러오는데 실패했습니다.</p>';
+                }
+            })
+            .catch(error => {
+                // 네트워크 오류 등 fetch 실패 시
+                console.error('Fetch Error loading guestbook:', error);
+                guestbookEntriesContainer.innerHTML = '<p style="text-align: center; color: red;">메시지를 불러오는 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.</p>';
+            });
+    }
+
+    // 방명록 폼 제출 처리 함수
+    if (guestbookForm && guestbookSubmitBtn && guestbookSubmitStatus) {
+        guestbookForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // 페이지 새로고침 방지
+
+            guestbookSubmitBtn.disabled = true; // 버튼 비활성화
+            guestbookSubmitStatus.textContent = '메시지를 전송하는 중...';
+            guestbookSubmitStatus.className = 'guestbook-submit-status'; // 스타일 초기화
+
+            const formData = new FormData(guestbookForm);
+
+            // Apps Script에 POST 요청 보내기
+            fetch(guestbookScriptURL, { method: 'POST', body: formData})
+                .then(response => response.json())
+                .then(data => {
+                    if (data.result === 'success') {
+                        guestbookSubmitStatus.textContent = '메시지가 성공적으로 등록되었습니다! 감사합니다.';
+                        guestbookSubmitStatus.classList.add('success');
+                        guestbookForm.reset(); // 폼 내용 초기화
+                        // 메시지 목록을 바로 새로고침 할 수도 있지만,
+                        // 어차피 승인해야 보이므로 일단 생략.
+                        // setTimeout(loadGuestbookMessages, 1500);
+                    } else {
+                        // Apps Script가 에러를 반환한 경우
+                        throw new Error(data.error || '알 수 없는 오류가 발생했습니다.');
+                    }
+                })
+                .catch(error => {
+                    // 네트워크 오류 또는 Apps Script 에러 처리
+                    console.error('Error submitting guestbook:', error);
+                    guestbookSubmitStatus.textContent = '오류가 발생했습니다: ' + error.message;
+                    guestbookSubmitStatus.classList.add('error');
+                })
+                .finally(() => {
+                    // 성공/실패 여부와 관계 없이 2초 후 버튼 다시 활성화
+                    setTimeout(() => {
+                       if(guestbookSubmitBtn) guestbookSubmitBtn.disabled = false;
+                       // 성공/실패 메시지도 잠시 후 지우고 싶다면 여기에 추가
+                       // setTimeout(() => { guestbookSubmitStatus.textContent = ''; guestbookSubmitStatus.className = 'guestbook-submit-status'; }, 5000);
+                    }, 2000);
+                });
+        });
+    }
+
+    // 페이지 로드 시 방명록 메시지 불러오기 실행
+    loadGuestbookMessages();
+
+    // --- End of Guestbook Functionality ---
+
+// }); // 맨 마지막에 있는 DOMContentLoaded 닫는 }); 입니다. 이 줄 바로 위에 붙여넣으세요.
 }); // DOMContentLoaded 이벤트 리스너 끝

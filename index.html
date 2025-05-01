@@ -326,7 +326,24 @@
                  </div>
              </div>
         </section>
+        <section id="guestbook" style="background-color: #FAF3E0; padding: 60px 20px;"> <h2>✍️<br>축하 메시지 남기기</h2>
 
+            <form id="guestbookForm" class="guestbook-form" style="max-width: 500px; margin: 40px auto 0 auto; text-align: left;">
+                <div class="form-group"> <label for="guestbookName" style="display: block; margin-bottom: 6px; font-weight: 500;">성함:</label>
+                    <input type="text" id="guestbookName" name="Name" placeholder="이름을 입력하세요" required maxlength="50" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1em;">
+                </div>
+                <div class="form-group"> <label for="guestbookMessageInput" style="display: block; margin-bottom: 6px; font-weight: 500;">메시지:</label> <textarea id="guestbookMessageInput" name="Message" rows="4" placeholder="따뜻한 축하 메시지를 남겨주세요 :)" required maxlength="500" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1em; line-height: 1.5;"></textarea>
+                </div>
+                <button type="submit" class="btn submit-guestbook-btn" style="width: 100%; padding: 12px; font-family: '42dot Sans', sans-serif; font-size: 1.1em; font-weight: 700; background-color: #87A96B; color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease; margin-top: 10px;">메시지 남기기</button>
+                <p id="guestbookSubmitStatus" class="guestbook-submit-status" style="text-align: center; margin-top: 15px; font-size: 0.9em; min-height: 1.2em;"></p> </form>
+        
+            <hr class="guestbook-divider" style="border: none; border-top: 1px solid #eee; margin: 50px auto; max-width: 150px;">
+        
+            <h3 style="font-family: '42dot Sans', sans-serif; font-weight: 700; font-size: 1.4em; color: #333; margin-bottom: 30px;">남겨주신 축하 메시지</h3>
+            <div id="guestbookEntries" class="guestbook-entries-container" style="max-width: 600px; margin: 0 auto; text-align: left;">
+                <p style="text-align: center; color: #888;">메시지를 불러오는 중입니다...</p>
+            </div>
+        </section>
         <section id="thank-you">
             <h2 class="thank-you-title">감사 인사</h2>
             <p class="thank-you-text">

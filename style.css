@@ -703,3 +703,146 @@ footer { padding: 30px 20px; text-align: center; font-size: 0.8em; color: #aaa; 
 
 /* 배경 블러 처리를 위한 클래스 */
 .blurred { filter: blur(5px); }
+/* style.css - 파일 하단에 추가 */
+
+/* --- Guestbook Section Styles --- */
+#guestbook {
+    background-color: #FAF3E0; /* 갤러리 배경과 유사한 색 */
+    padding: 60px 20px;
+    text-align: center;
+}
+
+#guestbook h2 {
+    font-family: 'Gowun Batang', serif; /* 계좌 섹션 제목과 통일 */
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 40px; /* 폼 위의 간격 */
+    line-height: 1.4;
+}
+
+.guestbook-form {
+    max-width: 500px; /* 폼 최대 너비 */
+    margin: 0 auto;   /* 폼 가운데 정렬 */
+    text-align: left; /* 폼 내부 라벨 등 왼쪽 정렬 */
+}
+
+/* 기존 .form-group 스타일이 적용될 것이므로 별도 지정은 생략 */
+/* 필요 시 .guestbook-form .form-group { ... } 로 추가 */
+
+/* 기존 label 스타일이 적용될 것이므로 별도 지정은 생략 */
+/* 필요 시 .guestbook-form label { ... } 로 추가 */
+
+/* 기존 input[type="text"] 스타일 적용 */
+/* 기존 textarea 스타일 적용 (line-height 추가) */
+.guestbook-form textarea {
+     line-height: 1.5; /* 여러 줄 입력 시 줄 간격 */
+}
+
+/* 방명록 제출 버튼 스타일 */
+.submit-guestbook-btn {
+    width: 100%;
+    padding: 12px;
+    font-family: "42dot Sans", sans-serif; /* 42dot Sans 폰트 */
+    font-size: 1.1em;
+    font-weight: 700;
+    background-color: #87A96B; /* RSVP 버튼과 유사한 색 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+.submit-guestbook-btn:hover {
+    background-color: #7A9A5F;
+}
+.submit-guestbook-btn:disabled { /* 제출 중 비활성화 스타일 */
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* 방명록 제출 상태 메시지 스타일 */
+.guestbook-submit-status {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9em;
+    min-height: 1.2em; /* 메시지 표시 공간 확보 */
+    font-family: 'Gowun Batang', serif; /* 기본 문구와 통일 */
+}
+.guestbook-submit-status.success { color: green; } /* 성공 메시지 */
+.guestbook-submit-status.error { color: red; }   /* 에러 메시지 */
+
+
+/* 방명록 폼과 표시 영역 구분선 */
+.guestbook-divider {
+    border: none; /* 기본 테두리 제거 */
+    border-top: 1px solid #eee; /* 얇은 상단 테두리 */
+    margin: 60px auto; /* 위아래 간격 및 가운데 정렬 */
+    max-width: 150px; /* 구분선 최대 너비 */
+}
+
+/* 방명록 표시 영역 제목 */
+#guestbookEntries h3 {
+    font-family: "42dot Sans", sans-serif; /* 42dot Sans 폰트 */
+    font-weight: 700;
+    font-size: 1.4em;
+    color: #333;
+    margin-bottom: 30px; /* 아래 메시지 목록과의 간격 */
+}
+
+/* 방명록 메시지 목록 컨테이너 */
+.guestbook-entries-container {
+    max-width: 600px; /* 목록 최대 너비 */
+    margin: 0 auto; /* 가운데 정렬 */
+    text-align: left; /* 개별 메시지 왼쪽 정렬 */
+}
+
+/* 로딩 중 메시지 스타일 */
+ .guestbook-entries-container > p { /* 로딩 중 p 태그에만 적용 */
+     text-align: center;
+     color: #888;
+     font-family: 'Gowun Batang', serif;
+ }
+
+/* 개별 방명록 항목 스타일 (JavaScript가 생성할 구조 기준) */
+.guestbook-entry {
+    border-bottom: 1px solid #eee; /* 각 항목 아래 구분선 */
+    padding: 25px 0; /* 위아래 여백 */
+    margin-bottom: 25px; /* 항목 간 간격 */
+}
+.guestbook-entry:last-child { /* 마지막 항목은 아래 선과 간격 제거 */
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.guestbook-entry-meta { /* 이름과 시간 묶는 영역 */
+    display: flex;
+    justify-content: space-between; /* 이름 왼쪽, 시간 오른쪽 */
+    align-items: center;
+    margin-bottom: 10px; /* 메시지 내용과의 간격 */
+}
+
+.guestbook-entry-name { /* 이름 스타일 */
+    font-family: 'Noto Sans KR', sans-serif; /* 기본 고딕 계열 */
+    font-weight: 700; /* 굵게 */
+    color: #333;
+    font-size: 1.05em;
+}
+
+.guestbook-entry-timestamp { /* 시간 스타일 */
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.8em; /* 작게 */
+    color: #888; /* 연한 회색 */
+}
+
+.guestbook-entry-message { /* 메시지 본문 스타일 */
+    font-family: 'Gowun Batang', serif; /* 내용 폰트 */
+    font-size: 1em;
+    color: #555; /* 약간 연한 검정 */
+    line-height: 1.7; /* 줄 간격 */
+    white-space: pre-wrap; /* 사용자가 입력한 줄바꿈 유지 */
+    word-wrap: break-word; /* 긴 단어 자동 줄바꿈 */
+}
+
+/* --- End of Guestbook Section Styles --- */
