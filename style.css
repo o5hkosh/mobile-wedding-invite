@@ -211,7 +211,7 @@ section { padding: 60px 20px; text-align: center; }
 .wedding-datetime-box {
     font-family: "42dot Sans", 'Gowun Batang', serif;
     padding: 10px 20px; /* 원래 padding 값 */
-    background-color: #607DBC;
+    background-color: #87A96B;
     color: white;
     border-radius: 25px;
     width: fit-content;
@@ -360,7 +360,10 @@ section { padding: 60px 20px; text-align: center; }
 .nav-button img {
     display: block; height: 25px; width: auto; margin-right: 5px; flex-shrink: 0;
 }
-
+.naver-map-btn .button-text {
+    font-size: 0.9em; /* 기존 0.85em 보다 약간 작게 설정 (값 조절 가능) */
+    /* 필요하다면 line-height 등 미세 조정 */
+}
 /* 각 앱별 버튼 스타일 */
 .naver-map-btn { background-color: #fff; color: #333; border-color: #eee; }
 .kakao-map-btn { background-color: #F9E000; color: #333; border-color: #F9E000; }
