@@ -6,14 +6,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalImage = document.getElementById('modalImage');
     const closeBtn = document.getElementsByClassName('close')[0];
     const galleryPhotos = document.querySelectorAll('#gallery .gallery-photos .gallery-photo');
-    const mainContent = document.querySelector('main');
+    const mainContent = document.querySelector('main'); // 배경 블러 처리를 위해 main 태그 선택
     const prevBtn = document.querySelector('#myModal .prev');
     const nextBtn = document.querySelector('#myModal .next');
 
     let currentPhotoIndex = 0;
     let touchStartX = 0;
     let touchEndX = 0;
-    const swipeThreshold = 75;
+    const swipeThreshold = 75; // 스와이프 감지 민감도
     let mouseIsDown = false;
     let mouseStartX = 0;
 
@@ -24,21 +24,21 @@ document.addEventListener('DOMContentLoaded', function() {
             currentPhotoIndex = index;
             // 모달 열 때 display: flex 로 변경 (중앙 정렬 위해)
             if (modal) modal.style.display = 'flex';
-            if (mainContent) { mainContent.classList.add('blurred'); }
-            updateModalNavButtons();
+            if (mainContent) { mainContent.classList.add('blurred'); } // 메인 컨텐츠 블러 처리
+            updateModalNavButtons(); // 이전/다음 버튼 상태 업데이트
         });
     });
 
     // --- 모달 닫기 관련 (갤러리/RSVP 공통) ---
     // closeModal 함수 (공통 사용)
     function closeModal() {
-        if(modal) modal.style.display = 'none';
+        if(modal) modal.style.display = 'none'; // 갤러리 모달 닫기
         const rsvpModalCheck = document.getElementById('rsvpModal');
-        if(rsvpModalCheck) rsvpModalCheck.style.display = 'none';
-        if (mainContent) { mainContent.classList.remove('blurred'); }
-        if(modalImage) modalImage.src = ''; // 이미지 소스 초기화
+        if(rsvpModalCheck) rsvpModalCheck.style.display = 'none'; // RSVP 모달 닫기
+        if (mainContent) { mainContent.classList.remove('blurred'); } // 메인 컨텐츠 블러 해제
+        if(modalImage) modalImage.src = ''; // 갤러리 모달 이미지 소스 초기화
     }
-    // 갤러리 모달 닫기 버튼
+    // 갤러리 모달 닫기 버튼 (X)
     if (closeBtn) { closeBtn.addEventListener('click', closeModal); }
     // 갤러리 모달 배경 클릭 시 닫기
     if (modal) {
@@ -65,15 +65,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- 갤러리 모달 스와이프/드래그 넘기기 ---
     if (modalImage) {
-        modalImage.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; e.preventDefault(); });
-        modalImage.addEventListener('touchmove', e => e.preventDefault());
+        // Touch Events
+        modalImage.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; e.preventDefault(); }, { passive: false });
+        modalImage.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: false }); // 스크롤 방지
         modalImage.addEventListener('touchend', e => { touchEndX = e.changedTouches[0].clientX; handleSwipe(); });
+        // Mouse Events
         modalImage.addEventListener('mousedown', e => { if (e.button !== 0) return; mouseIsDown = true; mouseStartX = e.clientX; modalImage.style.cursor = 'grabbing'; e.preventDefault(); });
         modalImage.addEventListener('mousemove', e => { if (!mouseIsDown) return; e.preventDefault(); });
         modalImage.addEventListener('mouseup', e => { if (!mouseIsDown) return; mouseIsDown = false; modalImage.style.cursor = 'auto'; touchEndX = e.clientX; handleSwipe(); });
         modalImage.addEventListener('mouseleave', () => { if (mouseIsDown) { mouseIsDown = false; modalImage.style.cursor = 'auto'; } });
     }
-    document.addEventListener('mouseup', () => { if (mouseIsDown) { mouseIsDown = false; if(modalImage) modalImage.style.cursor = 'auto'; } }); // 페이지 다른 곳에서 마우스 뗄 경우 대비
+    // 페이지 다른 곳에서 마우스 뗄 경우 대비
+    document.addEventListener('mouseup', () => { if (mouseIsDown) { mouseIsDown = false; if(modalImage) modalImage.style.cursor = 'auto'; } });
     function handleSwipe() {
         const deltaX = touchEndX - touchStartX;
         if (Math.abs(deltaX) > swipeThreshold) {
@@ -117,8 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
                     entry.target.classList.add('animated');
-                    // 한번 나타난 후에는 관찰 중지 (선택사항)
-                    // observer.unobserve(entry.target);
+                    // observer.unobserve(entry.target); // 필요시 주석 해제
                 }
             });
         }, observerOptions);
@@ -129,7 +131,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggleButtons = document.querySelectorAll('.account-toggle-btn');
     const accountDetailsDivs = document.querySelectorAll('.account-details');
     if (toggleButtons.length > 0 && accountDetailsDivs.length > 0) {
-        // 기본으로 첫 번째 버튼과 내용이 활성화되도록 설정 (HTML에서 active/show 클래스 미리 부여해도 됨)
         if (!document.querySelector('.account-toggle-btn.active')) {
             toggleButtons[0].classList.add('active');
         }
@@ -140,15 +141,12 @@ document.addEventListener('DOMContentLoaded', function() {
                  firstTargetDiv.classList.add('show');
              }
         }
-
         toggleButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const targetId = this.getAttribute('data-target');
                 const targetDiv = document.getElementById(targetId);
-
                 toggleButtons.forEach(btn => btn.classList.remove('active'));
                 accountDetailsDivs.forEach(div => div.classList.remove('show'));
-
                 this.classList.add('active');
                 if (targetDiv) {
                     targetDiv.classList.add('show');
@@ -158,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    // --- 계좌번호 복사 기능 (하이픈 제거 로직 포함) ---
+    // --- 계좌번호 복사 기능 ---
     const copyButtons = document.querySelectorAll('.copy-btn');
     if (copyButtons.length > 0) {
         copyButtons.forEach(button => {
@@ -168,8 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const targetSpan = entryDiv.querySelector('.copy-target');
                     if (targetSpan) {
                         const accountNumberWithHyphen = targetSpan.innerText;
-                        const accountNumberDigitsOnly = accountNumberWithHyphen.replace(/-/g, ''); // 하이픈 제거
-
+                        const accountNumberDigitsOnly = accountNumberWithHyphen.replace(/-/g, '');
                         navigator.clipboard.writeText(accountNumberDigitsOnly).then(() => {
                             const originalText = this.innerHTML;
                             this.innerHTML = '✅ 복사됨!';
@@ -180,16 +177,14 @@ document.addEventListener('DOMContentLoaded', function() {
                             }, 1500);
                         }).catch(err => {
                             console.error('Clipboard API 복사 실패:', err);
-                            // Fallback 시도 (구형 브라우저 등)
                             try {
                               const textArea = document.createElement("textarea");
-                              textArea.value = accountNumberDigitsOnly; // 하이픈 없는 번호 복사
+                              textArea.value = accountNumberDigitsOnly;
                               textArea.style.position = "fixed"; textArea.style.left = "-9999px";
                               document.body.appendChild(textArea);
                               textArea.focus(); textArea.select();
                               document.execCommand('copy');
                               document.body.removeChild(textArea);
-
                               const originalText = this.innerHTML;
                               this.innerHTML = '✅ 복사됨!'; this.classList.add('copied');
                               setTimeout(() => { this.innerHTML = originalText; this.classList.remove('copied'); }, 1500);
@@ -207,65 +202,44 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- RSVP 모달 관련 ---
     const rsvpModal = document.getElementById('rsvpModal');
     const openRsvpBtn = document.getElementById('openRsvpModal');
-    if (rsvpModal && openRsvpBtn) { // openRsvpBtn 존재 여부도 확인
+    if (rsvpModal && openRsvpBtn) {
         const closeRsvpBtn = rsvpModal.querySelector('.close-rsvp');
         const rsvpForm = document.getElementById('rsvpForm');
         const rsvpMessage = document.getElementById('rsvpMessage');
         const submitRsvpBtn = rsvpModal.querySelector('.submit-rsvp-btn');
-
-        // 모달 열기
         openRsvpBtn.addEventListener('click', () => {
-            rsvpModal.style.display = 'block'; // block으로 열어야 함 (CSS 기본값 none)
+            rsvpModal.style.display = 'block';
             if (mainContent) { mainContent.classList.add('blurred'); }
-            if (rsvpMessage) rsvpMessage.textContent = ''; // 메시지 초기화
-            if (rsvpForm) rsvpForm.reset(); // 폼 초기화
-            if (submitRsvpBtn) submitRsvpBtn.disabled = false; // 제출 버튼 활성화
+            if (rsvpMessage) rsvpMessage.textContent = '';
+            if (rsvpForm) rsvpForm.reset();
+            if (submitRsvpBtn) submitRsvpBtn.disabled = false;
         });
-
-        // 모달 닫기 (X 버튼)
-        if (closeRsvpBtn) {
-            closeRsvpBtn.addEventListener('click', closeModal); // 공통 closeModal 함수 사용
-        }
-
-        // 모달 닫기 (배경 클릭)
-        rsvpModal.addEventListener('click', (event) => {
-            if (event.target === rsvpModal) {
-                closeModal(); // 공통 closeModal 함수 사용
-            }
-        });
-
-        // 폼 제출 처리
+        if (closeRsvpBtn) { closeRsvpBtn.addEventListener('click', closeModal); }
+        rsvpModal.addEventListener('click', (event) => { if (event.target === rsvpModal) { closeModal(); } });
         if (rsvpForm) {
             rsvpForm.addEventListener('submit', function(e) {
-                e.preventDefault(); // 기본 제출 동작 막기
-                // Google Apps Script URL (본인 것으로 교체 필요)
-                const scriptURL = 'https://script.google.com/macros/s/AKfycbwpk21dxXQAQKgqCW4BR4BaU2sHxisqeqvdTcCe22Ur31P6l9_P3s1TXHPLkU7lIG9MuQ/exec';
+                e.preventDefault();
+                const rsvpScriptURL = 'https://script.google.com/macros/s/AKfycbwpk21dxXQAQKgqCW4BR4BaU2sHxisqeqvdTcCe22Ur31P6l9_P3s1TXHPLkU7lIG9MuQ/exec'; // ★★★ RSVP URL 확인 ★★★
                 const formData = new FormData(this);
-                if (submitRsvpBtn) submitRsvpBtn.disabled = true; // 중복 제출 방지
+                if (submitRsvpBtn) submitRsvpBtn.disabled = true;
                 if (rsvpMessage) { rsvpMessage.textContent = '전송 중...'; rsvpMessage.className = 'rsvp-message'; }
-
-                fetch(scriptURL, { method: 'POST', body: formData })
-                    .then(response => response.json()) // 응답을 JSON으로 파싱
+                fetch(rsvpScriptURL, { method: 'POST', body: formData })
+                    .then(response => response.json())
                     .then(data => {
                         if (data.result === 'success') {
                             if (rsvpMessage) { rsvpMessage.textContent = '참석 의사가 전달되었습니다. 감사합니다!'; rsvpMessage.classList.add('success'); }
-                            setTimeout(() => {
-                                closeModal(); // 성공 시 2초 후 모달 닫기
-                            }, 2000);
-                        } else {
-                            // Apps Script에서 에러 메시지를 보냈을 경우 처리
-                            throw new Error(data.error || '알 수 없는 서버 오류');
-                        }
+                            setTimeout(closeModal, 2000);
+                        } else { throw new Error(data.error || '알 수 없는 서버 오류'); }
                     })
                     .catch(error => {
                         console.error('RSVP 제출 오류!', error.message);
                         if (rsvpMessage) { rsvpMessage.textContent = '오류가 발생했습니다: ' + error.message + '. 다시 시도해주세요.'; rsvpMessage.classList.add('error'); }
                         else { alert('오류가 발생했습니다. 다시 시도해주세요.'); }
-                        if (submitRsvpBtn) submitRsvpBtn.disabled = false; // 오류 시 버튼 다시 활성화
+                        if (submitRsvpBtn) submitRsvpBtn.disabled = false;
                     });
             });
         }
-    } // if (rsvpModal && openRsvpBtn) 끝
+    }
 
     // --- D-Day 카운터 로직 ---
     const ddayCounter = document.getElementById('dday-counter');
@@ -274,178 +248,197 @@ document.addEventListener('DOMContentLoaded', function() {
         const hoursEl = document.getElementById('hours');
         const minutesEl = document.getElementById('minutes');
         const secondsEl = document.getElementById('seconds');
-        let countdownInterval; // interval ID 저장 변수
-
-        const weddingDate = new Date('2025-07-12T13:00:00'); // 결혼식 날짜 및 시간
-
+        let countdownInterval;
+        const weddingDate = new Date('2025-07-12T13:00:00');
         function updateCountdown() {
             const now = new Date();
             const diff = weddingDate - now;
-
-            if (diff <= 0) { // 결혼식 날짜/시간이 지났을 경우
+            if (diff <= 0) {
                 ddayCounter.innerHTML = '<span style="font-size: 1.2em; padding: 5px 15px; display: inline-block;">❤️ Wedding Day ❤️</span>';
-                if (countdownInterval) clearInterval(countdownInterval); // 타이머 중지
+                if (countdownInterval) clearInterval(countdownInterval);
                 return;
             }
-
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-            // 각 요소가 존재할 때만 업데이트 (오류 방지)
             if (daysEl) daysEl.innerText = String(days).padStart(2, '0');
             if (hoursEl) hoursEl.innerText = String(hours).padStart(2, '0');
             if (minutesEl) minutesEl.innerText = String(minutes).padStart(2, '0');
             if (secondsEl) secondsEl.innerText = String(seconds).padStart(2, '0');
         }
-        updateCountdown(); // 페이지 로드 시 즉시 한번 실행
-        countdownInterval = setInterval(updateCountdown, 1000); // 1초마다 업데이트
+        updateCountdown();
+        countdownInterval = setInterval(updateCountdown, 1000);
     }
 
 
-    // --- 추가됨: Scroll to RSVP button ---
+    // --- Scroll to RSVP button (From Bus Info Section) ---
     const scrollToRsvpBtn = document.querySelector('.scroll-to-rsvp-btn');
-    const rsvpTargetElement = document.getElementById('openRsvpModal'); // 스크롤 목적지 요소
-
+    const rsvpTargetElement = document.getElementById('openRsvpModal');
     if (scrollToRsvpBtn && rsvpTargetElement) {
         scrollToRsvpBtn.addEventListener('click', function() {
-            // 목적지 요소가 화면 중앙에 오도록 부드럽게 스크롤
             rsvpTargetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
     }
 
-// script.js - 파일 하단 }); 앞에 추가
 
     // --- Guestbook Functionality ---
     const guestbookForm = document.getElementById('guestbookForm');
     const guestbookNameInput = document.getElementById('guestbookName');
-    // 아래 ID가 guestbookMessageInput 인지 확인 (HTML에서 그렇게 설정함)
     const guestbookMessageInput = document.getElementById('guestbookMessageInput');
     const guestbookSubmitBtn = guestbookForm ? guestbookForm.querySelector('.submit-guestbook-btn') : null;
-    const guestbookSubmitStatus = document.getElementById('guestbookSubmitStatus'); // 상태 메시지 표시 영역 ID 확인
+    const guestbookSubmitStatus = document.getElementById('guestbookSubmitStatus');
     const guestbookEntriesContainer = document.getElementById('guestbookEntries');
-
-    // ▼▼▼ 중요: 이 URL을 사용자님의 실제 Apps Script 웹 앱 URL로 바꾸세요! ▼▼▼
+    // ★★★ 본인의 방명록용 Google Apps Script URL로 변경하세요 ★★★
     const guestbookScriptURL = 'https://script.google.com/macros/s/AKfycbyMNNmwjvvjMCiDjzHdJXtogxpjqsa-bLbxzxGSVH8ysfJ7TSKwQA8DIesx-oV1rn8-XA/exec';
-    // ▲▲▲ 중요: 이 URL을 사용자님의 실제 Apps Script 웹 앱 URL로 바꾸세요! ▲▲▲
 
-    // 승인된 메시지를 불러와 표시하는 함수
+    // Function to load and display approved messages
     function loadGuestbookMessages() {
-        if (!guestbookEntriesContainer) return; // 메시지 표시 영역 없으면 종료
-
-        guestbookEntriesContainer.innerHTML = '<p style="text-align: center; color: #888;">메시지를 불러오는 중입니다...</p>'; // 로딩 메시지 표시
-
-        // Apps Script에 GET 요청 보내기
-        fetch(guestbookScriptURL, { method: 'GET', mode: 'cors' }) // mode: 'cors' 추가
+        if (!guestbookEntriesContainer) return;
+        guestbookEntriesContainer.innerHTML = '<p style="text-align: center; color: #888;">메시지를 불러오는 중입니다...</p>';
+        fetch(guestbookScriptURL, { method: 'GET', mode: 'cors' })
             .then(response => {
-                if (!response.ok) { // 응답 상태 코드가 200-299 범위가 아닌 경우
-                    throw new Error('Network response was not ok ' + response.statusText);
-                }
-                return response.json(); // JSON으로 변환
+                if (!response.ok) { throw new Error('Network response was not ok ' + response.statusText); }
+                return response.json();
             })
             .then(result => {
-                // Apps Script에서 보낸 JSON 구조 확인 (result.result, result.data)
                 if (result.result === 'success' && result.data) {
-                    guestbookEntriesContainer.innerHTML = ''; // 로딩 메시지 제거
+                    guestbookEntriesContainer.innerHTML = '';
                     if (result.data.length > 0) {
-                        // 각 메시지를 HTML로 만들어 추가
                         result.data.forEach(entry => {
-                            const entryDiv = document.createElement('div');
-                            entryDiv.className = 'guestbook-entry'; // CSS 클래스 적용
-
-                            const metaDiv = document.createElement('div');
-                            metaDiv.className = 'guestbook-entry-meta';
-
-                            const nameSpan = document.createElement('span');
-                            nameSpan.className = 'guestbook-entry-name';
-                            nameSpan.textContent = entry.name || '익명'; // 이름 없으면 '익명'
-
-                            const timeSpan = document.createElement('span');
-                            timeSpan.className = 'guestbook-entry-timestamp';
-                            timeSpan.textContent = entry.timestamp || ''; // 시간
-
-                            metaDiv.appendChild(nameSpan);
-                            metaDiv.appendChild(timeSpan);
-
-                            const messageP = document.createElement('p');
-                            messageP.className = 'guestbook-entry-message';
-                            // 간단한 HTML 태그 제거 (텍스트만 표시)
-                            const tempDiv = document.createElement('div');
-                            tempDiv.innerHTML = entry.message || '';
-                            messageP.textContent = tempDiv.textContent || tempDiv.innerText || ''; // 메시지 내용
-                            // 또는 pre-wrap 위해 textContent 대신 innerText나 다른 처리 필요할 수 있음
-                            // 여기서는 간단히 textContent 사용
-
-                            entryDiv.appendChild(metaDiv);
-                            entryDiv.appendChild(messageP);
+                            const entryDiv = document.createElement('div'); entryDiv.className = 'guestbook-entry';
+                            const metaDiv = document.createElement('div'); metaDiv.className = 'guestbook-entry-meta';
+                            const nameSpan = document.createElement('span'); nameSpan.className = 'guestbook-entry-name'; nameSpan.textContent = entry.name || '익명';
+                            const timeSpan = document.createElement('span'); timeSpan.className = 'guestbook-entry-timestamp'; timeSpan.textContent = entry.timestamp || '';
+                            metaDiv.appendChild(nameSpan); metaDiv.appendChild(timeSpan);
+                            const messageP = document.createElement('p'); messageP.className = 'guestbook-entry-message';
+                            const tempDiv = document.createElement('div'); tempDiv.innerHTML = entry.message || ''; messageP.textContent = tempDiv.textContent || tempDiv.innerText || '';
+                            entryDiv.appendChild(metaDiv); entryDiv.appendChild(messageP);
                             guestbookEntriesContainer.appendChild(entryDiv);
                         });
                     } else {
-                        // 표시할 메시지가 없을 경우
                         guestbookEntriesContainer.innerHTML = '<p style="text-align: center; color: #888;">아직 등록된 축하 메시지가 없습니다.</p>';
                     }
                 } else {
-                    // Apps Script에서 에러를 반환했거나 데이터 구조가 예상과 다를 경우
-                    console.error('Error loading guestbook data:', result.error || 'Invalid data structure');
-                    guestbookEntriesContainer.innerHTML = '<p style-="text-align: center; color: red;">메시지를 불러오는데 실패했습니다.</p>';
+                    console.error('Error loading guestbook:', result.error || 'No data found or invalid structure');
+                    guestbookEntriesContainer.innerHTML = '<p style="text-align: center; color: red;">메시지를 불러오는데 실패했습니다.</p>';
+                     if (result.result !== 'success' && result.error) { guestbookEntriesContainer.innerHTML += '<br><small>' + result.error + '</small>'; }
                 }
             })
             .catch(error => {
-                // 네트워크 오류 등 fetch 실패 시
                 console.error('Fetch Error loading guestbook:', error);
                 guestbookEntriesContainer.innerHTML = '<p style="text-align: center; color: red;">메시지를 불러오는 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.</p>';
             });
     }
 
-    // 방명록 폼 제출 처리 함수
+    // Function to handle guestbook form submission
     if (guestbookForm && guestbookSubmitBtn && guestbookSubmitStatus) {
         guestbookForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // 페이지 새로고침 방지
-
-            guestbookSubmitBtn.disabled = true; // 버튼 비활성화
+            e.preventDefault();
+            guestbookSubmitBtn.disabled = true;
             guestbookSubmitStatus.textContent = '메시지를 전송하는 중...';
-            guestbookSubmitStatus.className = 'guestbook-submit-status'; // 스타일 초기화
-
+            guestbookSubmitStatus.className = 'guestbook-submit-status';
             const formData = new FormData(guestbookForm);
-
-            // Apps Script에 POST 요청 보내기
             fetch(guestbookScriptURL, { method: 'POST', body: formData})
                 .then(response => response.json())
                 .then(data => {
                     if (data.result === 'success') {
                         guestbookSubmitStatus.textContent = '메시지가 성공적으로 등록되었습니다! 감사합니다.';
                         guestbookSubmitStatus.classList.add('success');
-                        guestbookForm.reset(); // 폼 내용 초기화
-                        // 메시지 목록을 바로 새로고침 할 수도 있지만,
-                        // 어차피 승인해야 보이므로 일단 생략.
-                        // setTimeout(loadGuestbookMessages, 1500);
-                    } else {
-                        // Apps Script가 에러를 반환한 경우
-                        throw new Error(data.error || '알 수 없는 오류가 발생했습니다.');
-                    }
+                        guestbookForm.reset();
+                        // setTimeout(loadGuestbookMessages, 2000); // Optionally reload
+                    } else { throw new Error(data.error || '알 수 없는 오류 발생'); }
                 })
                 .catch(error => {
-                    // 네트워크 오류 또는 Apps Script 에러 처리
                     console.error('Error submitting guestbook:', error);
                     guestbookSubmitStatus.textContent = '오류가 발생했습니다: ' + error.message;
                     guestbookSubmitStatus.classList.add('error');
                 })
                 .finally(() => {
-                    // 성공/실패 여부와 관계 없이 2초 후 버튼 다시 활성화
                     setTimeout(() => {
                        if(guestbookSubmitBtn) guestbookSubmitBtn.disabled = false;
-                       // 성공/실패 메시지도 잠시 후 지우고 싶다면 여기에 추가
-                       // setTimeout(() => { guestbookSubmitStatus.textContent = ''; guestbookSubmitStatus.className = 'guestbook-submit-status'; }, 5000);
+                       // Optionally clear status message after a while
+                       // setTimeout(() => { guestbookSubmitStatus.textContent = ''; guestbookSubmitStatus.className = 'guestbook-submit-status'; }, 7000);
                     }, 2000);
                 });
         });
     }
 
-    // 페이지 로드 시 방명록 메시지 불러오기 실행
+    // Load guestbook messages when the page loads
     loadGuestbookMessages();
-
     // --- End of Guestbook Functionality ---
 
-// }); // 맨 마지막에 있는 DOMContentLoaded 닫는 }); 입니다. 이 줄 바로 위에 붙여넣으세요.
+
+    // --- ▼▼▼ 수정됨: Background Music (BGM) Functionality (Simplified - Autoplay Attempt Only) ▼▼▼ ---
+    const bgmPlayer = document.getElementById('bgmPlayer');
+    const bgmControlBtn = document.getElementById('bgmControlBtn');
+
+    // Function to update the button icon/text and accessibility label
+    function updateBgmButton() {
+        if (!bgmPlayer || !bgmControlBtn) return;
+        // Check state after a short delay to allow autoplay attribute to potentially work
+        setTimeout(() => {
+            if (bgmPlayer.paused) {
+                bgmControlBtn.innerHTML = '▶️'; // Play symbol
+                bgmControlBtn.setAttribute('aria-label', '배경음악 재생');
+            } else {
+                bgmControlBtn.innerHTML = '⏸️'; // Pause symbol
+                bgmControlBtn.setAttribute('aria-label', '배경음악 일시정지');
+            }
+        }, 100); // 100ms delay
+    }
+
+
+    if (bgmPlayer && bgmControlBtn) {
+        // Set initial button state (will be updated shortly by updateBgmButton)
+         bgmControlBtn.innerHTML = '▶️';
+         bgmControlBtn.setAttribute('aria-label', '배경음악 재생');
+
+        // Attempt to play using the 'autoplay' attribute and direct play() call.
+        // WARNING: This may be blocked by browser policies without user interaction.
+        let playPromise = bgmPlayer.play();
+
+        if (playPromise !== undefined) {
+            playPromise.then(_ => {
+                // Autoplay potentially successful (or started via attribute).
+                console.log("BGM Autoplay initiated.");
+                updateBgmButton(); // Update button state
+            }).catch(error => {
+                // Autoplay was prevented by browser.
+                console.log("BGM Autoplay prevented by browser:", error);
+                // *** No fallback to play on interaction in this version ***
+                updateBgmButton(); // Ensure button shows 'Play' as it likely failed
+            });
+        } else {
+             // Fallback for older browsers or scenarios where play() is synchronous
+             updateBgmButton(); // Check initial state
+        }
+
+        // Add click listener for the control button
+        bgmControlBtn.addEventListener('click', () => {
+            if (bgmPlayer.paused) {
+                // Try to play when button is clicked
+                bgmPlayer.play().then(updateBgmButton).catch(e => {
+                    console.error("BGM play error on button click:", e);
+                    // Maybe show an error to the user if play fails even on click
+                });
+            } else {
+                // Pause if playing
+                bgmPlayer.pause();
+                updateBgmButton(); // Update button immediately on pause
+            }
+        });
+
+        // Keep button state synchronized with player state changes
+        bgmPlayer.addEventListener('ended', updateBgmButton);
+        bgmPlayer.addEventListener('pause', updateBgmButton);
+        bgmPlayer.addEventListener('play', updateBgmButton);
+
+    } else {
+        // Hide button if player or button element doesn't exist
+        if(bgmControlBtn) bgmControlBtn.style.display = 'none';
+    }
+    // --- ▲▲▲ End of BGM Functionality (Simplified) ▲▲▲ ---
+
+
 }); // DOMContentLoaded 이벤트 리스너 끝

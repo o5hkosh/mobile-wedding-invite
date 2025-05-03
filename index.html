@@ -325,8 +325,8 @@
                      </div>
                  </div>
              </div>
-        </section>
-        <section id="guestbook" style="background-color: #FAF3E0; padding: 60px 20px;"> <h2>✍️<br>축하 메시지 남기기</h2>
+        </section> <section id="guestbook" style="background-color: #FAF3E0; padding: 60px 20px;">
+            <h2>✍️<br>축하 메시지 남기기</h2>
 
             <form id="guestbookForm" class="guestbook-form" style="max-width: 500px; margin: 40px auto 0 auto; text-align: left;">
                 <div class="form-group"> <label for="guestbookName" style="display: block; margin-bottom: 6px; font-weight: 500;">성함:</label>
@@ -336,16 +336,15 @@
                 </div>
                 <button type="submit" class="btn submit-guestbook-btn" style="width: 100%; padding: 12px; font-family: '42dot Sans', sans-serif; font-size: 1.1em; font-weight: 700; background-color: #87A96B; color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease; margin-top: 10px;">메시지 남기기</button>
                 <p id="guestbookSubmitStatus" class="guestbook-submit-status" style="text-align: center; margin-top: 15px; font-size: 0.9em; min-height: 1.2em;"></p> </form>
-        
+
             <hr class="guestbook-divider" style="border: none; border-top: 1px solid #eee; margin: 50px auto; max-width: 150px;">
-        
+
             <h3 style="font-family: '42dot Sans', sans-serif; font-weight: 700; font-size: 1.4em; color: #333; margin-bottom: 30px;">남겨주신 축하 메시지</h3>
             <div id="guestbookEntries" class="guestbook-entries-container" style="max-width: 600px; margin: 0 auto; text-align: left;">
                 <p style="text-align: center; color: #888;">메시지를 불러오는 중입니다...</p>
             </div>
         </section>
-        <section id="thank-you">
-            <h2 class="thank-you-title">감사 인사</h2>
+        <section id="thank-you"> <h2 class="thank-you-title">감사 인사</h2>
             <p class="thank-you-text">
                 바쁘신 중에도 잊지 않고 찾아주시어<br>저희의 앞날을 축복해주시는 발걸음,<br>마음 깊이 감사드립니다.<br>
                 보내주신 사랑 잊지 않고 예쁘게 살겠습니다.
@@ -403,6 +402,11 @@
         </div>
     </div>
 
+    <audio id="bgmPlayer" loop autoplay>
+        <source src="audio/background_music.mp3" type="audio/mpeg">
+        오디오 파일을 재생할 수 없는 브라우저입니다.
+    </audio>
+    <button type="button" id="bgmControlBtn" aria-label="배경음악 재생">▶️</button>
     <script src="script.js"></script>
 
 </body>
